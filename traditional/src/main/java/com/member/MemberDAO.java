@@ -11,32 +11,30 @@ import com.util.DBUtil;
 public class MemberDAO {
 	private Connection conn = DBConn.getConnection();
 	
-	public MemberDTO loginMember(String userId, String userPwd) {
+	public MemberDTO loginMember(String mid, String mpwd) {
 		MemberDTO dto = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String sql;
 		
 		try {
-			sql = " SELECT userId, userName, userPwd, register_date, modify_date "
-					+ " FROM member1"
-					+ " WHERE userId = ? AND userPwd = ? AND enabled = 1";
+			sql = " SELECT mid, mpwd, mname "
+					+ " FROM member "
+					+ " WHERE mid = ? AND mpwd = ? ";
 			
 			pstmt = conn.prepareStatement(sql);
 			
-			pstmt.setString(1, userId);
-			pstmt.setString(2, userPwd);
+			pstmt.setString(1, mid);
+			pstmt.setString(2, mpwd);
 			
 			rs = pstmt.executeQuery();
 			
 			if(rs.next()) {
 				dto = new MemberDTO();
 				
-				dto.setUserId(rs.getString("userId"));
-				dto.setUserPwd(rs.getString("userPwd"));
-				dto.setUserName(rs.getString("userName"));
-				dto.setRegister_date(rs.getString("register_date"));
-				dto.setModify_date(rs.getString("modify_date"));
+				dto.setMid(rs.getString("mid"));
+				dto.setMpwd(rs.getString("mpwd"));
+				dto.setMname(rs.getString("mname"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -47,5 +45,4 @@ public class MemberDAO {
 		
 		return dto;
 	}	
-
 }

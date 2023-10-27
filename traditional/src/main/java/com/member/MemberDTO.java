@@ -1,124 +1,83 @@
 package com.member;
 
 public class MemberDTO {
-	private String userId;
-	private String userName;
-	private String userPwd;
-	private String register_date;
-	private String modify_date;
-	private String email;
-	private String email1;
-	private String email2;
-	private String tel;
-	private String tel1;
-	private String tel2;
-	private String tel3;
-	private String birth;
-	private String zip;
-	private String addr1;
-	private String addr2;
-	private int enabled;
+	private int mnum;
+	private String mid;
+	private String mpwd;
+	private String mname;
+	private int mrnum;
+	private int mtel;
+	private int mphone;
+	private String memail;
+	private String Field;
+	private String Field2;
+	private int adminOrNot;
 	
-	public String getUserId() {
-		return userId;
+	public int getMnum() {
+		return mnum;
 	}
-	public void setUserId(String userId) {
-		this.userId = userId;
+	public void setMnum(int mnum) {
+		this.mnum = mnum;
 	}
-	public String getUserName() {
-		return userName;
+	public String getMid() {
+		return mid;
 	}
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setMid(String mid) {
+		this.mid = mid;
 	}
-	public String getUserPwd() {
-		return userPwd;
+	public String getMpwd() {
+		return mpwd;
 	}
-	public void setUserPwd(String userPwd) {
-		this.userPwd = userPwd;
+	public void setMpwd(String mpwd) {
+		this.mpwd = mpwd;
 	}
-	public String getRegister_date() {
-		return register_date;
+	public String getMname() {
+		return mname;
 	}
-	public void setRegister_date(String register_date) {
-		this.register_date = register_date;
+	public void setMname(String mname) {
+		this.mname = mname;
 	}
-	public String getModify_date() {
-		return modify_date;
+	public int getMrnum() {
+		return mrnum;
 	}
-	public void setModify_date(String modify_date) {
-		this.modify_date = modify_date;
+	public void setMrnum(int mrnum) {
+		this.mrnum = mrnum;
 	}
-	public String getEmail() {
-		return email;
+	public int getMtel() {
+		return mtel;
 	}
-	public void setEmail(String email) {
-		this.email = email;
+	public void setMtel(int mtel) {
+		this.mtel = mtel;
 	}
-	public String getEmail1() {
-		return email1;
+	public int getMphone() {
+		return mphone;
 	}
-	public void setEmail1(String email1) {
-		this.email1 = email1;
+	public void setMphone(int mphone) {
+		this.mphone = mphone;
 	}
-	public String getEmail2() {
-		return email2;
+	public String getMemail() {
+		return memail;
 	}
-	public void setEmail2(String email2) {
-		this.email2 = email2;
+	public void setMemail(String memail) {
+		this.memail = memail;
 	}
-	public String getTel() {
-		return tel;
+	public String getField() {
+		return Field;
 	}
-	public void setTel(String tel) {
-		this.tel = tel;
+	public void setField(String field) {
+		Field = field;
 	}
-	public String getTel1() {
-		return tel1;
+	public String getField2() {
+		return Field2;
 	}
-	public void setTel1(String tel1) {
-		this.tel1 = tel1;
+	public void setField2(String field2) {
+		Field2 = field2;
 	}
-	public String getTel2() {
-		return tel2;
+	public int getAdminOrNot() {
+		return adminOrNot;
 	}
-	public void setTel2(String tel2) {
-		this.tel2 = tel2;
+	public void setAdminOrNot(int adminOrNot) {
+		this.adminOrNot = adminOrNot;
 	}
-	public String getTel3() {
-		return tel3;
-	}
-	public void setTel3(String tel3) {
-		this.tel3 = tel3;
-	}
-	public String getBirth() {
-		return birth;
-	}
-	public void setBirth(String birth) {
-		this.birth = birth;
-	}
-	public String getZip() {
-		return zip;
-	}
-	public void setZip(String zip) {
-		this.zip = zip;
-	}
-	public String getAddr1() {
-		return addr1;
-	}
-	public void setAddr1(String addr1) {
-		this.addr1 = addr1;
-	}
-	public String getAddr2() {
-		return addr2;
-	}
-	public void setAddr2(String addr2) {
-		this.addr2 = addr2;
-	}
-	public int getEnabled() {
-		return enabled;
-	}
-	public void setEnabled(int enabled) {
-		this.enabled = enabled;
-	}
+	
 }

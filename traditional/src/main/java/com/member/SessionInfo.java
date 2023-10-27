@@ -1,26 +1,26 @@
 package com.member;
 
 public class SessionInfo {
-	private String userId;
-	private String userName;
-	private int userRoll;
+	private String mid;
+	private String mname;
+	private int adminOrNot;
 	
-	public String getUserId() {
-		return userId;
+	public String getMid() {
+		return mid;
 	}
-	public void setUserId(String userId) {
-		this.userId = userId;
+	public void setMid(String mid) {
+		this.mid = mid;
 	}
-	public String getUserName() {
-		return userName;
+	public String getMname() {
+		return mname;
 	}
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setMname(String mname) {
+		this.mname = mname;
 	}
-	public int getUserRoll() {
-		return userRoll;
+	public int getAdminOrNot() {
+		return adminOrNot;
 	}
-	public void setUserRoll(int userRoll) {
-		this.userRoll = userRoll;
+	public void setAdminOrNot(int adminOrNot) {
+		this.adminOrNot = adminOrNot;
 	}
 }
