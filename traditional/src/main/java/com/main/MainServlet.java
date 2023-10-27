@@ -19,7 +19,7 @@ public class MainServlet extends MyServlet {
 		String uri=req.getRequestURI();
 		
 		if(uri.indexOf("main.do") != -1) {
-			forward(req, resp, "/WEB-INF/views/main/main.jsp");
+			forward(req, resp, "/WEB-INF/views/main/index.jsp");
 		}
 	}
 }
