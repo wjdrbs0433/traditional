@@ -114,56 +114,17 @@ for(i=0;i<linkCollapse.length;i++) {
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
 function checkID() {
-	var id = register.id.value;
+	var id = register.mid.value;
 
     if (id  == "")
     {
 		alert("아이디를 입력해 주세요."); 
-		register.id.focus(); 
+		register.mid.focus(); 
 		return; 
     }
 
 	window.open("checkId.jsp?id="+id,"win", "width=255, height=145, scrollbars=no, resizable=no");
 }
-
-function checkValue() {
-	if (document.register.name.value == "")
-	{
-		alert("이름을 입력해 주세요.");
-		document.register.name.focus();
-		return;
-	}
-
-	if (document.register.id.value == "")
-	{
-		alert("아이디를 입력해주세요.");
-		document.register.id.focus();
-		return;
-	}
-
-	if (document.register.password.value == "")
-	{
-		alert("비밀번호를 확인해 주세요.");
-		document.register.password.focus();
-		return;
-	}
-
-	if (document.register.password.value != document.register.passwordCheck.value)
-	{
-		alert("비밀번호를 확인해 주세요.");
-		document.register.password.focus();
-		return;
-	}
-
-	if (document.querySelector('input[name="personalInfo"]').checked == false)
-	{
-		alert("개인정보 처리방침을 동의해야 합니다.");
-		return;
-	}
-
-	document.register.submit();
-}
-
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////

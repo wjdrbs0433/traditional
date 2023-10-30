@@ -44,5 +44,50 @@ public class MemberDAO {
 		}
 		
 		return dto;
-	}	
+	}
+	
+	public void insertMember(MemberDTO dto) throws SQLException {
+	    PreparedStatement pstmt = null;
+	    String sql;
+	    
+	    try {
+	        conn.setAutoCommit(false);
+	        
+	        sql = "INSERT INTO member (MNUM, MID, MPWD, MNAME, MRNUM, MTEL, MPHONE, MEMAIL, FIELD, FIELD2, ADMINORNOT, mregdate) "
+	            + " VALUES (member_seq.nextval, ?, ?, ?, TO_DATE(?,'YYYY-MM-DD'), ?, ?, ?, ?, ?, ?, SYSDATE)";
+	        
+	        pstmt = conn.prepareStatement(sql);
+	        
+	        pstmt.setString(1, dto.getMid());
+	        pstmt.setString(2, dto.getMpwd());
+	        pstmt.setString(3, dto.getMname());
+	        pstmt.setString(4, dto.getMrnum());
+	        pstmt.setString(5, dto.getMtel());
+	        pstmt.setString(6, dto.getMphone());
+	        pstmt.setString(7, dto.getMemail());
+	        pstmt.setString(8, dto.getField());
+	        pstmt.setString(9, dto.getField2());
+	        pstmt.setInt(10, dto.getAdminOrNot());
+	        
+	        pstmt.executeUpdate();
+	        
+	        pstmt.close();
+	        pstmt = null;
+	                
+	        conn.commit();
+
+	    } catch (SQLException e) {
+	        DBUtil.rollback(conn);
+	        
+	        e.printStackTrace();
+	        throw e;
+	    } finally {
+	        DBUtil.close(pstmt);
+	        
+	        try {
+	            conn.setAutoCommit(true);
+	        } catch (SQLException e2) {
+	        }
+	    }
+	}
 }

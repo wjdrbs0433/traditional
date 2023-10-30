@@ -6,11 +6,11 @@
 <meta charset="euc-kr">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link rel="stylesheet" href="../resource/css/bootstrap.min.css">
-<link rel="stylesheet" href="../resource/css/custom.css">
-<link rel="stylesheet" href="../resource/css/index.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/bootstrap.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/custom.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/index.css">
 
-<script src="../resource/js/custom.js"></script>
+<script src="${pageContext.request.contextPath}/resource/js/custom.js"></script>
 
 <title>로그인</title>
 
@@ -45,6 +45,8 @@ a {
 a:hover {
 	color: #ccc;
 }
+
+
 </style>
 
 <script type="text/javascript">
@@ -68,6 +70,8 @@ function sendLogin() {
     f.action = "${pageContext.request.contextPath}/member/login_ok.do";
     f.submit();
 }
+
+
 </script>
 
 </head>
@@ -89,14 +93,17 @@ function sendLogin() {
 							style="width: 100%; border-radius: 20px; height: 50px; color: white; font-weight: bold;" 
 							onclick="sendLogin()">로그인하기
 					</button>				
-					<a href="idForm.jsp" style="margin-left: 10px; margin-right: 15px;">아이디 찾기</a> 
-					<a href="passwordForm.jsp">비밀번호 찾기</a> 
-					<a href="register.jsp" style="float: right; margin-right: 10px;">회원가입</a>
+					<a href="${pageContext.request.contextPath}/" style="margin-left: 10px; margin-right: 15px;">아이디 찾기</a> 
+					<a href="${pageContext.request.contextPath}/">비밀번호 찾기</a>
+					<a href="${pageContext.request.contextPath}/member/member.do" style="float: right; margin-right: 10px;">회원가입</a>
 				</div>
 			</div>
 		</div>
+		
+		
+		
 		<div class="login-keyimage"
-			style="position: relative; background: url('../resource/images/playlist/mood/christina.jpg') center/cover; width: 55%; height: 100vh; float: right; text-align: center;">
+			style="position: relative; background: url('${pageContext.request.contextPath}/resource/images/playlist/mood/christina.jpg') center/cover; width: 55%; height: 100vh; float: right; text-align: center;">
 			<div
 				style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
 				<p>로고</p>
@@ -107,5 +114,10 @@ function sendLogin() {
 			</div>
 		</div>
 	</form>
+	
+	<c:if test="${not empty alertScript}">
+        <c:out value="${alertScript}" escapeXml="false" />
+    </c:if>
+	
 </body>
 </html>

@@ -5,14 +5,15 @@ public class MemberDTO {
 	private String mid;
 	private String mpwd;
 	private String mname;
-	private int mrnum;
-	private int mtel;
-	private int mphone;
+	private String mrnum;
+	private String mtel;
+	private String mphone;
 	private String memail;
 	private String Field;
 	private String Field2;
 	private int adminOrNot;
-	
+	private String mregdate;
+
 	public int getMnum() {
 		return mnum;
 	}
@@ -37,22 +38,22 @@ public class MemberDTO {
 	public void setMname(String mname) {
 		this.mname = mname;
 	}
-	public int getMrnum() {
+	public String getMrnum() {
 		return mrnum;
 	}
-	public void setMrnum(int mrnum) {
+	public void setMrnum(String mrnum) {
 		this.mrnum = mrnum;
 	}
-	public int getMtel() {
+	public String getMtel() {
 		return mtel;
 	}
-	public void setMtel(int mtel) {
+	public void setMtel(String mtel) {
 		this.mtel = mtel;
 	}
-	public int getMphone() {
+	public String getMphone() {
 		return mphone;
 	}
-	public void setMphone(int mphone) {
+	public void setMphone(String mphone) {
 		this.mphone = mphone;
 	}
 	public String getMemail() {
@@ -78,6 +79,14 @@ public class MemberDTO {
 	}
 	public void setAdminOrNot(int adminOrNot) {
 		this.adminOrNot = adminOrNot;
+	}
+	
+	public String getMregdate() {
+		return mregdate;
+	}
+	
+	public void setMregdate(String mregdate) {
+		this.mregdate = mregdate;
 	}
 	
 }
