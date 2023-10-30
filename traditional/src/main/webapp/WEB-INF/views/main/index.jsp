@@ -68,7 +68,7 @@ function modal() {
                 <input id="search" class="form-control" type="search" placeholder="검색어를 입력하세요." aria-label="Search" style="width: 100%; padding-left: 50px;">
             </div>
         </form>
-        <a class="navbar-brand" href="#" style="position: absolute; left: 45%;">
+        <a class="navbar-brand" href="${pageContext.request.contextPath}/product/product.do" style="position: absolute; left: 45%;">
             청 바 지
         </a>
         <div class="col-auto">
