@@ -90,4 +90,65 @@ public class MemberDAO {
 	        }
 	    }
 	}
+	
+	public MemberDTO findByPwd(String mid, String mname, String memail, String mphone) {
+		   MemberDTO dto = null;
+		    PreparedStatement pstmt = null;
+		    ResultSet rs = null;
+		    StringBuilder sb = new StringBuilder();
+
+		    try {
+		        sb.append("SELECT mpwd FROM member WHERE mid = ? AND mname = ? AND memail = ? AND mphone = ?");
+		        pstmt = conn.prepareStatement(sb.toString());
+		        pstmt.setString(1, mid);
+		        pstmt.setString(2, mname);
+		        pstmt.setString(3, memail);
+		        pstmt.setString(4, mphone);
+
+		        rs = pstmt.executeQuery();
+
+		        if (rs.next()) {
+		            dto = new MemberDTO();
+		            dto.setMpwd(rs.getString("mpwd"));
+		        }
+		    } catch (SQLException e) {
+		        e.printStackTrace();
+		    } finally {
+		        DBUtil.close(rs);
+		        DBUtil.close(pstmt);
+		    }
+
+		    return dto;
+		}
+	
+	public MemberDTO findById(String mname, String memail, String mphone) {
+		   MemberDTO dto = null;
+		    PreparedStatement pstmt = null;
+		    ResultSet rs = null;
+		    StringBuilder sb = new StringBuilder();
+
+		    try {
+		        sb.append("SELECT mid FROM member WHERE mname = ? AND memail = ? AND mphone = ?");
+		        pstmt = conn.prepareStatement(sb.toString());
+
+		        pstmt.setString(1, mname);
+		        pstmt.setString(2, memail);
+		        pstmt.setString(3, mphone);
+
+		        rs = pstmt.executeQuery();
+
+		        if (rs.next()) {
+		            dto = new MemberDTO();
+		            dto.setMid(rs.getString("mid"));
+		        }
+		    } catch (SQLException e) {
+		        e.printStackTrace();
+		    } finally {
+		        DBUtil.close(rs);
+		        DBUtil.close(pstmt);
+		    }
+
+		    return dto;
+		}
+	
 }

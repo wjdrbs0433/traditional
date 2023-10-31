@@ -31,7 +31,15 @@ public class MemberServlet extends MyServlet{
 			memberForm(req, resp);
 		} else if (uri.indexOf("member_ok.do") != -1) {
 			memberSubmit(req, resp);
-		} else if (uri.indexOf("userIdCheck.do") != -1) {
+		}else if (uri.indexOf("pwdfind.do") != -1) {
+			pwdfindForm(req, resp);
+		} else if (uri.indexOf("pwdfind_ok.do") != -1) {
+			pwdfindSubmit(req, resp);	
+		}else if (uri.indexOf("idfind.do") != -1) {
+			idfindForm(req, resp); 
+		}else if (uri.indexOf("idfind_ok.do") != -1) {
+			idfindSubmit(req, resp); 
+		}else if (uri.indexOf("userIdCheck.do") != -1) {
 			userIdCheck(req, resp);
 		}
 		
@@ -176,6 +184,105 @@ public class MemberServlet extends MyServlet{
 	    req.setAttribute("message", message);
 
 	    forward(req, resp, "/WEB-INF/views/member/member.jsp");
+	}
+	
+	
+	public void pwdfindForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		// 패스워드 확인 폼
+		req.setAttribute("title", "비밀번호 찾기");
+		req.setAttribute("mode", "pwdfind");
+
+		forward(req, resp, "/WEB-INF/views/member/pwdfind.jsp");
+	}
+	
+	public void pwdfindSubmit(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		 
+		 MemberDAO dao = new MemberDAO();
+		 MemberDTO dto = new MemberDTO();
+		 
+		    String cp = req.getContextPath();
+		    if (req.getMethod().equalsIgnoreCase("GET")) {
+		        resp.sendRedirect(cp + "/");
+		        return;
+		    }
+		
+	    String mid = req.getParameter("mid");
+	    String mname = req.getParameter("mname");
+	    
+	    
+	    String memail1 = req.getParameter("memail1");
+        String memail2 = req.getParameter("memail2");
+        String memail = memail1 + "@" + memail2;
+        dto.setMemail(memail);
+	    
+	    String mphone1 = req.getParameter("mphone1");
+        String mphone2 = req.getParameter("mphone2");
+        String mphone3 = req.getParameter("mphone3");
+        String mphone = mphone1 + "-" + mphone2 + "-" + mphone3;
+        dto.setMphone(mphone);
+        
+	    try {
+	        MemberDTO dto2 = dao.findByPwd(mid, mname, memail, mphone);
+
+	        if (dto2 != null) {
+	            req.setAttribute("password", dto2.getMpwd());
+	        } else {
+	            req.setAttribute("password", "존재하지 않는 정보");
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        req.setAttribute("password", "존재하지 않는 정보");
+	    }
+
+	    forward(req, resp, "/WEB-INF/views/member/pwdfind_ok.jsp");
+	}
+	
+	public void idfindForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		// 패스워드 확인 폼
+		req.setAttribute("title", "아이디 찾기");
+		req.setAttribute("mode", "idfind");
+
+		forward(req, resp, "/WEB-INF/views/member/idfind.jsp");
+	}
+	
+	public void idfindSubmit(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+		 MemberDAO dao = new MemberDAO();
+		 MemberDTO dto = new MemberDTO();
+		 
+		    String cp = req.getContextPath();
+		    if (req.getMethod().equalsIgnoreCase("GET")) {
+		        resp.sendRedirect(cp + "/");
+		        return;
+		    }
+		
+	    String mname = req.getParameter("mname");
+
+	    String memail1 = req.getParameter("memail1");
+        String memail2 = req.getParameter("memail2");
+        String memail = memail1 + "@" + memail2;
+        dto.setMemail(memail);
+	    
+	    String mphone1 = req.getParameter("mphone1");
+        String mphone2 = req.getParameter("mphone2");
+        String mphone3 = req.getParameter("mphone3");
+        String mphone = mphone1 + "-" + mphone2 + "-" + mphone3;
+        dto.setMphone(mphone);
+        
+	    try {
+	        MemberDTO dto2 = dao.findById(mname, memail, mphone);
+
+	        if (dto2 != null) {
+	            req.setAttribute("id", dto2.getMid());
+	        } else {
+	            req.setAttribute("id", "존재하지 않는 정보");
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        req.setAttribute("id", "존재하지 않는 정보");
+	    }
+
+	    forward(req, resp, "/WEB-INF/views/member/idfind_ok.jsp");
 	}
 	
 	public void userIdCheck(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

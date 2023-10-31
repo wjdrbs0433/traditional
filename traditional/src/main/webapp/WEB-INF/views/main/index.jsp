@@ -38,20 +38,27 @@ function modal() {
                         <img src="${pageContext.request.contextPath}/resource/images/icon/person.png" style="width: 28px; background-color: #cccccc; border-radius: 50%; padding: 5px;" name="menu1">
                         	<span class="nav_name">로그인 / 회원가입</span>
                          </a>
-                    <a href="#" class="nav__link">
+                    <a href="${pageContext.request.contextPath}/" class="nav__link">
                         <img src="${pageContext.request.contextPath}/resource/images/icon/home.png" style="width: 28px;" name="menu2">
                         <span class="nav_name" style="color: #1682b0;">홈</span>
                     </a>
-                    <a href="#" class="nav__link" onmouseover="menu3.src='${pageContext.request.contextPath}/resource/images/icon/messenger_hover.png'" 
-                    							  onmouseout="menu3.src='${pageContext.request.contextPath}/resource/images/icon/messenger.png'">
-                        <img src="${pageContext.request.contextPath}/resource/images/icon/messenger.png" style="width: 28px;" name="menu3">
-                        <span class="nav_name">커뮤니티</span>
+
+                    <a href="${pageContext.request.contextPath}/product/product.do" class="nav__link" onmouseover="menu3.src='${pageContext.request.contextPath}/resource/images/icon/drink.png'" 
+                    							  onmouseout="menu3.src='${pageContext.request.contextPath}/resource/images/icon/drink_1.png'">
+                        <img src="${pageContext.request.contextPath}/resource/images/icon/drink_1.png" style="width: 28px;" name="menu3">
+                        <span class="nav_name">모든상품</span>
                     </a>
                     <a href="#" class="nav__link" onmouseover="menu4.src='${pageContext.request.contextPath}/resource/images/icon/comment01.png'" 
                     							  onmouseout="menu4.src='${pageContext.request.contextPath}/resource/images/icon/comment.png'">
                         <img src="${pageContext.request.contextPath}/resource/images/icon/comment.png" style="width: 28px;" name="menu4">
                         <span class="nav_name">사용가이드</span>
                     </a>
+                    <!-- 
+                    <a href="#" class="nav__link" onmouseover="menu3.src='./images/icon/messenger_hover.png'" onmouseout="menu3.src='./images/icon/messenger.png'">
+                        <img src="./images/icon/messenger.png" style="width: 28px;" name="menu3">
+                        <span class="nav_name">커뮤니티</span>
+                    </a>
+                     -->
                 </div>
                 
             </div>
@@ -68,8 +75,8 @@ function modal() {
                 <input id="search" class="form-control" type="search" placeholder="검색어를 입력하세요." aria-label="Search" style="width: 100%; padding-left: 50px;">
             </div>
         </form>
-        <a class="navbar-brand" href="${pageContext.request.contextPath}/product/product.do" style="position: absolute; left: 45%;">
-            청 바 지
+        <a class="navbar-brand" href="${pageContext.request.contextPath}/	" style="position: absolute; left: 42%;">
+            <img src = "${pageContext.request.contextPath}/resource/images/icon/logo.png" style="height:90px">
         </a>
         <div class="col-auto">
         
@@ -100,18 +107,6 @@ function modal() {
 	            				style="background-color: #1682b0; border-radius: 40px; padding: 10px;"></a>
             </c:otherwise>
             </c:choose>
-            
-
-                 
-                  
-               
-                     
-                     
-                     
-				
-            
-          
-            
             
         </div>
     </div>
@@ -176,32 +171,32 @@ function modal() {
     
         <div id="genre" style="margin-top: 30px;">
             <a href="#">
-                <img src="${pageContext.request.contextPath}/resource/images/playlist/genre/nature.jpg">
-                <p>샘플</p>
+                <img src="${pageContext.request.contextPath}/resource/images/product/1.jpg">
+                <p>요구르트</p>
             </a>
             <a href="#">
-                <img src="${pageContext.request.contextPath}/resource/images/playlist/genre/animal.jpg">
-                <p>샘플</p>
+                <img src="${pageContext.request.contextPath}/resource/images/product/2.jpg">
+                <p>단풍술</p>
             </a>
             <a href="#">
-                <img src="${pageContext.request.contextPath}/resource/images/playlist/genre/white noise.jpg">
-                <p>샘플</p>
+                <img src="${pageContext.request.contextPath}/resource/images/product/3.jpg">
+                <p>사과술</p>
             </a>
             <a href="#">
-                <img src="${pageContext.request.contextPath}/resource/images/playlist/genre/irina.jpg">
-                <p>샘플</p>
+                <img src="${pageContext.request.contextPath}/resource/images/product/4.jpg">
+                <p>매실술</p>
             </a>
             <a href="#">
-                <img src="${pageContext.request.contextPath}/resource/images/playlist/genre/universe.jpg">
-                <p>샘플</p>
+                <img src="${pageContext.request.contextPath}/resource/images/product/5.jpg">
+                <p>나무술</p>
             </a>
             <a href="#">
-                <img src="${pageContext.request.contextPath}/resource/images/playlist/genre/ware.jpg">
-                <p>샘플</p>
+                <img src="${pageContext.request.contextPath}/resource/images/product/1.jpg">
+                <p>요구르트</p>
             </a>
-            <a href="#">
-                <img src="${pageContext.request.contextPath}/resource/images/playlist/genre/cosmetics.jpg">
-                <p>샘플</p>
+            <a href="${pageContext.request.contextPath}/product/product.do">
+                <img src="${pageContext.request.contextPath}/resource/images/icon/add.png">
+                <p>더보기</p>
             </a>
         </div>
     
@@ -230,9 +225,9 @@ function modal() {
                 <img src="${pageContext.request.contextPath}/resource/images/playlist/situation/work.jpg">
                 <p>샘플</p>
             </a>
-            <a href="#">
-                <img src="${pageContext.request.contextPath}/resource/images/playlist/situation/driving.jpg">
-                <p>샘플</p>
+            <a href="${pageContext.request.contextPath}/product/product.do">
+                <img src="${pageContext.request.contextPath}/resource/images/icon/add.png">
+                <p>더보기</p>
             </a>
         </div>
     
@@ -261,9 +256,9 @@ function modal() {
                 <img src="${pageContext.request.contextPath}/resource/images/playlist/mood/pawel.jpg">
                 <p>샘플</p>
             </a>
-            <a href="#">
-                <img src="${pageContext.request.contextPath}/resource/images/playlist/mood/hudson.jpg">
-                <p>샘플</p>
+            <a href="${pageContext.request.contextPath}/product/product.do">
+                <img src="${pageContext.request.contextPath}/resource/images/icon/add.png">
+                <p>더보기</p>
             </a>
         </div>
         
@@ -292,9 +287,9 @@ function modal() {
                 <img src="${pageContext.request.contextPath}/resource/images/playlist/genre/ware.jpg">
                 <p>샘플</p>
             </a>
-            <a href="#">
-                <img src="${pageContext.request.contextPath}/resource/images/playlist/genre/cosmetics.jpg">
-                <p>샘플</p>
+            <a href="${pageContext.request.contextPath}/product/product.do">
+                <img src="${pageContext.request.contextPath}/resource/images/icon/add.png">
+                <p>더보기</p>
             </a>
         </div>
         
@@ -323,9 +318,9 @@ function modal() {
                 <img src="${pageContext.request.contextPath}/resource/images/playlist/situation/work.jpg">
                 <p>샘플</p>
             </a>
-            <a href="#">
-                <img src="${pageContext.request.contextPath}/resource/images/playlist/situation/driving.jpg">
-                <p>샘플</p>
+            <a href="${pageContext.request.contextPath}/product/product.do">
+                <img src="${pageContext.request.contextPath}/resource/images/icon/add.png">
+                <p>더보기</p>
             </a>
         </div>
         

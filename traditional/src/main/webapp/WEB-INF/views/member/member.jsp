@@ -6,10 +6,10 @@
     <meta charset="euc-kr">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="./css/bootstrap.min.css">
-	<link rel="stylesheet" href="./css/custom.css">
-	<link rel="stylesheet" href="./css/index.css">
-	<script src="./js/custom.js"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/bootstrap.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/custom.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/index.css">
+<script src="${pageContext.request.contextPath}/resource/js/custom.js"></script>
 	
     <title>회원가입</title>
 
@@ -248,8 +248,8 @@ function changeEmail() {
 					<option value="064" ${dto.mtel1=="064" ? "selected" : ""}>064</option>
 					<option value="070" ${dto.mtel1=="070" ? "selected" : ""}>070</option>
 				</select>
-					- <input type="text" name="mtel2" maxlength="4" value="${dto.mtel2}" style="width: 32.6%;"> -
-					<input type="text" name="mtel3" maxlength="4" value="${dto.mtel3}" style="width: 32.6%;">
+					- <input type="text" name="mtel2" maxlength="4" value="${dto.mtel2}" style="width: 32%;"> -
+					<input type="text" name="mtel3" maxlength="4" value="${dto.mtel3}" style="width: 32%;">
                 
                 <select name="mphone1" class="selectoption2">
 					<option value="">선 택</option>
@@ -259,8 +259,8 @@ function changeEmail() {
 					<option value="017" ${dto.mphone1=="017" ? "selected" : ""}>017</option>
 					<option value="019" ${dto.mphone1=="019" ? "selected" : ""}>019</option>
 				</select>
-					- <input type="text" name="mphone2" maxlength="4" value="${dto.mphone2}" style="width: 32.6%;"> -
-					<input type="text" name="mphone3" maxlength="4"  value="${dto.mphone3}" style="width: 32.6%;">
+					- <input type="text" name="mphone2" maxlength="4" value="${dto.mphone2}" style="width: 32%;"> -
+					<input type="text" name="mphone3" maxlength="4"  value="${dto.mphone3}" style="width: 32%;">
             </div>
             
            	<label><input type="checkbox" name="personalInfo" value="1" style="margin-left: 5px;"> 개인정보 처리방침에 동의합니다.</label><br>

@@ -93,8 +93,8 @@ function sendLogin() {
 							style="width: 100%; border-radius: 20px; height: 50px; color: white; font-weight: bold;" 
 							onclick="sendLogin()">로그인하기
 					</button>				
-					<a href="${pageContext.request.contextPath}/" style="margin-left: 10px; margin-right: 15px;">아이디 찾기</a> 
-					<a href="${pageContext.request.contextPath}/">비밀번호 찾기</a>
+					<a href="${pageContext.request.contextPath}/member/idfind.do" style="margin-left: 10px; margin-right: 15px;">아이디 찾기</a> 
+					<a href="${pageContext.request.contextPath}/member/pwdfind.do">비밀번호 찾기</a>
 					<a href="${pageContext.request.contextPath}/member/member.do" style="float: right; margin-right: 10px;">회원가입</a>
 				</div>
 			</div>
