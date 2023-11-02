@@ -80,11 +80,11 @@ function modal() {
                         <img src="${pageContext.request.contextPath}/resource/images/icon/home.png" style="width: 28px;" name="menu2">
                         <span class="nav_name" style="color: #1682b0;">홈</span>
                     </a>
-                    <a href="#" class="nav__link" onmouseover="menu3.src='./resource/images/icon/messenger_hover.png'" onmouseout="menu3.src='${pageContext.request.contextPath}/resource/images/icon/messenger.png'">
+                    <a href="#" class="nav__link" onmouseover="menu3.src='${pageContext.request.contextPath}/resource/images/icon/messenger_hover.png'" onmouseout="menu3.src='${pageContext.request.contextPath}/resource/images/icon/messenger.png'">
                         <img src="${pageContext.request.contextPath}/resource/images/icon/messenger.png" style="width: 28px;" name="menu3">
                         <span class="nav_name">커뮤니티</span>
                     </a>
-                    <a href="#" class="nav__link" onmouseover="menu4.src='./resource/images/icon/comment01.png'" onmouseout="menu4.src='${pageContext.request.contextPath}/resource/images/icon/comment.png'">
+                    <a href="#" class="nav__link" onmouseover="menu4.src='${pageContext.request.contextPath}/resource/images/icon/comment01.png'" onmouseout="menu4.src='${pageContext.request.contextPath}/resource/images/icon/comment.png'">
                         <img src="${pageContext.request.contextPath}/resource/images/icon/comment.png" style="width: 28px;" name="menu4">
                         <span class="nav_name">사용가이드</span>
                     </a>
