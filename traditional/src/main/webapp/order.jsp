@@ -16,7 +16,8 @@
 	}
 	
 	.jemok{
-		font-size:30px;
+		font-size:31px;
+		
 	}
 	
 	caption{
