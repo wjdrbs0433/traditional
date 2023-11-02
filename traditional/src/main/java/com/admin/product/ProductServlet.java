@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.util.MyServlet;
 import com.util.MyUtil;
 
-@WebServlet("/product/*")
+@WebServlet("/admin/product/*")
 public class ProductServlet extends MyServlet {
 	private static final long serialVersionUID = 1L;
 
