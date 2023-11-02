@@ -18,7 +18,7 @@ public class MemberDAO {
 		String sql;
 		
 		try {
-			sql = " SELECT mid, mpwd, mname "
+			sql = " SELECT mid, mpwd, mname, mnum "
 					+ " FROM member "
 					+ " WHERE mid = ? AND mpwd = ? ";
 			
@@ -35,6 +35,7 @@ public class MemberDAO {
 				dto.setMid(rs.getString("mid"));
 				dto.setMpwd(rs.getString("mpwd"));
 				dto.setMname(rs.getString("mname"));
+				dto.setMnum(rs.getInt("mnum"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -150,5 +151,44 @@ public class MemberDAO {
 
 		    return dto;
 		}
+	
+	public MemberDTO mypage(int mnum) {
+		MemberDTO dto = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql;
+		
+		try {
+			sql = " SELECT mname, mid, mpwd, memail, mphone, Field, Field2 "
+					+ " FROM member "
+					+ " WHERE mnum = ? ";
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, mnum);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				dto = new MemberDTO();
+				
+				dto.setMname(rs.getString("mname"));
+				dto.setMid(rs.getString("mid"));
+				dto.setMpwd(rs.getString("mpwd"));
+				dto.setMemail(rs.getString("memail"));
+				dto.setMphone(rs.getString("mphone"));
+				dto.setField(rs.getString("field"));
+				dto.setField2(rs.getString("field2"));
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBUtil.close(rs);
+			DBUtil.close(pstmt);
+		}
+		
+		return dto;
+	}
 	
 }

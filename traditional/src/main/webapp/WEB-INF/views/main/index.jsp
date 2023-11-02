@@ -48,7 +48,7 @@ function modal() {
                         <img src="${pageContext.request.contextPath}/resource/images/icon/drink_1.png" style="width: 28px;" name="menu3">
                         <span class="nav_name">모든상품</span>
                     </a>
-                    <a href="#" class="nav__link" onmouseover="menu4.src='${pageContext.request.contextPath}/resource/images/icon/comment01.png'" 
+                    <a href="${pageContext.request.contextPath}/member/mypage.do" class="nav__link" onmouseover="menu4.src='${pageContext.request.contextPath}/resource/images/icon/comment01.png'" 
                     							  onmouseout="menu4.src='${pageContext.request.contextPath}/resource/images/icon/comment.png'">
                         <img src="${pageContext.request.contextPath}/resource/images/icon/comment.png" style="width: 28px;" name="menu4">
                         <span class="nav_name">사용가이드</span>

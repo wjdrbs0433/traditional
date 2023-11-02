@@ -9,8 +9,23 @@ public class MemberDTO {
 	private String mtel;
 	private String mphone;
 	private String memail;
-	private String Field;
-	private String Field2;
+	private String field;
+	private String field2;
+	
+	
+	public String getField() {
+		return field;
+	}
+	public void setField(String field) {
+		this.field = field;
+	}
+	public String getField2() {
+		return field2;
+	}
+	public void setField2(String field2) {
+		this.field2 = field2;
+	}
+
 	private int adminOrNot;
 	private String mregdate;
 
@@ -62,18 +77,7 @@ public class MemberDTO {
 	public void setMemail(String memail) {
 		this.memail = memail;
 	}
-	public String getField() {
-		return Field;
-	}
-	public void setField(String field) {
-		Field = field;
-	}
-	public String getField2() {
-		return Field2;
-	}
-	public void setField2(String field2) {
-		Field2 = field2;
-	}
+	
 	public int getAdminOrNot() {
 		return adminOrNot;
 	}

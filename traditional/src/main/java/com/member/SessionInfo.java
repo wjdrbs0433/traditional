@@ -1,10 +1,18 @@
 package com.member;
 
 public class SessionInfo {
+	private int mnum;
 	private String mid;
 	private String mname;
 	private int adminOrNot;
 	
+	
+	public int getMnum() {
+		return mnum;
+	}
+	public void setMnum(int mnum) {
+		this.mnum = mnum;
+	}
 	public String getMid() {
 		return mid;
 	}

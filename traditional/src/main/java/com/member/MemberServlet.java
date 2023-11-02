@@ -41,6 +41,8 @@ public class MemberServlet extends MyServlet{
 			idfindSubmit(req, resp); 
 		}else if (uri.indexOf("userIdCheck.do") != -1) {
 			userIdCheck(req, resp);
+		}else if (uri.indexOf("mypage.do") != -1) {
+			mypageId(req, resp);
 		}
 		
 	}
@@ -74,6 +76,7 @@ public class MemberServlet extends MyServlet{
 			SessionInfo info = new SessionInfo();
 			info.setMid(dto.getMid());
 			info.setMname(dto.getMname());
+			info.setMnum(dto.getMnum());
 
 			// 세션에 member이라는 이름으로 저장
 			session.setAttribute("member", info);
@@ -288,5 +291,21 @@ public class MemberServlet extends MyServlet{
 	public void userIdCheck(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// 아이디 중복 체크
 	}
+	
+	public void mypageId(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	    HttpSession session = req.getSession();
+	    MemberDAO dao = new MemberDAO();
+
+	    SessionInfo memberInfo = (SessionInfo) session.getAttribute("member");
+	    int mnum = memberInfo.getMnum(); 
+	    
+	    MemberDTO dto = dao.mypage(mnum);
+	    
+	    req.setAttribute("memberDTO", dto);
+	    
+	    forward(req, resp, "/WEB-INF/views/member/mypage.jsp");
+	}
+
+	
 
 }
