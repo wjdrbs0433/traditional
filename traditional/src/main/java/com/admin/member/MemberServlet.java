@@ -93,16 +93,20 @@ public class MemberServlet extends MyServlet {
             kwd = URLDecoder.decode(kwd, "utf-8");
          }
 
-         // 전체 데이터 개수
-         int dataCount;
-         if (kwd.length() == 0 && agreeSms==null || agreeEmail==null) { 
-        	 dataCount = dao.dataCount();
-            
-         } else if(kwd.length() == 0){ 
-        	 dataCount = dao.dataCount2(agreeSms, agreeEmail);
-         } else {
-            dataCount = dao.dataCount(schType, kwd);
-         }
+      // 전체 데이터 개수
+		int dataCount;
+		if (kwd.length() == 0 && agreeSms == null && agreeEmail == null) {
+			// 검색 없고 체크도 없을때 (전체 리스트)
+			dataCount = dao.dataCount();
+
+		} else if (kwd.length() == 0 && (agreeSms != null || agreeEmail != null)) {
+			// 검색 없고 체크 있을때
+			dataCount = dao.dataCount2(agreeSms, agreeEmail);
+		} else {
+			// 검색만 있을 때
+			dataCount = dao.dataCount(schType, kwd);
+		} // 검색있고 체크도 있을때는 생략
+
          
          // 전체 페이지 수
          int size = 10;
@@ -117,13 +121,13 @@ public class MemberServlet extends MyServlet {
          
          List<MemberDTO> list = null;
          
-         if(kwd.length() == 0 && agreeSms.length() != 0 ) {
-        	list = dao.listMember(offset, size, agreeSms); 
-         } else if (kwd.length() == 0) {
-            list = dao.listMember(offset, size);
-         } else {
-            list = dao.listMember(offset, size, schType, kwd);
-         }
+         if (kwd.length() == 0 && agreeSms == null && agreeEmail == null) {
+			list = dao.listMember(offset, size);
+		 } else if (kwd.length() == 0 && (agreeSms != null || agreeEmail != null)) {
+			list = dao.listMember(offset, size, agreeSms,agreeEmail);
+		 } else {
+			list = dao.listMember(offset, size, schType, kwd);
+		 }
 
          String query = "";
          if (kwd.length() != 0) {
