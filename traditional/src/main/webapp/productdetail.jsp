@@ -5,264 +5,251 @@
 <!DOCTYPE html>
 <html>
 <head>
-<body>
-
-
-</head>
-
-
-
-</body>
 <meta charset="UTF-8">
-<title>main page</title>
+<title>제품 상세 페이지</title>
 <link rel="icon" href="data:;base64,iVBORw0KGgo=">
-<link rel="stylesheet" href="./resource/css/bootstrap.min.css">
-<link rel="stylesheet" href="./resource/css/custom.css">
-<link rel="stylesheet" href="./resource/css/index.css">
 
-
-<script src="./resource	/js/jquery.min.js"></script>
-<script src="./resource/js/popper.js"></script>
-<script src="./resource/js/bootstrap.min.js"></script>
-<script src="./resource/js/custom.js"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/bootstrap.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/custom.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/index.css">
+<script src="${pageContext.request.contextPath}/resource/js/jquery.min.js"></script>
+<script src="${pageContext.request.contextPath}/resource/js/bootstrap.min.js"></script>
 
 <script type="text/javascript">
+	function modal() {
+		alert("공지사항입니다.")
+	}
 
+	function calculate() {
+		var quantity = document.getElementById('quantity').value;
+		var price = document.getElementById('price').value;
+		var total = quantity * price;
+		document.getElementById('total').innerHTML = total + '원';
+	}
 
-function modal() {
-	alert("공지사항입니다.")
-}
+	function decreaseQuantity() {
+		var quantity = document.getElementById('quantity');
+		if (quantity.value > 1) {
+			quantity.value--;
+		}
+		calculate();
+	}
 
-
-function calculate() {
-  var quantity = document.getElementById('quantity').value;
-  var price = document.getElementById('price').value;
-  var total = quantity * price;
-  document.getElementById('total').innerHTML = total + '원';
-}
-
+	function increaseQuantity() {
+		var quantity = document.getElementById('quantity');
+		if (quantity.value < 100) {
+			quantity.value++;
+		}
+		calculate();
+	}
 </script>
 
-
-
-<div style="position: fixed; top: 200px; right: 300px; background-color: #f8f9fa; padding: 20px; border-radius: 10px; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); display: flex; flex-flow: column; align-items: center;">
-    <h2 style="margin-bottom: 20px;">옵션</h2>
-
-    <div style="margin-bottom: 10px;">
-        <label for="quantity">상품 수량:</label>
-        <div style="display: flex;">
-            <button onclick="decreaseQuantity()" style="margin-right: 5px;">-</button>
-            <input id="quantity" type="number" value="1" min="1" max="100" onchange="calculate()" style="width: 50px; text-align: center;">
-            <button onclick="increaseQuantity()" style="margin-left: 5px;">+</button>
-        </div>
-    </div>
-    <div style="margin-bottom: 10px;">
-        <label for="price">개당 가격:</label>
-        <input id="price" type="hidden" value="1000" min="1">
-    </div>
-    <div style="margin-bottom: 20px;">
-        <label for="total">총 가격:</label>
-        <span id="total"></span>
-    </div>
-    
-    <div style="background-color: #ffffff; color: #000000; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer; margin-bottom: 10px;">장바구니</div>
-    <div style="background-color: #ffffff; color: #000000; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer; margin-bottom: 10px;">선물하기</div>
-    <div style="background-color: #1682b0; color: white; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer;">구매하기</div>
-</div>
-
-<script type="text/javascript">
-function decreaseQuantity() {
-  var quantity = document.getElementById('quantity');
-  if (quantity.value > 1) {
-    quantity.value--;
-  }
-  calculate();
+<style type="text/css">
+.fixed-element {
+	width: 350px;
+	height: 500px;
+	position: fixed;
+	margin-top: 50px;
+	left: 1250px;
+	background-color: #f8f9fa;
+	padding: 20px;
+	border-radius: 10px;
+	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+	display: flex;
+	flex-flow: column;
+	align-items: flex-start;
 }
 
-function increaseQuantity() {
-  var quantity = document.getElementById('quantity');
-  if (quantity.value < 100) {
-    quantity.value++;
-  }
-  calculate();
+.fixed-element label {
+	font-size: 25px;
+	margin-right: 25px;
+	font-weight: bold;
+	text-shadow: 1px 0px 1px #000;
 }
 
-function calculate() {
-  var quantity = document.getElementById('quantity').value;
-  var price = document.getElementById('price').value;
-  var total = quantity * price;
-  document.getElementById('total').innerHTML = total + '원';
+.fixed-element button {
+	font-size: 25px;
+	margin-right: 5px;
+	text-shadow: 1px 0px 1px #000;
 }
-</script>
+
+.button-container {
+	background-color: #ffffff;
+	color: #000000;
+	border: none;
+	padding: 5px 10px;
+	border-radius: 5px;
+	cursor: pointer;
+	width: 300px;
+	text-align: center;
+	height: 90px;
+	margin: 5px auto;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	font-size: 18px;
+	font-weight: bold;
+}
+
+.button-container:hover {
+	background-color: #1682b0;
+	color: white;
+}
+
+.social-sharing-buttons {
+	display: flex;
+	justify-content: space-between;
+}
+
+.social-sharing-buttons a {
+	text-decoration: none;
+	color: black;
+	margin: 5px;
+}
+
+.image-container {
+	display: flex;
+	align-items: flex-start;
+	margin-bottom: 20px;
+}
+
+.image-container img {
+	width: 660px;
+	margin-right: 20px;
+}
+
+.text-container {
+	flex: 1;
+}
+
+.text-container h4 {
+	font-weight: bold;
+	margin-bottom: 10px;
+}
+
+.text-container p {
+	margin-bottom: 5px;
+}
+
+.quantity-controls {
+	display: flex;
+	align-items: center;
+}
+
+.quantity-controls button {
+	background-color: #1682b0;
+	color: white;
+	border: none;
+	width: 30px;
+	height: 30px;
+	font-size: 18px;
+	border-radius: 50%;
+	cursor: pointer;
+}
+
+.quantity-controls input {
+	width: 50px;
+	text-align: center;
+	font-size: 18px;
+	border: 2px solid #1682b0;
+	border-radius: 5px;
+}
+</style>
 
 </head>
 
 <body id="body-pd">
-<div class="header">
-   	
-  
-</div>
-  
-   
-    <div class="l-navbar" id="navbar">
-        <nav class="nav">
-            <div>
-        
-                <div class="nav__brand">
-                        <img src="./resource/images/icon/more.png" name="menu-outline" class="nav__toggle" id="nav-toggle" style="width: 28px;" onclick="langHide()">
-                </div>
-                <div class="nav__list">
-                    <a href="#" class="nav__link active">
-                        <img src="./resource/images/icon/person.png" style="width: 28px; background-color: #cccccc; border-radius: 50%; padding: 5px;" name="menu1">
-                        	<span class="nav_name">로그인 / 회원가입</span>
-                         </a>
-                    <a href="#" class="nav__link">
-                        <img src="./resource/images/icon/home.png" style="width: 28px;" name="menu2">
-                        <span class="nav_name" style="color: #1682b0;">홈</span>
-                    </a>
-                    <a href="#" class="nav__link" onmouseover="menu3.src='./resource/images/icon/messenger_hover.png'" onmouseout="menu3.src='./resource/images/icon/messenger.png'">
-                        <img src="./resource/images/icon/messenger.png" style="width: 28px;" name="menu3">
-                        <span class="nav_name">커뮤니티</span>
-                    </a>
-                    <a href="#" class="nav__link" onmouseover="menu4.src='./resource/images/icon/comment01.png'" onmouseout="menu4.src='./resource/images/icon/comment.png'">
-                        <img src="./resource/images/icon/comment.png" style="width: 28px;" name="menu4">
-                        <span class="nav_name">사용가이드</span>
-                    </a>
-                </div>
-                
-            </div>
-        </nav>
-    </div>
+	<jsp:include page="/WEB-INF/views/layout/header.jsp"/>
     
-   
-    
-    
-    
-    <div id="wrap" style="padding: 0px 100px;">
-    <div class="navbar" style="margin-top: 52px;">
-        <form class="row">
-            <div class="col-auto" style="position: relative; width: 300px;">
-                <button class="btn" type="submit" style="position: absolute; bottom: -3px;">
-                    <img src="./resource/images/icon/search.png" width="28">
-                </button>
-                <input id="search" class="form-control" type="search" placeholder="검색어를 입력하세요." aria-label="Search" style="width: 100%; padding-left: 50px;">
-            </div>
-        </form>
-        <a class="navbar-brand" href="productdetail.jsp" style="position: absolute; left: 45%;">
-            청 바 지
-        </a>
-        <div class="col-auto">
-            <a class="btn" id="btn-modal" data-toggle="modal" href="#notificationModal"style="border: 0px; padding: 2px;" onclick="modal();">
-            	<img src="./resource/images/icon/notification.png" width="28">
+
+		<div class="fixed-element">
+			<h2 style="margin-bottom: 30px; color: blue; text-shadow: 1px 0px 2px #000; margin:20px auto;">
+				옵션
+			</h2>
+
+			<div>
+				<div style="display: flex;">
+					<label for="quantity">상품 수량 : </label>
+					<div>
+						<div style="display: flex;">
+							<div class="quantity-controls">
+						        <button onclick="decreaseQuantity()">-</button>
+						        <input id="quantity" type="number" value="1" min="1" max="100" onchange="calculate()">
+						        <button onclick="increaseQuantity()">+</button>
+						    </div>	
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div>
+				<label for="price">상품 단가 : 33000원</label> 
+				<input id="price" type="hidden" value="33000" min="0">
+			</div>
+			<div>
+				<label for="total">총 가격:</label> 
+				<label id="total" style="color:#0ff">0</label>
+			</div>
+
+			<button type="button" class="button-container">장바구니</button>
+			<button type="button" class="button-container">구매하기</button>
+			
+			<div class="social-sharing-buttons" style="margin-top:10px; margin-left:170px;">
+		        <a href="https://www.instagram.com/" target="_blank">
+		            <img src="${pageContext.request.contextPath}/resource/images/icon/instagram.png" alt="Instagram" style="width:35px;">
+		        </a>
+		        <a href="https://www.facebook.com/" target="_blank">
+		            <img src="${pageContext.request.contextPath}/resource/images/icon/facebook.png" alt="Facebook" style="width:35px;">
+		        </a>
+		        <a href="https://www.twitter.com/" target="_blank">
+				    <img src="${pageContext.request.contextPath}/resource/images/icon/twitter.png" alt="Twitter" style="width:35px;">
+				</a>
+   			</div>
+			
+		</div>
+
+
+		 <div class="image-container">
+        <img src="${pageContext.request.contextPath}/resource/img/images/productdetail/productdetail1.jpg.jpg" alt="Product Image">
+        <div class="text-container">
+            <h4>담은 [3병/6병/10병]</h4>
+            <h5>[마음을 담은 한잔]</h5>
+            <a style="color:lightblue;">#입안을 가득 채우는 푸근함</a><br>
+            <a style="color:lightblue;">#카페라떼처럼 부드러운</a> <br>
+            <!-- 리뷰하는 곳 -->
+            <a href="#" style="color:blue; text-decoration:underline;">
+            	별점 5.0 / 리뷰 0개
             </a>
-            <a href="loginRegister.jsp"><img src="./resource/images/icon/person.png" width="52" style="background-color: #1682b0; border-radius: 40px; padding: 10px;"></a>
+            <p style="margin-top:20px;">*주종 : 탁주</p>
+            <p>*도수 : 6.50%</p>
+            <p style="margin-bottom:20px;">*용량 : 750ml</p>
+            <p style="color:#cccccc">배송기간 : 2일 이내 배송</p>
+            <p style="color:#cccccc; margin-bottom:20px;">수상 : 2016년 우리술 품평회 생막걸리 부문 장려상</p>
+            <p>판매 가격:</p>
+            <h2>33,000원</h2>
+            <p style="color:blue;">*유통기한 : 제조일로부터 3개월</p>
+            <p style="color:blue;">*보관방법 : 세워서 냉장 보관</p>
+            
         </div>
     </div>
-    <hr>
-    
-    <div id="imageContainer" style="display: flex;">
-    <div class="box">
-        <img id="image1" src="./resource/img/images/productdetail/productdetail1.jpg.jpg" alt="Product Image" class="resized-image">
+
+    <div class="image-container">
+        <img src="${pageContext.request.contextPath}/resource/img/images/productdetail/productdetail1_2.png" alt="Product Image">
     </div>
-    <div class="box">
-        <img id="image2" src="./resource/img/images/productdetail/productdetail1_1.png" alt="Product Image" class="resized-image">
+
+    <div class="image-container">
+        <img src="${pageContext.request.contextPath}/resource/img/images/productdetail/productdetail1_3.png" alt="Product Image">
     </div>
-</div>
-
-<div>
-    <img id="image3" src="./resource/img/images/productdetail/productdetail1_2.png" alt="Product Image" class="resized-image">
-</div>
-
-<div>
-    <img id="image4" src="./resource/img/images/productdetail/productdetail1_3.png" alt="Product Image" class="resized-image">
-</div>
-
-<div>
-    <img id="image5" src="./resource/img/images/productdetail/productdetail1_4.png" alt="Product Image" class="resized-image">
-</div>
-
-<div>
-    <img id="image6" src="./resource/img/images/productdetail/productdetail1_5.png" alt="Product Image" class="resized-image">
-</div>
 
 
-
-
-<script type="text/javascript">
-window.onload = function() {
-    var image1 = document.getElementById('image1');
-    var image2 = document.getElementById('image2');
-    var image3 = document.getElementById('image3');
-    var image4 = document.getElementById('image4');
-    var image5 = document.getElementById('image5');
-    var image6 = document.getElementById('image6');
-    
-    var totalWidth = image1.offsetWidth + image2.offsetWidth;
-    image3.style.width = totalWidth + 'px';
-    
-    var totalWidth = image1.offsetWidth + image2.offsetWidth;
-    image4.style.width = totalWidth + 'px';
-    
-    var totalWidth = image1.offsetWidth + image2.offsetWidth;
-    image5.style.width = totalWidth + 'px';
-    
-    
-    var totalWidth = image1.offsetWidth + image2.offsetWidth;
-    image6.style.width = totalWidth + 'px';
-    
-}
-</script>
-   
-    
-    
 <hr style="1px solid #ccc; position: absolute; width: 100%; left: 0px;">
 <div class="footer" style="padding: 0px 100px;">
-	
-	
-	
-	
+
 </div>
-<%--
-<%@ page import="java.sql.*" %>
-<%@ page import="javax.sql.*" %>
-<%@ page import="javax.naming.*" %>
-
-<%
-    InitialContext ic = new InitialContext();
-    DataSource ds = (DataSource) ic.lookup("java:comp/env/jdbc/OracleDB");
-    Connection conn = ds.getConnection();
-    Statement stmt = conn.createStatement();
-    ResultSet rs = stmt.executeQuery("SELECT * FROM reviews");
-%>
-
-<table>
-    <tr>
-        <th>No</th>
-        <th>User</th>
-        <th>Review</th>
-        <th>Rating</th>
-    </tr>
-    <% while (rs.next()) { %>
-    <tr>
-        <td><%= rs.getInt("id") %></td>
-        <td><%= rs.getString("user_name") %></td>
-        <td><%= rs.getString("review") %></td>
-        <td><%= rs.getInt("rating") %></td>
-    </tr>
-    <% } %>
-</table>
-
-<%
-    rs.close();
-    stmt.close();
-    conn.close();
-%>
 
 
-
- --%>
-
+	<jsp:include page="/WEB-INF/views/layout/footer.jsp"/>
 
 </body>
-
 </html>
