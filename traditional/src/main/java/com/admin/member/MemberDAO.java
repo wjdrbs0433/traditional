@@ -85,11 +85,7 @@ public class MemberDAO {
 	              kwd = kwd.replaceAll("(\\-|\\/|\\.)", "");
 	              sb.append(" WHERE TO_CHAR(mRegDate, 'YYYYMMDD') = ?");
 	              
-	         } else if(schType.equals("agreeSms")){
-	        	 sb.append(" SELECT mNum,mId,mPwd,mName,mRnum,mTel,mPhone,mEmail,field,field2,adminOrNot,TO_CHAR(mRegDate,'YYYY-MM-DD') mRegDate ");
-	             sb.append(" FROM member ");
-	             sb.append(" WHERE field = 'Y' ");
-	             
+	         
 	         } else { // 이름(mName)
 	        	  sb.append(" SELECT mNum,mId,mPwd,mName,mRnum,mTel,mPhone,mEmail,field,field2,adminOrNot,TO_CHAR(mRegDate,'YYYY-MM-DD') mRegDate ");
 	              sb.append(" FROM member ");
@@ -140,17 +136,25 @@ public class MemberDAO {
       return list;
    }
 	
-	// sms 여부 검색 시 리스트
-	public List<MemberDTO> listMember(int offset, int size,String agreeSms) {
+	// 수신여부 체크검색 시 리스트
+	public List<MemberDTO> listMember2(int offset, int size,String agreeSms, String agreeEmail) {
 		List<MemberDTO> list = new ArrayList<MemberDTO>();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		StringBuilder sb = new StringBuilder();
+		String n="N";
+
 
 		try {
-			sb.append(
-					" SELECT mNum,mId,mPwd,mName,mRnum,mTel,mPhone,mEmail,field,field2,adminOrNot,TO_CHAR(mRegDate,'YYYY-MM-DD') mRegDate,deleteOrNot ");
+			sb.append(" SELECT mNum,mId,mPwd,mName,mRnum,mTel,mPhone,mEmail,field,field2,adminOrNot,TO_CHAR(mRegDate,'YYYY-MM-DD') mRegDate,deleteOrNot ");
 			sb.append(" FROM member ");
+			
+			if(agreeSms != null && agreeEmail == null ){
+	             sb.append(" WHERE field = 'Y' AND field2 = " + n);
+			} else if(agreeSms == null && agreeEmail != null) {
+	             sb.append(" WHERE field2 = 'Y' AND field = " + n);
+			}  
+			
 			sb.append(" ORDER BY mNum ASC");
 			sb.append(" OFFSET ? ROWS FETCH FIRST ? ROWS ONLY ");
 
