@@ -252,7 +252,10 @@
 		</table>
 	</div>
 	<div style="text-align: center;">
-		<p>위 주문 내용을 확인 하였으며, 회원 본인은 개인정보 이용 및 제공(해외직구의 경우 국외제공) 및 결제에 동의합니다.</p>
+		<p>
+			<input type ="checkbox">
+			위 주문 내용을 확인 하였으며, 회원 본인은 개인정보 이용 및 제공(해외직구의 경우 국외제공) 및 결제에 동의합니다.
+		</p>
 	</div>
 	<div style="text-align: center;">
 		<button style="background: white; border: none;"><img class="kakao" src="resource/images/order/kakao.png"></button>
