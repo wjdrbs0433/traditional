@@ -44,12 +44,12 @@
                         <img src="${pageContext.request.contextPath}/resource/images/icon/comment.png" style="width: 28px;" name="menu4">
                         <span class="nav_name">사용가이드</span>
                     </a>
-                    <!-- 
-                    <a href="#" class="nav__link" onmouseover="menu3.src='./images/icon/messenger_hover.png'" onmouseout="menu3.src='./images/icon/messenger.png'">
-                        <img src="./images/icon/messenger.png" style="width: 28px;" name="menu3">
+                     
+                    <a href="'${pageContext.request.contextPath}/noticeBoard/noticeBoard.do" class="nav__link" onmouseover="menu5.src='${pageContext.request.contextPath}/resource/images/icon/messenger_hover.png'" onmouseout="menu5.src='${pageContext.request.contextPath}/resource/images/icon/messenger.png'">
+                        <img src="${pageContext.request.contextPath}/resource/images/icon/messenger.png" style="width: 28px;" name="menu5">
                         <span class="nav_name">커뮤니티</span>
                     </a>
-                     -->
+                    
                 </div>
                 
             </div>
