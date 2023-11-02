@@ -11,9 +11,13 @@
 <title>admin main page</title>
 <link rel="icon" href="data:;base64,iVBORw0KGgo=">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
-<link rel="stylesheet" href="./resource/css/bootstrap.min.css">
-<link rel="stylesheet" href="./resource/css/custom.css">
-<link rel="stylesheet" href="./resource/css/index.css">
+
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/bootstrap.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/custom.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/index.css">
+<script src="${pageContext.request.contextPath}/resource/js/jquery.min.js"></script>
+<script src="${pageContext.request.contextPath}/resource/js/bootstrap.min.js"></script>
+
 <style type="text/css">
 .box1 { width: 1600px; 
 	display: flex;
@@ -51,11 +55,6 @@ th, td { padding: 10px; }
 </style>
 
 
-<script src="./resource	/js/jquery.min.js"></script>
-<script src="./resource/js/popper.js"></script>
-<script src="./resource/js/bootstrap.min.js"></script>
-<script src="./resource/js/custom.js"></script>
-
 <script type="text/javascript">
 function modal() {
 	alert("공지사항입니다.")
@@ -65,53 +64,11 @@ function modal() {
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.4.2/css/all.css">
 </head>
 <body id="body-pd">
-    <div class="l-navbar" id="navbar">
-        <nav class="nav">
-            <div>	
-                <div class="nav__brand">
-                        <img src="./resource/images/icon/more.png" name="menu-outline" class="nav__toggle" id="nav-toggle" style="width: 28px;" onclick="langHide()">
-                </div>
-                <div class="nav__list">
-                    <a href="#" class="nav__link active">
-                        <img src="./resource/images/icon/person.png" style="width: 28px; background-color: #cccccc; border-radius: 50%; padding: 5px;" name="menu1">
-                        	<span class="nav_name">로그인 / 회원가입</span>
-                         </a>
-                    <a href="#" class="nav__link">
-                        <img src="./resource/images/icon/home.png" style="width: 28px;" name="menu2">
-                        <span class="nav_name" style="color: #1682b0;">홈</span>
-                    </a>
-                    <a href="#" class="nav__link" onmouseover="menu3.src='./resource/images/icon/messenger_hover.png'" onmouseout="menu3.src='./resource/images/icon/messenger.png'">
-                        <img src="./resource/images/icon/messenger.png" style="width: 28px;" name="menu3">
-                        <span class="nav_name">커뮤니티</span>
-                    </a>
-                    <a href="#" class="nav__link" onmouseover="menu4.src='./resource/images/icon/comment01.png'" onmouseout="menu4.src='./resource/images/icon/comment.png'">
-                        <img src="./resource/images/icon/comment.png" style="width: 28px;" name="menu4">
-                        <span class="nav_name">사용가이드</span>
-                    </a>
-                </div>
-                
-            </div>
-        </nav>
-    </div>
-    
-    <div id="wrap" style="padding: 0px 100px;">
-    <div class="navbar" style="margin-top: 52px;">
-        <form class="row">
-        </form>
-        <a class="navbar-brand" href="#" style="position: absolute; left: 45%;">
-           	관리자 페이지
-        </a>
-        <div class="col-auto">
-            <a class="btn" id="btn-modal" data-toggle="modal" href="#notificationModal"style="border: 0px; padding: 2px;" onclick="modal();">
-            	<img src="./resource/images/icon/notification.png" width="28">
-            </a>
-            <a href="loginRegister.jsp"><img src="./resource/images/icon/person.png" width="52" style="background-color: #1682b0; border-radius: 40px; padding: 10px;"></a>
-        </div>
-    </div>
-     
-    <hr>
+    <body id="body-pd">
+		<jsp:include page="/WEB-INF/views/layout/header.jsp"/>
+    <h2 style="text-align:center;">[관리자 모드]</h2>
     <div id="recommend">
-    <h2 style="margin: 40px;">DASHBOARD</h2>
+    <h2 style="margin: 40px;">DASHBOARD</h2> 
     </div>
     
     <div class="dash">

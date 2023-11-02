@@ -8,14 +8,31 @@
                         <img src="${pageContext.request.contextPath}/resource/images/icon/more.png" name="menu-outline" class="nav__toggle" id="nav-toggle" style="width: 28px;" onclick="langHide()">
                 </div>
                 <div class="nav__list">
-                    <a href="${pageContext.request.contextPath}/member/login.do" class="nav__link active">
-                        <img src="${pageContext.request.contextPath}/resource/images/icon/person.png" style="width: 28px; background-color: #cccccc; border-radius: 50%; padding: 5px;" name="menu1">
-                        	<span class="nav_name">로그인 / 회원가입</span>
-                         </a>
+                
+                   <c:choose>
+					    <c:when test="${empty sessionScope.member}">
+					        <!--로그인 전-->
+					        <a href="${pageContext.request.contextPath}/member/login.do" class="nav__link active">
+					            <img src="${pageContext.request.contextPath}/resource/images/icon/person.png" 
+					                 style="width: 28px; background-color: #cccccc; border-radius: 50%; padding: 5px;" name="menu1">
+					            <span class="nav_name">로그인 / 회원가입</span>
+					        </a>
+					    </c:when>
+
+					    <c:otherwise>
+					        <!--로그인 후-->
+					        <a href="${pageContext.request.contextPath}/member/logout.do" title="로그아웃">
+					            <img src="${pageContext.request.contextPath}/resource/images/icon/play-button.png" width="52" 
+					                    style="margin-left:10px; margin-bottom:15px; width: 28px; background-color: #1682b0; border-radius: 50%; padding: 5px;" name="menu1"></a>
+					    </c:otherwise>
+					</c:choose>
+
                     <a href="${pageContext.request.contextPath}/" class="nav__link">
                         <img src="${pageContext.request.contextPath}/resource/images/icon/home.png" style="width: 28px;" name="menu2">
                         <span class="nav_name" style="color: #1682b0;">홈</span>
                     </a>
+
+
 
                     <a href="${pageContext.request.contextPath}/product/product.do" class="nav__link" onmouseover="menu3.src='${pageContext.request.contextPath}/resource/images/icon/drink.png'" 
                     							  onmouseout="menu3.src='${pageContext.request.contextPath}/resource/images/icon/drink_1.png'">
