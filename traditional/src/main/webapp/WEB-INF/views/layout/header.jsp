@@ -1,17 +1,48 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<div class="l-navbar" id="navbar">
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<div class="l-navbar" id="navbar" style="z-index:99999;">
         <nav class="nav">
             <div>	
-                <div class="nav__brand">
-                        <img src="${pageContext.request.contextPath}/resource/images/icon/more.png" name="menu-outline" class="nav__toggle" id="nav-toggle" style="width: 28px;" onclick="langHide()">
-                </div>
+                <a class="btn btn-primary" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample" style="background:white; border:none; margin-bottom:5px;" >
+				   <img src="${pageContext.request.contextPath}/resource/images/icon/more.png" name="menu-outline" style="width: 28px;">
+				</a>
+				
+				<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+				    <div class="offcanvas-header">
+				        <h5 class="offcanvas-title" id="offcanvasExampleLabel">메뉴</h5>
+				        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+				    </div>
+				    <div class="offcanvas-body">
+				        <a href="${pageContext.request.contextPath}/member/login.do" class="nav-link">로그인 / 회원가입</a>
+				        <a href="${pageContext.request.contextPath}/"class="nav-link">홈</a>
+				        <a href="${pageContext.request.contextPath}/product/product.do" class="nav-link">모든상품</a>
+				        <a href="${pageContext.request.contextPath}/member/mypage.do" class="nav-link">사용가이드</a>
+				        <a href="${pageContext.request.contextPath}/notice/list.do" class="nav-link">커뮤니티</a>
+				    </div>
+				</div>
+
                 <div class="nav__list">
+                
+                <c:choose>
+                 <c:when test="${empty sessionScope.member}">
                     <a href="${pageContext.request.contextPath}/member/login.do" class="nav__link active">
                         <img src="${pageContext.request.contextPath}/resource/images/icon/person.png" style="width: 28px; background-color: #cccccc; border-radius: 50%; padding: 5px;" name="menu1">
                         	<span class="nav_name">로그인 / 회원가입</span>
                          </a>
+                 </c:when> 
+                  <c:otherwise>
+                     <!--로그인 후-->
+	                <a href="${pageContext.request.contextPath}/member/logout.do" title="로그아웃" class="nav__link active">
+	                	<img src="${pageContext.request.contextPath}/resource/images/icon/play-button.png" width="30px" 
+		            				style="background-color: #1682b0; border-radius: 40px; padding: 5px;" name="menu1"></a>
+	            </c:otherwise> 
+	            </c:choose>      
+                         
                     <a href="${pageContext.request.contextPath}/" class="nav__link">
                         <img src="${pageContext.request.contextPath}/resource/images/icon/home.png" style="width: 28px;" name="menu2">
                         <span class="nav_name" style="color: #1682b0;">홈</span>
@@ -27,12 +58,12 @@
                         <img src="${pageContext.request.contextPath}/resource/images/icon/comment.png" style="width: 28px;" name="menu4">
                         <span class="nav_name">사용가이드</span>
                     </a>
-                    <!-- 
-                    <a href="#" class="nav__link" onmouseover="menu3.src='./images/icon/messenger_hover.png'" onmouseout="menu3.src='./images/icon/messenger.png'">
-                        <img src="./images/icon/messenger.png" style="width: 28px;" name="menu3">
+                   
+                    <a href="${pageContext.request.contextPath}/notice/list.do" class="nav__link" onmouseover="menu5.src='${pageContext.request.contextPath}/resource/images/icon/messenger_hover.png'" onmouseout="menu5.src='${pageContext.request.contextPath}/resource/images/icon/messenger.png'">
+                        <img src="${pageContext.request.contextPath}/resource/images/icon/messenger.png" style="width: 28px;" name="menu5">
                         <span class="nav_name">커뮤니티</span>
                     </a>
-                     -->
+                     
                 </div>
                 
             </div>

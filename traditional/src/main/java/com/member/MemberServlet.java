@@ -80,6 +80,11 @@ public class MemberServlet extends MyServlet{
 
 			// 세션에 member이라는 이름으로 저장
 			session.setAttribute("member", info);
+			// 관리자인 경우
+			if(dto.getMid().equals("admin")) {
+				resp.sendRedirect(cp + "/admin/main.do");
+				return;
+			}
 			
 			String preLoginURI = (String)session.getAttribute("preLoginURI");
 			session.removeAttribute("preLoginURI");
@@ -88,8 +93,12 @@ public class MemberServlet extends MyServlet{
 				// 로그인 전페이지
 				resp.sendRedirect(preLoginURI);
 			} else {
+		
 				// 메인화면으로 리다이렉트
 				resp.sendRedirect(cp + "/");
+
+				
+				
 			}
 			return;
 		}

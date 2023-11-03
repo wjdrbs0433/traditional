@@ -1,4 +1,4 @@
-package com.noticeBoard;
+package com.notice;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -20,7 +20,7 @@ public class NoticeDAO {
 		long seq;
 
 		try {
-			sql = "insert noticeboardnum_seq.NEXTVAL FROM dual";
+			sql = "SELECT notice_seq.NEXTVAL FROM dual";
 			pstmt = conn.prepareStatement(sql);
 			
 			rs = pstmt.executeQuery();
@@ -29,40 +29,51 @@ public class NoticeDAO {
 			if (rs.next()) {
 				seq = rs.getLong(1);
 			}
-			dto.setNoticeBoardnum(seq);
-			
-			pstmt.executeUpdate();
-			
-			
+			dto.setNum(seq);
+
 			rs.close();
 			pstmt.close();
 			rs = null;
 			pstmt = null;
 
-			sql = " INSERT INTO notice(noticeboardnum, notice, userId, noticesubject, noticecontent, hitCount, reg_date) "
+			sql = "INSERT INTO notice(num, notice, userId, subject, content, hitCount, reg_date) "
 					+ "  VALUES (?, ?, ?, ?, ?, 0, SYSDATE)";
 
 			pstmt = conn.prepareStatement(sql);
 			
-			pstmt.setLong(1, dto.getNoticeBoardnum());
+			pstmt.setLong(1, dto.getNum());
 			pstmt.setInt(2, dto.getNotice());
 			pstmt.setString(3, dto.getUserId());
-			pstmt.setString(4, dto.getNoticeSubject());
-			pstmt.setString(5, dto.getNoticeContent());
-			rs = pstmt.executeQuery();
+			pstmt.setString(4, dto.getSubject());
+			pstmt.setString(5, dto.getContent());
+
+			pstmt.executeUpdate();
 			
 			pstmt.close();
 			pstmt = null;
 
+			if (dto.getSaveFiles() != null) {
+				sql = "INSERT INTO noticeFile(fileNum, num, saveFilename, originalFilename) VALUES (noticeFile_seq.NEXTVAL, ?, ?, ?)";
+				pstmt = conn.prepareStatement(sql);
+				
+				for (int i = 0; i < dto.getSaveFiles().length; i++) {
+					pstmt.setLong(1, dto.getNum());
+					pstmt.setString(2, dto.getSaveFiles()[i]);
+					pstmt.setString(3, dto.getOriginalFiles()[i]);
+					
+					pstmt.executeUpdate();
+				}
+			}
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw e;
 		} finally {
 			DBUtil.close(pstmt);
-
 		}
+
 	}
+
 	public int dataCount() {
 		int result = 0;
 		PreparedStatement pstmt = null;
@@ -100,7 +111,7 @@ public class NoticeDAO {
 			sql = "SELECT NVL(COUNT(*), 0) FROM notice n "
 					+ " JOIN member m ON n.userId=m.userId ";
 			if (schType.equals("all")) {
-				sql += "  WHERE INSTR(noticesubject, ?) >= 1 OR INSTR(noticecontent, ?) >= 1 ";
+				sql += "  WHERE INSTR(subject, ?) >= 1 OR INSTR(content, ?) >= 1 ";
 			} else if (schType.equals("reg_date")) {
 				kwd = kwd.replaceAll("(\\-|\\/|\\.)", "");
 				sql += "  WHERE TO_CHAR(reg_date, 'YYYYMMDD') = ? ";
@@ -156,10 +167,10 @@ public class NoticeDAO {
 			while (rs.next()) {
 				NoticeDTO dto = new NoticeDTO();
 
-				dto.setNoticeBoardnum(rs.getLong("noticeboardnum"));
+				dto.setNum(rs.getLong("num"));
 				dto.setUserId(rs.getString("userId"));
 				dto.setUserName(rs.getString("userName"));
-				dto.setNoticeSubject(rs.getString("noticesubject"));
+				dto.setSubject(rs.getString("subject"));
 				dto.setHitCount(rs.getInt("hitCount"));
 				dto.setReg_date(rs.getString("reg_date"));
 
@@ -189,7 +200,7 @@ public class NoticeDAO {
 			sb.append(" FROM notice n ");
 			sb.append(" JOIN member m ON n.userId = m.userId ");
 			if (schType.equals("all")) {
-				sb.append(" WHERE INSTR(noticesubject, ?) >= 1 OR INSTR(noticecontent, ?) >= 1 ");
+				sb.append(" WHERE INSTR(subject, ?) >= 1 OR INSTR(content, ?) >= 1 ");
 			} else if (schType.equals("reg_date")) {
 				kwd = kwd.replaceAll("(\\-|\\/|\\.)", "");
 				sb.append(" WHERE TO_CHAR(reg_date, 'YYYYMMDD') = ?");
@@ -217,10 +228,10 @@ public class NoticeDAO {
 			while (rs.next()) {
 				NoticeDTO dto = new NoticeDTO();
 
-				dto.setNoticeBoardnum(rs.getLong("noticeboardnum"));
+				dto.setNum(rs.getLong("num"));
 				dto.setUserId(rs.getString("userId"));
 				dto.setUserName(rs.getString("userName"));
-				dto.setNoticeSubject(rs.getString("noticesubject"));
+				dto.setSubject(rs.getString("subject"));
 				dto.setHitCount(rs.getInt("hitCount"));
 				dto.setReg_date(rs.getString("reg_date")); // yyyy-MM-dd HH:mm:ss
 
@@ -259,10 +270,10 @@ public class NoticeDAO {
 			while (rs.next()) {
 				NoticeDTO dto = new NoticeDTO();
 
-				dto.setNoticeBoardnum(rs.getLong("noticeboardnum"));
+				dto.setNum(rs.getLong("num"));
 				dto.setUserId(rs.getString("userId"));
 				dto.setUserName(rs.getString("userName"));
-				dto.setNoticeSubject(rs.getString("noticesubject"));
+				dto.setSubject(rs.getString("subject"));
 				dto.setHitCount(rs.getInt("hitCount"));
 				dto.setReg_date(rs.getString("reg_date"));
 
@@ -285,7 +296,7 @@ public class NoticeDAO {
 		String sql;
 
 		try {
-			sql = "SELECT num, notice, n.userId, userName, noticesubject, noticecontent, hitCount, reg_date "
+			sql = "SELECT num, notice, n.userId, userName, subject, content, hitCount, reg_date "
 					+ " FROM notice n "
 					+ " JOIN member m ON n.userId=m.userId "
 					+ " WHERE num = ?";
@@ -298,12 +309,12 @@ public class NoticeDAO {
 			if (rs.next()) {
 				dto = new NoticeDTO();
 
-				dto.setNoticeBoardnum(rs.getLong("noticeboardnum"));
+				dto.setNum(rs.getLong("num"));
 				dto.setNotice(rs.getInt("notice"));
 				dto.setUserId(rs.getString("userId"));
 				dto.setUserName(rs.getString("userName"));
-				dto.setNoticeSubject(rs.getString("noticesubject"));
-				dto.setNoticeContent(rs.getString("noticecontent"));
+				dto.setSubject(rs.getString("subject"));
+				dto.setContent(rs.getString("content"));
 				dto.setHitCount(rs.getInt("hitCount"));
 				dto.setReg_date(rs.getString("reg_date"));
 			}
@@ -319,7 +330,7 @@ public class NoticeDAO {
 	}
 
 	// 이전글
-	public NoticeDTO findByPrev(long noticeboardnum, String schType, String kwd) {
+	public NoticeDTO findByPrev(long num, String schType, String kwd) {
 		NoticeDTO dto = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -327,7 +338,7 @@ public class NoticeDAO {
 
 		try {
 			if (kwd != null && kwd.length() != 0) {
-				sb.append(" SELECT noticeboardnum, noticesubject ");
+				sb.append(" SELECT num, subject ");
 				sb.append(" FROM notice n ");
 				sb.append(" JOIN member m ON n.userId = m.userId ");
 				sb.append(" WHERE ( num > ? ) ");
@@ -344,20 +355,20 @@ public class NoticeDAO {
 
 				pstmt = conn.prepareStatement(sb.toString());
 				
-				pstmt.setLong(1, noticeboardnum);
+				pstmt.setLong(1, num);
 				pstmt.setString(2, kwd);
 				if (schType.equals("all")) {
 					pstmt.setString(3, kwd);
 				}
 			} else {
-				sb.append(" SELECT noticeboardnum, noticesubject FROM notice ");
+				sb.append(" SELECT num, subject FROM notice ");
 				sb.append(" WHERE num > ? ");
 				sb.append(" ORDER BY num ASC ");
 				sb.append(" FETCH FIRST 1 ROWS ONLY ");
 
 				pstmt = conn.prepareStatement(sb.toString());
 				
-				pstmt.setLong(1, noticeboardnum);
+				pstmt.setLong(1, num);
 			}
 
 			rs = pstmt.executeQuery();
@@ -365,8 +376,8 @@ public class NoticeDAO {
 			if (rs.next()) {
 				dto = new NoticeDTO();
 				
-				dto.setNoticeBoardnum(rs.getLong("boardnum"));
-				dto.setNoticeSubject(rs.getString("subject"));
+				dto.setNum(rs.getLong("num"));
+				dto.setSubject(rs.getString("subject"));
 			}
 
 		} catch (SQLException e) {
@@ -380,7 +391,7 @@ public class NoticeDAO {
 	}
 
 	// 다음글
-	public NoticeDTO findByNext(long noticeboardnum, String schType, String kwd) {
+	public NoticeDTO findByNext(long num, String schType, String kwd) {
 		NoticeDTO dto = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -388,37 +399,37 @@ public class NoticeDAO {
 
 		try {
 			if (kwd != null && kwd.length() != 0) {
-				sb.append(" SELECT noticeboardnum, noticesubject ");
+				sb.append(" SELECT num, subject ");
 				sb.append(" FROM notice n ");
 				sb.append(" JOIN member m ON n.userId = m.userId ");
 				sb.append(" WHERE ( num < ? ) ");
 				if (schType.equals("all")) {
-					sb.append("   AND ( INSTR(noticesubject, ?) >= 1 OR INSTR(noticecontent, ?) >= 1 ) ");
+					sb.append("   AND ( INSTR(subject, ?) >= 1 OR INSTR(content, ?) >= 1 ) ");
 				} else if (schType.equals("reg_date")) {
 					kwd = kwd.replaceAll("(\\-|\\/|\\.)", "");
 					sb.append("   AND ( TO_CHAR(reg_date, 'YYYYMMDD') = ? ) ");
 				} else {
 					sb.append("   AND ( INSTR(" + schType + ", ?) >= 1 ) ");
 				}
-				sb.append(" ORDER BY noticenumbernum DESC ");
-				sb.append(" FETCH FIRST 1 ROWS ONLY ");
-
-				pstmt = conn.prepareStatement(sb.toString());
-				
-				pstmt.setLong(1, noticeboardnum);
-				pstmt.setString(2, kwd);
-				if (schType.equals("all")) {
-					pstmt.setString(3, kwd);
-				}
-			} else {
-				sb.append(" SELECT noticeboardnumber, noticcesubject FROM notice ");
-				sb.append(" WHERE noticeboardnum < ? ");
 				sb.append(" ORDER BY num DESC ");
 				sb.append(" FETCH FIRST 1 ROWS ONLY ");
 
 				pstmt = conn.prepareStatement(sb.toString());
 				
-				pstmt.setLong(1, noticeboardnum);
+				pstmt.setLong(1, num);
+				pstmt.setString(2, kwd);
+				if (schType.equals("all")) {
+					pstmt.setString(3, kwd);
+				}
+			} else {
+				sb.append(" SELECT num, subject FROM notice ");
+				sb.append(" WHERE num < ? ");
+				sb.append(" ORDER BY num DESC ");
+				sb.append(" FETCH FIRST 1 ROWS ONLY ");
+
+				pstmt = conn.prepareStatement(sb.toString());
+				
+				pstmt.setLong(1, num);
 			}
 
 			rs = pstmt.executeQuery();
@@ -426,8 +437,8 @@ public class NoticeDAO {
 			if (rs.next()) {
 				dto = new NoticeDTO();
 				
-				dto.setNoticeBoardnum(rs.getLong("noticeboard"));
-				dto.setNoticeSubject(rs.getString("noticesubject"));
+				dto.setNum(rs.getLong("num"));
+				dto.setSubject(rs.getString("subject"));
 			}
 
 		} catch (SQLException e) {
@@ -445,7 +456,7 @@ public class NoticeDAO {
 		String sql;
 
 		try {
-			sql = "UPDATE notice SET hitCount=hitCount+1 WHERE noticeboardnum=?";
+			sql = "UPDATE notice SET hitCount=hitCount+1 WHERE num=?";
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setLong(1, num);
@@ -461,16 +472,56 @@ public class NoticeDAO {
 
 	}
 
-
-	public void deleteNotice(long noticeboardnum) throws SQLException {
+	public void updateNotice(NoticeDTO dto) throws SQLException {
 		PreparedStatement pstmt = null;
 		String sql;
 
 		try {
-			sql = "DELETE FROM notice WHERE noticeboardnum = ? ";
+			sql = "UPDATE notice SET notice=?, subject=?, content=? "
+					+ " WHERE num=?";
 			pstmt = conn.prepareStatement(sql);
 			
-			pstmt.setLong(1, noticeboardnum);
+			pstmt.setInt(1, dto.getNotice());
+			pstmt.setString(2, dto.getSubject());
+			pstmt.setString(3, dto.getContent());
+			pstmt.setLong(4, dto.getNum());
+			
+			pstmt.executeUpdate();
+			
+			pstmt.close();
+			pstmt = null;
+
+			if (dto.getSaveFiles() != null) {
+				sql = "INSERT INTO noticeFile(fileNum, num, saveFilename, originalFilename) VALUES (noticeFile_seq.NEXTVAL, ?, ?, ?)";
+				pstmt = conn.prepareStatement(sql);
+				
+				for (int i = 0; i < dto.getSaveFiles().length; i++) {
+					pstmt.setLong(1, dto.getNum());
+					pstmt.setString(2, dto.getSaveFiles()[i]);
+					pstmt.setString(3, dto.getOriginalFiles()[i]);
+					
+					pstmt.executeUpdate();
+				}
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			DBUtil.close(pstmt);
+		}
+
+	}
+
+	public void deleteNotice(long num) throws SQLException {
+		PreparedStatement pstmt = null;
+		String sql;
+
+		try {
+			sql = "DELETE FROM notice WHERE num = ? ";
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setLong(1, num);
 			
 			pstmt.executeUpdate();
 
@@ -483,22 +534,114 @@ public class NoticeDAO {
 
 	}
 
-	public void deleteNoticeList(long[] noticeboardnums) throws SQLException {
+	public void deleteNoticeList(long[] nums) throws SQLException {
 		PreparedStatement pstmt = null;
 		String sql;
 
 		try {
 			sql = "DELETE FROM notice WHERE num IN (";
-			for (int i = 0; i < noticeboardnums.length; i++) {
+			for (int i = 0; i < nums.length; i++) {
 				sql += "?,";
 			}
 			sql = sql.substring(0, sql.length() - 1) + ")";
 
 			pstmt = conn.prepareStatement(sql);
 			
-			for (int i = 0; i < noticeboardnums.length; i++) {
-				pstmt.setLong(i + 1, noticeboardnums[i]);
+			for (int i = 0; i < nums.length; i++) {
+				pstmt.setLong(i + 1, nums[i]);
 			}
+
+			pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			DBUtil.close(pstmt);
+		}
+
+	}
+
+	public List<NoticeDTO> listNoticeFile(long num) {
+		List<NoticeDTO> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql;
+
+		try {
+			sql = "SELECT fileNum, num, saveFilename, originalFilename FROM noticeFile WHERE num = ?";
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setLong(1, num);
+			
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				NoticeDTO dto = new NoticeDTO();
+
+				dto.setFileNum(rs.getLong("fileNum"));
+				dto.setNum(rs.getLong("num"));
+				dto.setSaveFilename(rs.getString("saveFilename"));
+				dto.setOriginalFilename(rs.getString("originalFilename"));
+				
+				list.add(dto);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBUtil.close(rs);
+			DBUtil.close(pstmt);
+		}
+
+		return list;
+	}
+
+	public NoticeDTO findByFileId(long fileNum) {
+		NoticeDTO dto = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql;
+
+		try {
+			sql = "SELECT fileNum, num, saveFilename, originalFilename FROM noticeFile WHERE fileNum = ?";
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setLong(1, fileNum);
+			
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				dto = new NoticeDTO();
+
+				dto.setFileNum(rs.getLong("fileNum"));
+				dto.setNum(rs.getLong("num"));
+				dto.setSaveFilename(rs.getString("saveFilename"));
+				dto.setOriginalFilename(rs.getString("originalFilename"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBUtil.close(rs);
+			DBUtil.close(pstmt);
+		}
+
+		return dto;
+	}
+
+	public void deleteNoticeFile(String mode, long num) throws SQLException {
+		PreparedStatement pstmt = null;
+		String sql;
+
+		try {
+			if (mode.equals("all")) {
+				sql = "DELETE FROM noticeFile WHERE num = ?";
+			} else {
+				sql = "DELETE FROM noticeFile WHERE fileNum = ?";
+			}
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setLong(1, num);
 
 			pstmt.executeUpdate();
 

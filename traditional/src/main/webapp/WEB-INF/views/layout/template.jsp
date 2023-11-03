@@ -14,30 +14,30 @@
                 <div class="carousel-item active" id="keyimage-rain">
                 	
                     <h2>
-                       샘플1<br>
-                        샘플2
+                       빗소리를 들으며<br>
+                        술 한 잔
                     </h2>
-                    <p>샘플</p>
+                    <p>&nbsp;</p>
                     <img src="${pageContext.request.contextPath}/resource/images/icon/play.png" style="width: 70px;">
                 </div>
             </a>
             <a href="#">
                 <div class="carousel-item" id="keyimage-wind">
                     <h2>
-                        샘플<br>
-                        샘플
+                        술은<br>
+                        하늘의 미덕
                     </h2>
-                    <p>샘플</p>
+                    <p>&nbsp;</p>
                     <img src="${pageContext.request.contextPath}/resource/images/icon/play.png" style="width: 70px;">
                 </div>
             </a>
             <a href="#">
                 <div class="carousel-item" id="keyimage-piano">
                     <h2>
-                       샘플<br>
-                        샘플
+                       피아노는<br>
+                        내가 아니라 술을 마셨다.
                     </h2>
-                    <p>샘플</p>
+                    <p>&nbsp;</p>
                     <img src="${pageContext.request.contextPath}/resource/images/icon/play.png" style="width: 70px;">
                 </div>
             </a>
