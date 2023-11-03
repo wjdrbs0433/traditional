@@ -51,7 +51,7 @@ th, td { padding: 10px; }
 </style>
 
 
-<script src="${pageContext.request.contextPath}/resource	/js/jquery.min.js"></script>
+<script src="${pageContext.request.contextPath}/resource/js/jquery.min.js"></script>
 <script src="${pageContext.request.contextPath}/resource/js/popper.js"></script>
 <script src="${pageContext.request.contextPath}/resource/js/bootstrap.min.js"></script>
 <script src="${pageContext.request.contextPath}/resource/js/custom.js"></script>
@@ -72,17 +72,19 @@ function modal() {
                         <img src="${pageContext.request.contextPath}/resource/images/icon/more.png" name="menu-outline" class="nav__toggle" id="nav-toggle" style="width: 28px;" onclick="langHide()">
                 </div>
                 <div class="nav__list">
-                    <a href="#" class="nav__link active">
-                        <img src="${pageContext.request.contextPath}/resource/images/icon/person.png" style="width: 28px; background-color: #cccccc; border-radius: 50%; padding: 5px;" name="menu1">
-                        	<span class="nav_name">로그인 / 회원가입</span>
-                         </a>
-                    <a href="#" class="nav__link">
+                	<a href="${pageContext.request.contextPath}/admin/main.do" class="nav__link">
                         <img src="${pageContext.request.contextPath}/resource/images/icon/home.png" style="width: 28px;" name="menu2">
                         <span class="nav_name" style="color: #1682b0;">홈</span>
                     </a>
+                    
+                    <a href="${pageContext.request.contextPath}/admin/member/list.do" class="nav__link active">
+                        <img src="${pageContext.request.contextPath}/resource/images/icon/person.png" style="width: 28px; background-color: #cccccc; border-radius: 50%; padding: 5px;" name="menu1">
+                        	<span class="nav_name">회원리스트</span>
+                    </a>
+                    
                     <a href="#" class="nav__link" onmouseover="menu3.src='${pageContext.request.contextPath}/resource/images/icon/messenger_hover.png'" onmouseout="menu3.src='${pageContext.request.contextPath}/resource/images/icon/messenger.png'">
                         <img src="${pageContext.request.contextPath}/resource/images/icon/messenger.png" style="width: 28px;" name="menu3">
-                        <span class="nav_name">커뮤니티</span>
+                        <span class="nav_name">주문관리</span>
                     </a>
                     <a href="#" class="nav__link" onmouseover="menu4.src='${pageContext.request.contextPath}/resource/images/icon/comment01.png'" onmouseout="menu4.src='${pageContext.request.contextPath}/resource/images/icon/comment.png'">
                         <img src="${pageContext.request.contextPath}/resource/images/icon/comment.png" style="width: 28px;" name="menu4">
@@ -98,7 +100,7 @@ function modal() {
     <div class="navbar" style="margin-top: 52px;">
         <form class="row">
         </form>
-        <a class="navbar-brand" href="#" style="position: absolute; left: 45%;">
+        <a class="navbar-brand" href="${pageContext.request.contextPath}/admin/main.do" style="position: absolute; left: 45%;">
            	관리자 페이지
         </a>
         <div class="col-auto">
@@ -134,9 +136,6 @@ function modal() {
     		</tr>
     	</table>
     	
-    	<p>
-    		<a href="${pageContext.request.contextPath}/admin/member/list.do">회원관리</a>
-	</p>
     	
     	<table class="dashbox">
     		<tr>

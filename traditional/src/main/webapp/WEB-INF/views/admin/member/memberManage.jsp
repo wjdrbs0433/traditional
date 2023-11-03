@@ -24,12 +24,17 @@
 <style>
 .mytable {
 	border-bottom: 1px;
-	width:70%;
+	width:100%;
 	border-radius:10px; 
 	border-style: hidden; 
 	box-shadow: 0 0 0 1px #999;
-	
+	margin :30px;
+
 }
+
+.mytable tr td { padding:10px; }
+.mytable tr th { padding:10px; }
+
 .btn {
 	color: #333333;
 	border: 1px solid #999999;
@@ -80,31 +85,6 @@ function deleteMember(mNum){
 	}
 }
 
-/*
-function check() {
-	const f = document.listForm;
-	const inputELS = f.querySelectorAll("input[name=members]");
-	
-	for(let el of inputELS) {
-		el.checked = f.chkAll.checked;
-	}
-}
-
-function deleteList() {
-	const f = document.listForm;
-	let cnt = f.querySelectorAll("input[name=members]:checked").length;
-	
-	if(cnt === 0) {
-		alert("삭제할 회원을 선택하세요 ");
-		return;
-	}
-	
-	if( confirm("선택한 회원을 삭제하시겠습니까 ? ") ) {
-		f.action = "${pageContext.request.contextPath}/admin/member/updateList.do";
-		f.submit();
-	}
-}
-*/
 $(function(){
 	$("#chkAll").click(function(){
 		$("input[name=members]").prop("checked", $(this).is(":checked"));
@@ -159,6 +139,7 @@ $(function(){
         </nav>
     </div>
     
+    
     <div id="wrap" style="padding: 0px 100px;">
     <div class="navbar" style="margin-top: 52px;">
         
@@ -169,7 +150,7 @@ $(function(){
     </div>
     <hr>
     <div id="recommend">
-    <h6 style="margin: 10px;">회원관리 > 전체 회원 리스트</h6>
+    <h6 style="margin: 10px;">회원관리 > 회원 리스트</h6>
     </div>
     
     
@@ -204,7 +185,7 @@ $(function(){
     </div>
     		<form name="listForm" action="${pageContext.request.contextPath}/admin/member/update.do" method="post">
     		
-			<table class="table">
+			<table class="table mytable2">
 				<tr>
 					<td width="50%">
 						${dataCount}개(${page}/${total_page} 페이지)
@@ -213,7 +194,7 @@ $(function(){
 				</tr>
 			</table>
 			
-			<table class="table table-border table-list">
+			<table class="table table-border table-list mytable2" >
 				<thead>
 					<tr>
 						<th>
