@@ -22,7 +22,8 @@
 .box1 { width: 1600px; 
 	display: flex;
 	overflow: auto;
-	justify-content: center;
+	justify-content: center; 
+	
     align-items: center;}
     
 .box2 { width: 1600px;}

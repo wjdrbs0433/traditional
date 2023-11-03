@@ -7,6 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>main page</title>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.4.2/css/all.css">
 <link rel="icon" href="data:;base64,iVBORw0KGgo=">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/bootstrap.min.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/custom.css">
@@ -23,12 +24,17 @@
 <style>
 .mytable {
 	border-bottom: 1px;
-	width:70%;
+	width:100%;
 	border-radius:10px; 
 	border-style: hidden; 
 	box-shadow: 0 0 0 1px #999;
-	
+	margin :30px;
+
 }
+
+.mytable tr td { padding:10px; }
+.mytable tr th { padding:10px; }
+
 .btn {
 	color: #333333;
 	border: 1px solid #999999;
@@ -78,6 +84,28 @@ function deleteMember(mNum){
 		location.href = "${pageContext.request.contextPath}/admin/member/update_ok.do?mNum="+mNum;
 	}
 }
+
+$(function(){
+	$("#chkAll").click(function(){
+		$("input[name=members]").prop("checked", $(this).is(":checked"));
+	});
+	
+	$("#btnDeleteList").click(function(){
+		let cnt = $("input[name=members]:checked").length;
+		if(cnt === 0) {
+			alert("삭제할 회원을 먼저 선택하세요.");
+			return false;
+		}
+		
+		if(confirm("선택한 회원을 삭제 하시겠습니까 ?")) {
+			const f = document.listForm;
+			f.action="${pageContext.request.contextPath}/admin/member/updateList.do";
+			f.submit();
+		}
+	});
+});
+
+
 </script>
 
 </head>
@@ -111,18 +139,18 @@ function deleteMember(mNum){
         </nav>
     </div>
     
+    
     <div id="wrap" style="padding: 0px 100px;">
     <div class="navbar" style="margin-top: 52px;">
         
         <a class="navbar-brand" href="${pageContext.request.contextPath}/admin/member/list.do" style="position: absolute; left: 45%;">
-           	회원 관리
+           	회원 리스트
         </a>
         
     </div>
     <hr>
     <div id="recommend">
-    <h6 style="margin: 10px;">회원관리 > 전체 회원 리스트</h6>
-    <h2 style="margin: 40px;"> 회원 리스트</h2>
+    <h6 style="margin: 10px;">회원관리 > 회원 리스트</h6>
     </div>
     
     
@@ -155,9 +183,9 @@ function deleteMember(mNum){
     	</form>
 		
     </div>
-    		<form name="deleteForm" action="${pageContext.request.contextPath}/admin/member/update.do" method="post">
+    		<form name="listForm" action="${pageContext.request.contextPath}/admin/member/update.do" method="post">
     		
-			<table class="table">
+			<table class="table mytable2">
 				<tr>
 					<td width="50%">
 						${dataCount}개(${page}/${total_page} 페이지)
@@ -166,13 +194,13 @@ function deleteMember(mNum){
 				</tr>
 			</table>
 			
-			<table class="table table-border table-list">
+			<table class="table table-border table-list mytable2" >
 				<thead>
 					<tr>
 						<th>
-							<input type="checkbox" name="chkAll" id="chkAll">        
+							<input type="checkbox" name="chkAll" id="chkAll" onclick="check();">        
 						</th>
-						<th class="num">번호</th>
+						<th>번호</th>
 						<th>아이디</th>
 						<th>이름</th>
 						<th>주민번호</th>
@@ -183,6 +211,7 @@ function deleteMember(mNum){
 						<th>문자수신</th>
 						<th>이메일수신</th>
 						<th>관리자여부</th>
+						<th>회원삭제<th>
 					</tr>
 				</thead>
 				
@@ -191,9 +220,9 @@ function deleteMember(mNum){
 					<c:if test="${dto.deleteOrNot==0}">
 						<tr>
 							<td>
-								<input type="checkbox" name="nums" value="${ dto.mNum }">
+								<input type="checkbox" name="members" value="${ dto.mNum }">
 							</td>
-							<td>${dataCount - (page-1) * size - status.index}</td>
+							<td>${ (page-1) * size + (status.index+1)}</td>
 							<td>${dto.mId}</td>
 							<td>${dto.mName}</td>
 							<td>${dto.mRnum}</td>
@@ -204,14 +233,19 @@ function deleteMember(mNum){
 							<td>${dto.field}</td>
 							<td>${dto.field2}</td>
 							<td>${dto.adminOrNot}</td>
-							<td><button type="button" onclick="deleteMember('${dto.mNum}');">삭제</button></td>
+							<td>
+								<span title="삭제" onclick="deleteMember('${dto.mNum}');"><i class="fa-regular fa-trash-can"></i></span>
+							</td>
+							
 						</tr>
 					</c:if>
 					</c:forEach>
 				</tbody>
 			</table>
 			</form>
-			<button type="button" onclick="">선택삭제</button> 
+			<button type="button" id="btnDeleteList" >선택삭제</button>
+			
+			 
 			<div class="page-navigation">
 				${dataCount == 0 ? "등록된 회원이 없습니다." : paging}
 			</div>
