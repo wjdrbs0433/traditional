@@ -305,7 +305,6 @@ public class MemberDAO {
 			DBUtil.close(rs);
 			DBUtil.close(pstmt);
 		}
-		System.out.println(result);
 		return result;
 	}
 	
@@ -361,7 +360,6 @@ public class MemberDAO {
 			sql = "UPDATE member SET deleteOrNot=1 "
 					+ " WHERE mNum=?";
 			pstmt = conn.prepareStatement(sql);
-			System.out.println(mNum);
 			
 			pstmt.setLong(1, mNum);
 			

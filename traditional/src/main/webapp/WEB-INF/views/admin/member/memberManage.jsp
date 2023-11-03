@@ -7,6 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>main page</title>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.4.2/css/all.css">
 <link rel="icon" href="data:;base64,iVBORw0KGgo=">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/bootstrap.min.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/custom.css">
@@ -229,6 +230,7 @@ $(function(){
 						<th>문자수신</th>
 						<th>이메일수신</th>
 						<th>관리자여부</th>
+						<th>회원삭제<th>
 					</tr>
 				</thead>
 				
@@ -250,7 +252,10 @@ $(function(){
 							<td>${dto.field}</td>
 							<td>${dto.field2}</td>
 							<td>${dto.adminOrNot}</td>
-							<td><button type="button" onclick="deleteMember('${dto.mNum}');">삭제</button></td>
+							<td>
+								<span title="삭제" onclick="deleteMember('${dto.mNum}');"><i class="fa-regular fa-trash-can"></i></span>
+							</td>
+							
 						</tr>
 					</c:if>
 					</c:forEach>

@@ -52,7 +52,6 @@ public class MemberServlet extends MyServlet {
          String agreeSms = req.getParameter("agreeSms");
          String agreeEmail = req.getParameter("agreeEmail");
          
-         System.out.println(agreeSms);
          if (schType == null) {
             schType = "";
             kwd = "";
@@ -161,7 +160,6 @@ public class MemberServlet extends MyServlet {
 		Long mNum = Long.parseLong(req.getParameter("mNum"));
 		
 		try {
-			System.out.println(mNum);
 			dao.updateMember(mNum);
 
 		} catch (Exception e) {
@@ -185,7 +183,7 @@ public class MemberServlet extends MyServlet {
 
 			MemberDAO dao = new MemberDAO();
 
-			// 게시글 삭제
+			// 회원 선택삭제
 			dao.updateMemberList(nums);
 
 		} catch (Exception e) {
