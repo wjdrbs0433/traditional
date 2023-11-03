@@ -23,46 +23,17 @@ public class MemberServlet extends MyServlet {
 
       String uri = req.getRequestURI();
       
-      // 세션 정보
-      /*
-      // LoginFilter에서 처리
-      HttpSession session = req.getSession();
-      SessionInfo info = (SessionInfo) session.getAttribute("member");
-
-      if (info == null) {
-         viewPage(req, resp, "member/login.jsp");
-         return;
-      }
-      */
-
-      // uri에 따른 작업 구분
       if (uri.indexOf("list.do") != -1) {
          list(req, resp);
-      /*} else if (uri.indexOf("write.do") != -1) {
-         writeForm(req, resp);
-      } else if (uri.indexOf("write_ok.do") != -1) {
-         writeSubmit(req, resp);
-      } else if (uri.indexOf("article.do") != -1) {
-         article(req, resp);
-      
-      } else if (uri.indexOf("delete.do") != -1) {
-         delete(req, resp);
-      
-      } else if (uri.indexOf("update.do") != -1) { 
-          updateForm(req, resp);*/
-      } else if (uri.indexOf("updateList.do") != -1) { //일괄삭제
+      } else if (uri.indexOf("updateList.do") != -1) { // 선택삭제
     	  updateListForm(req,resp);
       } else if (uri.indexOf("update_ok.do") != -1) { // 개별삭제
           updateSubmit(req, resp);
       }
    }
-
-   private void updateListForm(HttpServletRequest req, HttpServletResponse resp) {
-	
-   }
-
+   
+   
    protected void list(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-      // 게시물 리스트
       MemberDAO dao = new MemberDAO();
       MyUtil util = new MyUtil();
 
@@ -83,17 +54,14 @@ public class MemberServlet extends MyServlet {
          
          System.out.println(agreeSms);
          if (schType == null) {
-            schType = "all";
+            schType = "";
             kwd = "";
          }
-         
 
-         // GET 방식인 경우 디코딩
          if (req.getMethod().equalsIgnoreCase("GET")) {
             kwd = URLDecoder.decode(kwd, "utf-8");
          }
 
-      // 전체 데이터 개수
 		int dataCount;
 		if (kwd.length() == 0 && agreeSms == null && agreeEmail == null) {
 			// 검색 없고 체크도 없을때 (전체 리스트)
@@ -105,7 +73,8 @@ public class MemberServlet extends MyServlet {
 		} else {
 			// 검색만 있을 때
 			dataCount = dao.dataCount(schType, kwd);
-		} // 검색있고 체크도 있을때는 생략
+		} 
+		// 검색있고 체크도 있을때는 생략
 
          
          // 전체 페이지 수
@@ -124,7 +93,7 @@ public class MemberServlet extends MyServlet {
          if (kwd.length() == 0 && agreeSms == null && agreeEmail == null) {
 			list = dao.listMember(offset, size);
 		 } else if (kwd.length() == 0 && (agreeSms != null || agreeEmail != null)) {
-			list = dao.listMember(offset, size, agreeSms,agreeEmail);
+			list = dao.listMember2(offset, size, agreeSms,agreeEmail);
 		 } else {
 			list = dao.listMember(offset, size, schType, kwd);
 		 }
@@ -132,6 +101,27 @@ public class MemberServlet extends MyServlet {
          String query = "";
          if (kwd.length() != 0) {
             query = "schType=" + schType + "&kwd=" + URLEncoder.encode(kwd, "utf-8");
+         }
+         
+         String q = "";
+         if(agreeSms != null ) {
+        	 q = "agreeSms=Y";
+         }
+         
+         if(agreeEmail != null ) {
+        	 if(q.length() != 0 ) {
+        		 q += "&agreeEmail=Y";
+        	 } else {
+        		 q = "agreeEmail=Y";
+        	 }
+         }
+         
+         if(q.length() != 0 ) {
+        	 if(query.length() != 0) {
+        		 query = query+"&" + q ;
+        	 } else {
+        		 query= q;
+        	 }
          }
 
          // 페이징 처리
@@ -160,36 +150,50 @@ public class MemberServlet extends MyServlet {
       }
 
       // JSP로 포워딩
-      forward(req, resp, "admin/member/memberManage.jsp"); 
+      forward(req, resp, "/WEB-INF/views/admin/member/memberManage.jsp"); 
    }
    
    
-   protected void updateSubmit(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// 수정 완료		
+   protected void updateSubmit(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {	
 		String cp = req.getContextPath();
-		/*
-		if (req.getMethod().equalsIgnoreCase("GET")) {
-			resp.sendRedirect(cp + "/admin/member/list.do");
-			return;
-		}
-		*/
 		MemberDAO dao = new MemberDAO();
 		
 		Long mNum = Long.parseLong(req.getParameter("mNum"));
 		
 		try {
-			
 			System.out.println(mNum);
 			dao.updateMember(mNum);
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 		resp.sendRedirect(cp + "/admin/member/list.do");
 	}
-
-
-
    
+   
+   private void updateListForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	   String cp = req.getContextPath();
+	   
+	   try {
+			
+			String[] members = req.getParameterValues("members");
+			long nums[] = null;
+			nums = new long[members.length];
+			for (int i = 0; i < members.length; i++) {
+				nums[i] = Long.parseLong(members[i]);
+			}
+
+			MemberDAO dao = new MemberDAO();
+
+			// 게시글 삭제
+			dao.updateMemberList(nums);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		resp.sendRedirect(cp + "/admin/member/list.do?");
+	
+   }
+
+ 
 }

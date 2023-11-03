@@ -21,10 +21,10 @@ public class MemberDAO {
 		StringBuilder sb = new StringBuilder();
 
 		try {
-			sb.append(
-					" SELECT mNum,mId,mPwd,mName,mRnum,mTel,mPhone,mEmail,field,field2,adminOrNot,TO_CHAR(mRegDate,'YYYY-MM-DD') mRegDate,deleteOrNot ");
+			sb.append(" SELECT mNum,mId,mPwd,mName,mRnum,mTel,mPhone,mEmail,field,field2,adminOrNot,TO_CHAR(mRegDate,'YYYY-MM-DD') mRegDate,deleteOrNot ");
 			sb.append(" FROM member ");
-			sb.append(" ORDER BY mNum ASC");
+			sb.append(" WHERE deleteOrNot = 0 ");
+			sb.append(" ORDER BY mNum ASC ");
 			sb.append(" OFFSET ? ROWS FETCH FIRST ? ROWS ONLY ");
 
 			pstmt = conn.prepareStatement(sb.toString());
@@ -73,23 +73,23 @@ public class MemberDAO {
 
       try {
 	    	  if(schType.equals("mAge")){ // 연령대구하기. 서브쿼리 사용
-	    		  sb.append(" SELECT mNum,mId,mPwd,mName,mRnum,mTel,mPhone,mEmail,field,field2,adminOrNot, mRegDate FROM ( " );
-	    		  sb.append(" SELECT mNum,mId,mPwd,mName,mTel,mPhone,mEmail,field,field2,adminOrNot,TO_CHAR(mRegDate,'YYYY-MM-DD') mRegDate, mRnum, ");
+	    		  sb.append(" SELECT mNum,mId,mPwd,mName,mRnum,mTel,mPhone,mEmail,field,field2,adminOrNot, mRegDate, deleteOrNot FROM ( " );
+	    		  sb.append(" SELECT mNum,mId,mPwd,mName,mTel,mPhone,mEmail,field,field2,adminOrNot,TO_CHAR(mRegDate,'YYYY-MM-DD') mRegDate, mRnum, deleteOrNot, ");
 	    		  sb.append(" trunc((months_between(sysdate,to_date(substr(mRnum,1,6),'rrmmdd'))/12)/10)*10 as ages ");
 	    		  sb.append(" FROM member ");
-	    		  sb.append(" ) WHERE ages=? ");
+	    		  sb.append(" ) WHERE ages=? AND deleteOrNot=0 ");
 	    		  
 	    	  } else if (schType.equals("mRegDate")) { // 가입일
-	        	  sb.append(" SELECT mNum,mId,mPwd,mName,mRnum,mTel,mPhone,mEmail,field,field2,adminOrNot,TO_CHAR(mRegDate,'YYYY-MM-DD') mRegDate ");
+	        	  sb.append(" SELECT mNum,mId,mPwd,mName,mRnum,mTel,mPhone,mEmail,field,field2,adminOrNot,TO_CHAR(mRegDate,'YYYY-MM-DD') mRegDate, deleteOrNot ");
 	              sb.append(" FROM member ");
 	              kwd = kwd.replaceAll("(\\-|\\/|\\.)", "");
-	              sb.append(" WHERE TO_CHAR(mRegDate, 'YYYYMMDD') = ?");
+	              sb.append(" WHERE TO_CHAR(mRegDate, 'YYYYMMDD') = ? AND deleteOrNot=0 ");
 	              
 	         
 	         } else { // 이름(mName)
-	        	  sb.append(" SELECT mNum,mId,mPwd,mName,mRnum,mTel,mPhone,mEmail,field,field2,adminOrNot,TO_CHAR(mRegDate,'YYYY-MM-DD') mRegDate ");
+	        	  sb.append(" SELECT mNum,mId,mPwd,mName,mRnum,mTel,mPhone,mEmail,field,field2,adminOrNot,TO_CHAR(mRegDate,'YYYY-MM-DD') mRegDate, deleteOrNot ");
 	              sb.append(" FROM member ");
-	              sb.append(" WHERE INSTR(" + schType + ", ?) >= 1 ");
+	              sb.append(" WHERE INSTR(" + schType + ", ?) >= 1 AND deleteOrNot=0 ");
 	         }
 	    	  
 	         sb.append(" ORDER BY mNum ASC ");
@@ -123,6 +123,7 @@ public class MemberDAO {
             dto.setField2(rs.getString("field2"));
             dto.setAdminOrNot(rs.getInt("adminOrNot"));
             dto.setmRegDate(rs.getString("mRegDate"));
+            dto.setDeleteOrNot(rs.getInt("deleteOrNot"));
             
             list.add(dto);
          }
@@ -142,18 +143,20 @@ public class MemberDAO {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		StringBuilder sb = new StringBuilder();
-		String n="N";
 
 
 		try {
 			sb.append(" SELECT mNum,mId,mPwd,mName,mRnum,mTel,mPhone,mEmail,field,field2,adminOrNot,TO_CHAR(mRegDate,'YYYY-MM-DD') mRegDate,deleteOrNot ");
-			sb.append(" FROM member ");
+			sb.append(" FROM member WHERE deleteOrNot = 0 ");
 			
-			if(agreeSms != null && agreeEmail == null ){
-	             sb.append(" WHERE field = 'Y' AND field2 = " + n);
-			} else if(agreeSms == null && agreeEmail != null) {
-	             sb.append(" WHERE field2 = 'Y' AND field = " + n);
-			}  
+			if(agreeSms != null && agreeEmail != null ){
+	             sb.append(" AND field = 'Y' AND field2 = 'Y'");
+			} else if(agreeSms != null) {
+	             //sb.append("  WHERE field = 'Y' AND field2 = 'N'");
+	             sb.append("  AND field = 'Y'");
+			}  else {
+				sb.append("  AND field2 = 'Y'");
+			}
 			
 			sb.append(" ORDER BY mNum ASC");
 			sb.append(" OFFSET ? ROWS FETCH FIRST ? ROWS ONLY ");
@@ -203,7 +206,7 @@ public class MemberDAO {
 		String sql;
 
 		try {
-			sql = "SELECT NVL(COUNT(*), 0) FROM member";
+			sql = "SELECT NVL(COUNT(*), 0) FROM member WHERE deleteOrNot = 0 ";
 			pstmt = conn.prepareStatement(sql);
 
 			rs = pstmt.executeQuery();
@@ -236,17 +239,17 @@ public class MemberDAO {
 			if (schType.equals("mAge")) {
 				schType="ages";
 				sql += " FROM ( "
-						+ " SELECT  mNum,mId,mPwd,mName,mTel,mPhone,mEmail,field,field2,adminOrNot,TO_CHAR(mRegDate,'YYYY-MM-DD') mRegDate, "
+						+ " SELECT  mNum,mId,mPwd,mName,mTel,mPhone,mEmail,field,field2,adminOrNot,TO_CHAR(mRegDate,'YYYY-MM-DD') mRegDate, deleteOrNot "
 						+ " trunc((months_between(sysdate,to_date(substr(mRnum,1,6),'rrmmdd'))/12)/10)*10 as ages "
 						+ " FROM member "
-						+ " ) WHERE INSTR(" + schType + ", ?) >= 1";
+						+ " ) WHERE INSTR(" + schType + ", ?) >= 1 AND deleteOrNot=0 ";
 			} else if (schType.equals("mRegDate")) {
 				sql += " FROM member ";
 				kwd = kwd.replaceAll("(\\-|\\/|\\.)", "");
-				sql += "  WHERE TO_CHAR(mRegDate, 'YYYYMMDD') = ? ";
+				sql += "  WHERE TO_CHAR(mRegDate, 'YYYYMMDD') = ?  AND deleteOrNot=0 ";
 			} else {
 				sql += " FROM member ";
-				sql += "  WHERE INSTR(" + schType + ", ?) >= 1 ";
+				sql += "  WHERE INSTR(" + schType + ", ?) >= 1  AND deleteOrNot=0 ";
 			}
 
 			pstmt = conn.prepareStatement(sql);
@@ -276,17 +279,16 @@ public class MemberDAO {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String sql;
-		String n="N";
 
 		try {
-			sql = "SELECT NVL(COUNT(*), 0) FROM member ";
+			sql = "SELECT NVL(COUNT(*), 0) FROM member WHERE deleteOrNot = 0 ";
 			
-			if (agreeSms.equals("Y") && agreeEmail.equals("Y")) {
-				sql += " WHERE field=" + agreeSms + "AND field2=" + agreeEmail; 			
-			} else if(agreeSms.equals("Y") && ! agreeEmail.equals("Y")) {
-				sql += " WHERE field=" + agreeSms + "AND field2=" + n;
-			} else if(! agreeSms.equals("Y") && agreeEmail.equals("Y")) {
-				sql += " WHERE field=" + n + "AND field2=" + agreeEmail;
+			if (agreeSms != null && agreeEmail != null ) {
+				sql += " AND field = 'Y' AND field2 = 'Y' "; 			
+			} else if(agreeSms!= null) {
+				sql += " AND field = 'Y'";
+			} else {
+				sql += " AND field2 = 'Y'";
 			}
 
 			pstmt = conn.prepareStatement(sql);
@@ -297,18 +299,15 @@ public class MemberDAO {
 				result = rs.getInt(1);
 			}
 			
-			System.out.println(result);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			DBUtil.close(rs);
 			DBUtil.close(pstmt);
 		}
-
+		System.out.println(result);
 		return result;
 	}
-	
-	
 	
 
 	public MemberDTO findById(long num) {
@@ -318,8 +317,8 @@ public class MemberDAO {
 		String sql;
 
 		try {
-			sql = "SELECT mNum,mId,mPwd,mRnum,mName,mTel,mPhone,mEmail,field,field2,adminOrNot,TO_CHAR(mRegDate,'YYYY-MM-DD') mRegDate "
-					+ " FROM member WHERE mNum = ?";
+			sql = "SELECT mNum,mId,mPwd,mRnum,mName,mTel,mPhone,mEmail,field,field2,adminOrNot,TO_CHAR(mRegDate,'YYYY-MM-DD') mRegDate, deleteOrNot "
+					+ " FROM member WHERE deleteOrNot = 0 AND mNum = ?";
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setLong(1, num);
@@ -341,7 +340,7 @@ public class MemberDAO {
 	            dto.setField2(rs.getString("field2"));
 	            dto.setAdminOrNot(rs.getInt("adminOrNot"));
 	            dto.setmRegDate(rs.getString("mRegDate"));
-	           
+	            dto.setDeleteOrNot(rs.getInt("deleteOrNot"));
 			}
 
 		} catch (SQLException e) {
@@ -350,7 +349,6 @@ public class MemberDAO {
 			DBUtil.close(rs);
 			DBUtil.close(pstmt);
 		}
-
 		return dto;
 	}
 	
@@ -368,8 +366,6 @@ public class MemberDAO {
 			pstmt.setLong(1, mNum);
 			
 			pstmt.executeUpdate();
-			
-
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -380,5 +376,31 @@ public class MemberDAO {
 
 	}
 	
+	public void updateMemberList(long[] nums) throws SQLException{
+		PreparedStatement pstmt = null;
+		String sql;
+
+		try {
+			sql = "UPDATE member SET deleteOrNot = 1 WHERE mNum IN (";
+			for (int i = 0; i < nums.length; i++) {
+				sql += "?,";
+			}
+			sql = sql.substring(0, sql.length() - 1) + ")";
+
+			pstmt = conn.prepareStatement(sql);
+			
+			for (int i = 0; i < nums.length; i++) {
+				pstmt.setLong(i + 1, nums[i]);
+			}
+			pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			DBUtil.close(pstmt);
+		}
+
+	}	
 
 }

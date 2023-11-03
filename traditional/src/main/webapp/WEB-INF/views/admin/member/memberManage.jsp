@@ -78,6 +78,53 @@ function deleteMember(mNum){
 		location.href = "${pageContext.request.contextPath}/admin/member/update_ok.do?mNum="+mNum;
 	}
 }
+
+/*
+function check() {
+	const f = document.listForm;
+	const inputELS = f.querySelectorAll("input[name=members]");
+	
+	for(let el of inputELS) {
+		el.checked = f.chkAll.checked;
+	}
+}
+
+function deleteList() {
+	const f = document.listForm;
+	let cnt = f.querySelectorAll("input[name=members]:checked").length;
+	
+	if(cnt === 0) {
+		alert("삭제할 회원을 선택하세요 ");
+		return;
+	}
+	
+	if( confirm("선택한 회원을 삭제하시겠습니까 ? ") ) {
+		f.action = "${pageContext.request.contextPath}/admin/member/updateList.do";
+		f.submit();
+	}
+}
+*/
+$(function(){
+	$("#chkAll").click(function(){
+		$("input[name=members]").prop("checked", $(this).is(":checked"));
+	});
+	
+	$("#btnDeleteList").click(function(){
+		let cnt = $("input[name=members]:checked").length;
+		if(cnt === 0) {
+			alert("삭제할 회원을 먼저 선택하세요.");
+			return false;
+		}
+		
+		if(confirm("선택한 회원을 삭제 하시겠습니까 ?")) {
+			const f = document.listForm;
+			f.action="${pageContext.request.contextPath}/admin/member/updateList.do";
+			f.submit();
+		}
+	});
+});
+
+
 </script>
 
 </head>
@@ -115,14 +162,13 @@ function deleteMember(mNum){
     <div class="navbar" style="margin-top: 52px;">
         
         <a class="navbar-brand" href="${pageContext.request.contextPath}/admin/member/list.do" style="position: absolute; left: 45%;">
-           	회원 관리
+           	회원 리스트
         </a>
         
     </div>
     <hr>
     <div id="recommend">
     <h6 style="margin: 10px;">회원관리 > 전체 회원 리스트</h6>
-    <h2 style="margin: 40px;"> 회원 리스트</h2>
     </div>
     
     
@@ -155,7 +201,7 @@ function deleteMember(mNum){
     	</form>
 		
     </div>
-    		<form name="deleteForm" action="${pageContext.request.contextPath}/admin/member/update.do" method="post">
+    		<form name="listForm" action="${pageContext.request.contextPath}/admin/member/update.do" method="post">
     		
 			<table class="table">
 				<tr>
@@ -170,9 +216,9 @@ function deleteMember(mNum){
 				<thead>
 					<tr>
 						<th>
-							<input type="checkbox" name="chkAll" id="chkAll">        
+							<input type="checkbox" name="chkAll" id="chkAll" onclick="check();">        
 						</th>
-						<th class="num">번호</th>
+						<th>번호</th>
 						<th>아이디</th>
 						<th>이름</th>
 						<th>주민번호</th>
@@ -191,9 +237,9 @@ function deleteMember(mNum){
 					<c:if test="${dto.deleteOrNot==0}">
 						<tr>
 							<td>
-								<input type="checkbox" name="nums" value="${ dto.mNum }">
+								<input type="checkbox" name="members" value="${ dto.mNum }">
 							</td>
-							<td>${dataCount - (page-1) * size - status.index}</td>
+							<td>${ (page-1) * size + (status.index+1)}</td>
 							<td>${dto.mId}</td>
 							<td>${dto.mName}</td>
 							<td>${dto.mRnum}</td>
@@ -211,7 +257,9 @@ function deleteMember(mNum){
 				</tbody>
 			</table>
 			</form>
-			<button type="button" onclick="">선택삭제</button> 
+			<button type="button" id="btnDeleteList" >선택삭제</button>
+			
+			 
 			<div class="page-navigation">
 				${dataCount == 0 ? "등록된 회원이 없습니다." : paging}
 			</div>
