@@ -3,7 +3,7 @@ package com.admin.product;
 import java.sql.Clob;
 
 public class ProductDTO {
-	// 제품 코드는 제품이름 + 양조장홈페이지
+	
 	private String productCode;
 	private String productName;
 	private int productPrice;
@@ -57,12 +57,14 @@ public class ProductDTO {
 	public void setProductStorage(String productStorage) {
 		this.productStorage = productStorage;
 	}
+	
 	public String getBreweryPage() {
 		return breweryPage;
 	}
 	public void setBreweryPage(String breweryPage) {
 		this.breweryPage = breweryPage;
 	}
+	
 	public String getProductCategory() {
 		return productCategory;
 	}

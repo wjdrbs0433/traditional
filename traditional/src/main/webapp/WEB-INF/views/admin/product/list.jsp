@@ -120,7 +120,7 @@ function deleteList() {
     </div>
     
     <div class="search">
-    <form name="searchForm" action="" method="post">
+    <form name="searchForm" action="${pageContext.request.contextPath}/admin/product/list.do" method="post">
     	<table class="searchbox" border="1" style="width: 1000px">
     		<tr>
     			<th>제품명</th>
@@ -208,7 +208,7 @@ function deleteList() {
     
     <div>
 		
-			<form>
+			<form name="listForm">
 			<table class="table table-border table-list">
 				<thead>
 					<tr>
@@ -218,10 +218,7 @@ function deleteList() {
 						<th class="num">번호</th>
 						<th class="code">제품코드</th>
 						<th class="name">제품명</th>
-						<th class="img">사진</th>
 						<th class="price">가격</th>
-						<th class="volume">용량</th>
-						<th class="brewery">양조장</th>
 						<th class="subject">설명</th>
 						<th class="exdate">유통기한</th>
 						<th class="storage">저장방법</th>
@@ -231,7 +228,11 @@ function deleteList() {
 						<th class="taste">맛</th>
 						<th class="recommended">대상</th>
 						<th class="inventory">재고</th>
+						<th class="img">사진</th>
 						<th class="extinctornot">단종여부</th>
+						<th class="oprice">원가</th>						
+						<th class="volume">용량</th>
+						<th class="breweryPage">양조장홈페이지</th>
 						<th class="update">수정</th>
 					</tr>
 				</thead>
@@ -239,14 +240,11 @@ function deleteList() {
 				<tbody>
 					<c:forEach var="dto" items="${list}" varStatus="status">
 						<tr>
-							<td><input type="checkbox" name="check" value=""></td>
+							<td><input type="checkbox" name="check"></td>
 							<td>${dataCount-(page-1)*size - status.index }</td>
 							<td>${dto.productCode}</td>
 							<td>${dto.productName}</td>
-							<td>${dto.image}</td>
 							<td>${dto.productPrice}</td>
-							<td>${dto.volume}</td>
-							<td>${dto.breweryPage}</td>
 							<td>${dto.productSubject}</td>
 							<td>${dto.expirationDate}</td>
 							<td>${dto.productStorage}</td>
@@ -256,9 +254,13 @@ function deleteList() {
 							<td>${dto.productTaste}</td>
 							<td>${dto.productPerson}</td>
 							<td>${dto.inventory}</td>
+							<td>${dto.image}</td>
 							<td>${dto.extinctOrNot}</td>
+							<td>${dto.price}</td>
+							<td>${dto.volume}</td>
+							<td>${dto.breweryPage}</td>
 							<td>
-								<button type="button" class="btn" onclick="location.href='${pageContext.request.contextPath}/admin/product/update.do';">수정</button>
+								<button type="button" class="btn" onclick="location.href='${pageContext.request.contextPath}/admin/product/update.do?productCode=${dto.productCode}&page=${page}';">수정</button>
 							</td>
 							
 							 
