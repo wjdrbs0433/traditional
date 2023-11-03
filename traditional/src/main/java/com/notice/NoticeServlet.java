@@ -1,4 +1,4 @@
-package com.noticeBoard;
+package com.notice;
 
 import java.io.File;
 import java.io.IOException;
@@ -61,10 +61,7 @@ public class NoticeServlet extends MyUploadServlet {
 			updateForm(req, resp);
 		} else if (uri.indexOf("update_ok.do") != -1) {
 			updateSubmit(req, resp);
-			
-		
-		/*
-		else if (uri.indexOf("deleteFile.do") != -1) {
+		} else if (uri.indexOf("deleteFile.do") != -1) {
 			deleteFile(req, resp);
 		} else if (uri.indexOf("delete.do") != -1) {
 			delete(req, resp);
@@ -72,9 +69,9 @@ public class NoticeServlet extends MyUploadServlet {
 			download(req, resp);
 		} else if (uri.indexOf("deleteList.do") != -1) {
 			deleteList(req, resp);
-		 */
 		}
 	}
+
 	protected void list(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// 게시물 리스트
 		NoticeDAO dao = new NoticeDAO();
@@ -125,14 +122,14 @@ public class NoticeServlet extends MyUploadServlet {
 			} else {
 				list = dao.listNotice(offset, size);
 			}
-/*
+
 			// 공지글
 			List<NoticeDTO> listNotice = null;
 			listNotice = dao.listNotice();
 			for (NoticeDTO dto : listNotice) {
 				dto.setReg_date(dto.getReg_date().substring(0, 10));
+				/*
 			}
-
 			long gap;
 			Date curDate = new Date();
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -144,7 +141,9 @@ public class NoticeServlet extends MyUploadServlet {
 				dto.setGap(gap);
 
 				dto.setReg_date(dto.getReg_date().substring(0, 10));
+				*/
 			}
+
 			String query = "";
 			String listUrl;
 			String articleUrl;
@@ -159,14 +158,16 @@ public class NoticeServlet extends MyUploadServlet {
 			}
 
 			String paging = util.paging(current_page, total_page, listUrl);
-*/
+
 			// 포워딩 jsp에 전달할 데이터
 			req.setAttribute("list", list);
-			
+			req.setAttribute("listNotice", listNotice);
+			req.setAttribute("articleUrl", articleUrl);
 			req.setAttribute("dataCount", dataCount);
 			req.setAttribute("size", size);
 			req.setAttribute("page", current_page);
 			req.setAttribute("total_page", total_page);
+			req.setAttribute("paging", paging);
 			req.setAttribute("schType", schType);
 			req.setAttribute("kwd", kwd);
 		} catch (Exception e) {
@@ -187,7 +188,7 @@ public class NoticeServlet extends MyUploadServlet {
 		String size = req.getParameter("size");
 
 		// admin만 글을 등록
-		if (!info.getUserId().equals("admin")) {
+		if (!info.getMid().equals("admin")) {
 			resp.sendRedirect(cp + "/notice/list.do?size=" + size);
 			return;
 		}
@@ -225,8 +226,8 @@ public class NoticeServlet extends MyUploadServlet {
 			if (req.getParameter("notice") != null) {
 				dto.setNotice(Integer.parseInt(req.getParameter("notice")));
 			}
-			dto.setNoticeSubject(req.getParameter("noticesubject"));
-			dto.setNoticeContent(req.getParameter("noticecontent"));
+			dto.setSubject(req.getParameter("subject"));
+			dto.setContent(req.getParameter("content"));
 
 			Map<String, String[]> map = doFileUpload(req.getParts(), pathname);
 			if (map != null) {
@@ -279,13 +280,12 @@ public class NoticeServlet extends MyUploadServlet {
 				return;
 			}
 
-			dto.setNoticeContent(dto.getNoticeContent().replaceAll("\n", "<br>"));
+			dto.setContent(dto.getContent().replaceAll("\n", "<br>"));
 
 			// 이전글/다음글
-			NoticeDTO prevDto = dao.findByPrev(dto.getNoticeBoardnum(), schType, kwd);
-			NoticeDTO nextDto = dao.findByNext(dto.getNoticeBoardnum(), schType, kwd);
+			NoticeDTO prevDto = dao.findByPrev(dto.getNum(), schType, kwd);
+			NoticeDTO nextDto = dao.findByNext(dto.getNum(), schType, kwd);
 
-			/*
 			// 파일
 			List<NoticeDTO> listFile = dao.listNoticeFile(num);
 
@@ -305,7 +305,7 @@ public class NoticeServlet extends MyUploadServlet {
 
 		resp.sendRedirect(cp + "/notice/list.do?" + query);
 	}
-*/
+
 	protected void updateForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// 수정 폼
 		HttpSession session = req.getSession();
@@ -313,7 +313,7 @@ public class NoticeServlet extends MyUploadServlet {
 
 		String cp = req.getContextPath();
 
-		if (!info.getUserId().equals("admin")) {
+		if (!info.getMid().equals("admin")) {
 			resp.sendRedirect(cp + "/notice/list.do");
 			return;
 		}
@@ -331,7 +331,7 @@ public class NoticeServlet extends MyUploadServlet {
 				resp.sendRedirect(cp + "/notice/list.do?page=" + page + "&size=" + size);
 				return;
 			}
-/*
+
 			// 파일
 			List<NoticeDTO> listFile = dao.listNoticeFile(num);
 
@@ -350,7 +350,7 @@ public class NoticeServlet extends MyUploadServlet {
 
 		resp.sendRedirect(cp + "/notice/list.do?page=" + page + "&size=" + size);
 	}
-*/
+
 	protected void updateSubmit(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// 수정 완료
 		HttpSession session = req.getSession();
@@ -363,7 +363,7 @@ public class NoticeServlet extends MyUploadServlet {
 			return;
 		}
 		
-		if (!info.getUserId().equals("admin")) {
+		if (!info.getMid().equals("admin")) {
 			resp.sendRedirect(cp + "/notice/list.do");
 			return;
 		}
@@ -376,12 +376,12 @@ public class NoticeServlet extends MyUploadServlet {
 		try {
 			NoticeDTO dto = new NoticeDTO();
 			
-			dto.setNoticeBoardnum(Long.parseLong(req.getParameter("num")));
+			dto.setNum(Long.parseLong(req.getParameter("num")));
 			if (req.getParameter("notice") != null) {
 				dto.setNotice(Integer.parseInt(req.getParameter("notice")));
 			}
-			dto.setNoticeSubject(req.getParameter("noticesubject"));
-			dto.setNoticeContent(req.getParameter("noticecontent"));
+			dto.setSubject(req.getParameter("subject"));
+			dto.setContent(req.getParameter("content"));
 
 			Map<String, String[]> map = doFileUpload(req.getParts(), pathname);
 			if (map != null) {
@@ -399,7 +399,7 @@ public class NoticeServlet extends MyUploadServlet {
 
 		resp.sendRedirect(cp + "/notice/list.do?page=" + page + "&size=" + size);
 	}
-/*
+
 	protected void deleteFile(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// 수정에서 파일만 삭제
 		HttpSession session = req.getSession();
@@ -407,7 +407,7 @@ public class NoticeServlet extends MyUploadServlet {
 
 		String cp = req.getContextPath();
 
-		if (!info.getUserId().equals("admin")) {
+		if (!info.getMid().equals("admin")) {
 			resp.sendRedirect(cp + "/notice/list.do");
 			return;
 		}
@@ -438,9 +438,7 @@ public class NoticeServlet extends MyUploadServlet {
 
 		resp.sendRedirect(cp + "/notice/list.do?page=" + page + "&size=" + size);
 	}
-		}
-		*/
-/*
+
 	protected void delete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// 삭제
 		HttpSession session = req.getSession();
@@ -448,7 +446,7 @@ public class NoticeServlet extends MyUploadServlet {
 
 		String cp = req.getContextPath();
 
-		if (!info.getUserId().equals("admin")) {
+		if (!info.getMid().equals("admin")) {
 			resp.sendRedirect(cp + "/notice/list.do");
 			return;
 		}
@@ -494,8 +492,8 @@ public class NoticeServlet extends MyUploadServlet {
 		}
 
 		resp.sendRedirect(cp + "/notice/list.do?" + query);
-	}*/
-/*
+	}
+
 	protected void download(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// 파일 다운로드
 		NoticeDAO dao = new NoticeDAO();
@@ -518,15 +516,13 @@ public class NoticeServlet extends MyUploadServlet {
 			out.print("<script>alert('파일다운로드가 실패 했습니다.');history.back();</script>");
 		}
 	}
-		}
-		*/
-/*
+
 	protected void deleteList(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		HttpSession session = req.getSession();
 		SessionInfo info = (SessionInfo) session.getAttribute("member");
 		String cp = req.getContextPath();
 
-		if (!info.getUserId().equals("admin")) {
+		if (!info.getMid().equals("admin")) {
 			resp.sendRedirect(cp + "/notice/list.do");
 			return;
 		}
@@ -572,4 +568,3 @@ public class NoticeServlet extends MyUploadServlet {
 	}
 
 }
-		*/
