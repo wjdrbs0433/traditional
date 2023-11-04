@@ -3,6 +3,7 @@ package com.admin.product;
 import java.io.IOException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -13,7 +14,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.jasper.tagplugins.jstl.core.Catch;
 
+import com.notice.NoticeDTO;
+import com.product.productDTO;
 import com.util.MyServlet;
 import com.util.MyUploadServlet;
 import com.util.MyUtil;
@@ -50,12 +54,12 @@ public class ProductServlet extends MyUploadServlet {
 		} else if (uri.indexOf("update.do") != -1) {
 			updateForm(req,resp); 
 		} else if (uri.indexOf("update_ok.do") != -1) {
-			updateSubmit(req, resp); }
-		/*
+			updateSubmit(req, resp); 
+		
 		} else if (uri.indexOf("delete.do") != -1) {
 			delete(req, resp);
 		}
-		*/
+	
 	}
 	
 	protected void list(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -352,37 +356,35 @@ public class ProductServlet extends MyUploadServlet {
 		
 		resp.sendRedirect(cp + "/admin/product/list.do?page=" + page);
 	}
-	/*
+	
 	protected void delete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// 삭제
-		ProductDAO dao = new ProductDAO();
-
-		String cp = req.getContextPath();
-		
 		String page = req.getParameter("page");
-		String query = "page=" + page;
-
+		String size = req.getParameter("size");
+		String query = "size=" + size + "&page=" + page;
+		
 		try {
-			String productCode = req.getParameter("productCode");
-			
-			String kwd = req.getParameter("kwd");
-			
-			kwd = URLDecoder.decode(kwd, "utf-8");
-
-			if (kwd.length() != 0) {
-				query += "&kwd=" + URLEncoder.encode(kwd, "UTF-8");
+			String[] nn =req.getParameterValues("check");
+			long check[] = null;
+			check = new long[nn.length];
+			for(int i=0; i<nn.length; i++) {
+				check[i] = Long.parseLong(nn[i]);
 			}
-
-			dao.deleteProduct(productCode);
+			
+			ProductDAO dao = new ProductDAO();
+			
+			dao.deleteProduct(check);
 		} catch (Exception e) {
 			e.printStackTrace();
-		}  
-
-		resp.sendRedirect(cp + "/product/list.do?" + query);
-	}
+		}
+		
+		viewPage(req, resp, "redirect:/admin/product/list.do?" + query);
+		
+	} 
+	
 	
 	protected void viewPage(HttpServletRequest req, HttpServletResponse resp, String string) throws ServletException, IOException {
 		
 	}
-	*/
+	
 }

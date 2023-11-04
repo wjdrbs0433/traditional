@@ -10,23 +10,24 @@
 <meta charset="UTF-8">
 <title>admin main page</title>
 <link rel="icon" href="data:;base64,iVBORw0KGgo=">
-<link rel="stylesheet" href="./resource/css/bootstrap.min.css">
-<link rel="stylesheet" href="./resource/css/custom.css">
-<link rel="stylesheet" href="./resource/css/index.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/bootstrap.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/custom.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/index.css">
 
-<script src="./resource	/js/jquery.min.js"></script>
-<script src="./resource/js/popper.js"></script>
-<script src="./resource/js/bootstrap.min.js"></script>
-<script src="./resource/js/custom.js"></script>
+<script src="${pageContext.request.contextPath}/resource/js/jquery.min.js"></script>
+<script src="${pageContext.request.contextPath}/resource/js/popper.js"></script>
+<script src="${pageContext.request.contextPath}/resource/js/bootstrap.min.js"></script>
+<script src="${pageContext.request.contextPath}/resource/js/custom.js"></script>
 
 
 <style>
-body { width: 100%; }
+.searchbox { margin: 5px auto; padding-bottom: 0;
+box-shadow: 0 0 0 1px #999;
+ width: 1100px;
+}
 
-.searchbox { margin: 5px auto; padding-bottom: 0;}
-
-.searchbox th { text-align: right; }
-.searchbox td { text-align: left; }
+.searchbox th { text-align: right;  padding:10px;}
+.searchbox td { text-align: left;  padding:10px; }
 #tbox { width: 200px;  }
 
 .searchbutton { margin: 0 auto; }
@@ -47,12 +48,15 @@ body { width: 100%; }
 
 
 .listbox { 
-border: 1px solid #b4b4b4; table-layout: auto; 
+ table-layout: auto; 
 margin: 20px auto;
 }
-.listbox th { text-align: center; font-size: 15px;}
-.listbox td { font-size: 15px;}
-.listbox thead tr th { white-space: nowrap; }
+.listbox tr { border-bottom:1px solid #b4b4b4; }
+.listbox th { text-align: center; font-size: 15px; margin: 5px; 
+
+}
+.listbox td { font-size: 15px; margin: 5px;}
+.listbox thead tr th { white-space: nowrap;}
 
 header { padding-bottom: 30px; }
 header th { padding: 10px 10px 10px 5px; }
@@ -80,121 +84,48 @@ $(function(){
 	$("#chkAll").click(function(){
 		$("input[name=check]").prop("checked", $(this).is(":checked"));
 	});
-});
-/*
-function check() {
-	const f = document.listForm;
-	const chkEls = document.querySelectorAll('form input[name=check]');
-	/*
-	// checked 속성 : checkbox, radio 버튼의 선택/해제하거나 선택 유무 반환(true/false)
-	for(let el of chkEls) {
-		el.checked = f.chkAll.checked;
-	}
-	
-	chkEls.forEach( el => el.checked = f.chkAll.checked);
-	
-}
-*/
-/*
-$(function(){
-	$("#chkAll").click(function(){
-		$("input[name=check]").prop("checked", $(this).is(":checked"));
-	});
 	
 	$("#btnDeleteList").click(function(){
-		let cnt = $("input[name=members]:checked").length;
+		let cnt = $("input[name=check]:checked").length;
 		if(cnt === 0) {
-			alert("삭제할 회원을 먼저 선택하세요.");
+			alert("삭제할 상품을 먼저 선택하세요.");
 			return false;
 		}
 		
-		if(confirm("선택한 회원을 삭제 하시겠습니까 ?")) {
+		if(confirm("선택한 상품을 삭제 하시겠습니까 ?")) {
 			const f = document.listForm;
-			f.action="${pageContext.request.contextPath}/admin/member/updateList.do";
+			f.action="${pageContext.request.contextPath}/admin/product/delete.do";
 			f.submit();
 		}
 	});
-	
 });
-*/
-
-/*
-function deleteList() {
-	const f = document.listForm
-	const chks = f.querySelectorAll('input[name=check]:checked');
-	
-	if(chks.length === 0) {
-		alert('삭제할 게시글을 먼저 선택하세요...');
-		return;
-	}
-	
-	if(confirm('선택한 게시글을 삭제하시겠습니까 ? ')) {
-		f.action = 'deleteList.jsp';
-		f.submit();
-	}
-}
-*/
 
 </script>
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.4.2/css/all.css">
 </head>
+
 <body id="body-pd">
-    <div class="l-navbar" id="navbar">
-        <nav class="nav">
-            <div>	
-                <div class="nav__brand">
-                        <img src="./resource/images/icon/more.png" name="menu-outline" class="nav__toggle" id="nav-toggle" style="width: 28px;" onclick="langHide()">
-                </div>
-                <div class="nav__list">
-                    <a href="#" class="nav__link active">
-                        <img src="./resource/images/icon/person.png" style="width: 28px; background-color: #cccccc; border-radius: 50%; padding: 5px;" name="menu1">
-                        	<span class="nav_name">로그인 / 회원가입</span>
-                         </a>
-                    <a href="#" class="nav__link">
-                        <img src="./resource/images/icon/home.png" style="width: 28px;" name="menu2">
-                        <span class="nav_name" style="color: #1682b0;">홈</span>
-                    </a>
-                    <a href="#" class="nav__link" onmouseover="menu3.src='./resource/images/icon/messenger_hover.png'" onmouseout="menu3.src='./resource/images/icon/messenger.png'">
-                        <img src="./resource/images/icon/messenger.png" style="width: 28px;" name="menu3">
-                        <span class="nav_name">커뮤니티</span>
-                    </a>
-                    <a href="#" class="nav__link" onmouseover="menu4.src='./resource/images/icon/comment01.png'" onmouseout="menu4.src='./resource/images/icon/comment.png'">
-                        <img src="./resource/images/icon/comment.png" style="width: 28px;" name="menu4">
-                        <span class="nav_name">사용가이드</span>
-                    </a>
-                </div>
-                
-            </div>
-        </nav>
-    </div>
+<jsp:include page="/WEB-INF/views/layout/adminheader.jsp"/>
     
-    <div id="wrap" style="padding: 0px 100px;">
+    <div id="wrap" style="padding: 0px 20px;">
     <div class="navbar" style="margin-top: 52px;">
-        <form class="row">
-        </form>
-        <a class="navbar-brand" href="#" style="position: absolute; left: 45%;">
-           	관리자 페이지
-        </a>
-        <div class="col-auto">
         
-            <a class="btn" id="btn-modal" data-toggle="modal" href="#notificationModal"style="border: 0px; padding: 2px;" onclick="modal();">
-            	<img src="./resource/images/icon/notification.png" width="28">
-            </a>
-            <a href="loginRegister.jsp"><img src="./resource/images/icon/person.png" width="52" style="background-color: #1682b0; border-radius: 40px; padding: 10px;"></a>
-        </div>
+        <a class="navbar-brand" href="${pageContext.request.contextPath}/admin/product/list.do" style="position: absolute; left: 45%;">
+           	상품 리스트
+        </a>
+        
     </div>
-     
     <hr>
     <div id="recommend">
-    <h2 style="margin: 40px;">상품 리스트</h2>
+    <h6 style="margin: 10px;">&nbsp;&nbsp;&nbsp;&nbsp;상품관리 > 상품 리스트</h6>
     </div>
     
     <header>
     <div>
     <div class="search">
     <form name="searchForm" action="${pageContext.request.contextPath}/admin/product/list.do" method="post">
-    	<table class="searchbox" border="1" style="width: 1000px">
+    	<table class="searchbox" >
     		<tr>
     			<th>제품명</th>
     			<td>
@@ -283,8 +214,21 @@ function deleteList() {
     </header>
     
     <main>
+    
     <div>
 			<form name="listForm">
+			<!-- 
+			<table class="table mytable2">
+				<tr>
+					<td width="50%">
+						${dataCount}개(${page}/${total_page} 페이지)
+					</td>
+				</tr>
+			</table>
+			 -->
+			 
+			 <h6>${dataCount}개(${page}/${total_page} 페이지)</h6>
+			 
 			<table class="listbox">
 				<thead>
 					<tr>
@@ -311,8 +255,9 @@ function deleteList() {
 						<th class="breweryPage">양조장홈페이지</th>
 						<th class="update">수정</th>
 					</tr>
+					
 				</thead>
-				
+			
 				<tbody >
 					<c:forEach var="dto" items="${list}" varStatus="status">
 						<tr>
@@ -347,7 +292,7 @@ function deleteList() {
 			</form>
 			
 			<table>
-			<tr align="right">
+			<tr align="right" style="border: 0">
 				<td>
 					<button type="button" class="btns" onclick="location.href='${pageContext.request.contextPath}/admin/product/write.do';">상품등록</button>
 				</td>
@@ -358,7 +303,7 @@ function deleteList() {
 			</tr>
 			</table>
 			
-		<div class="page-navigation">
+		<div class="page-navigation" style="text-align: center">
 			${dataCount == 0 ? "등록된 게시글이 없습니다." : paging }
 		</div>
     </div>

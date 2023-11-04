@@ -23,17 +23,21 @@
 
 <style>
 .mytable {
+/*
 	border-bottom: 1px;
 	width:100%;
 	border-radius:10px; 
 	border-style: hidden; 
 	box-shadow: 0 0 0 1px #999;
 	margin :30px;
-
+*/
+margin: 5px auto; padding-bottom: 0;
+width: 1100px;
+box-shadow: 0 0 0 1px #999;
 }
 
-.mytable tr td { padding:10px; }
-.mytable tr th { padding:10px; }
+.mytable tr td { text-align: left; padding:10px; }
+.mytable tr th {text-align: right; padding:10px; }
 
 .btn {
 	color: #333333;
@@ -70,6 +74,21 @@
     border:1px solid #00a6eb;
     color:#ffffff;
 }
+.table-list {
+table-layout: auto; 
+margin: 0 20px 0 10px auto;
+
+}
+.table-list tr { border-bottom:1px solid #b4b4b4; }
+.table-list th { text-align: center; font-size: 15px; }
+.table-list td {font-size: 15px; }
+.table-list thead tr th { white-space: nowrap; }
+
+header { padding-bottom: 30px; }
+header th { padding: 10px 10px 10px 5px; }
+header td { padding: 10px 0px 10px 20px; }
+
+main th, td{ padding: 10px; }
 
 </style>
 
@@ -112,7 +131,7 @@ $(function(){
 <body id="body-pd">
 <jsp:include page="/WEB-INF/views/layout/adminheader.jsp"/>
 
-    <div id="wrap" style="padding: 0px 100px;">
+    <div id="wrap" style="padding: 0px 50px;">
     <div class="navbar" style="margin-top: 52px;">
         
         <a class="navbar-brand" href="${pageContext.request.contextPath}/admin/member/list.do" style="position: absolute; left: 45%;">
@@ -125,8 +144,8 @@ $(function(){
     <h6 style="margin: 10px;">회원관리 > 회원 리스트</h6>
     </div>
     
-    
     <div class="body-main mx-auto">
+    <header>
     <div>
     	<form name="searchForm" action="${pageContext.request.contextPath}/admin/member/list.do" method="post">
     	<table class="mytable">
@@ -155,9 +174,11 @@ $(function(){
     	</form>
 		
     </div>
+    </header>
+    <main>
     		<form name="listForm" action="${pageContext.request.contextPath}/admin/member/update.do" method="post">
-    		
-			<table class="table mytable2">
+    		<!-- 
+    		<table class="table mytable2">
 				<tr>
 					<td width="50%">
 						${dataCount}개(${page}/${total_page} 페이지)
@@ -165,6 +186,9 @@ $(function(){
 					<td align="right">&nbsp;</td>
 				</tr>
 			</table>
+			 -->
+			 
+			 <h6>${dataCount}개(${page}/${total_page} 페이지)</h6>
 			
 			<table class="table table-border table-list mytable2" >
 				<thead>
@@ -215,10 +239,11 @@ $(function(){
 				</tbody>
 			</table>
 			</form>
+			</main>
 			<button type="button" id="btnDeleteList" >선택삭제</button>
 			
 			 
-			<div class="page-navigation">
+			<div class="page-navigation" style="text-align: center">
 				${dataCount == 0 ? "등록된 회원이 없습니다." : paging}
 			</div>
 				

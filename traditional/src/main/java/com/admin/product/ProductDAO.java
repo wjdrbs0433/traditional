@@ -858,19 +858,25 @@ public class ProductDAO {
 		}
 	}
 	
-	public void deleteProduct(String produtCode) throws SQLException {
+	public void deleteProduct(long[] check) throws SQLException {
 		PreparedStatement pstmt = null;
 		String sql;
 		
 		try {
-			sql  = "DELETE FROM product WHERE productCode = ?";
+			sql  = "DELETE FROM product WHERE productCode IN (";
+			for(int i = 0; i < check.length; i++) {
+				sql += "?,";
+			}
+			sql = sql.substring(0, sql.length() - 1) + ")";
+			
 			pstmt = conn.prepareStatement(sql);
 			
-			pstmt.setString(1, produtCode);
-			
+			for(int i = 0; i < check.length; i++) {
+				pstmt.setLong(i+1, check[i]);
+			}
 			pstmt.executeUpdate();
 					
-		} catch (Exception e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 			throw e;
 		} finally {
