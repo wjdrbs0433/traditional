@@ -18,7 +18,7 @@ import com.util.DBUtil;
 import com.util.MyServlet;
 import com.util.MyUtil;
 
-@WebServlet("/member/mypage.do/orderList/*")
+@WebServlet("/orderList/*")
 public class OrderListServlet extends MyServlet {
 	private static final long serialVersionUID = 1L;
 	
@@ -90,7 +90,7 @@ public class OrderListServlet extends MyServlet {
 			e.printStackTrace();
 		}
 		
-		forward(req,resp, "/mypage_orderList.jsp");
+		forward(req,resp, "/WEB-INF/views/member/mypage_orderList.jsp");
 		
 		
 	}
