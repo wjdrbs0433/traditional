@@ -55,9 +55,8 @@ public class ProductServlet extends MyUploadServlet {
 			updateForm(req,resp); 
 		} else if (uri.indexOf("update_ok.do") != -1) {
 			updateSubmit(req, resp); 
-		
-		} else if (uri.indexOf("delete.do") != -1) {
-			delete(req, resp);
+		} else if (uri.indexOf("updateList.do") != -1) {
+			updateListForm(req, resp);
 		}
 	
 	}
@@ -357,34 +356,28 @@ public class ProductServlet extends MyUploadServlet {
 		resp.sendRedirect(cp + "/admin/product/list.do?page=" + page);
 	}
 	
-	protected void delete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// 삭제
-		String page = req.getParameter("page");
-		String size = req.getParameter("size");
-		String query = "size=" + size + "&page=" + page;
+	protected void updateListForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		String cp = req.getContextPath();
 		
 		try {
-			String[] nn =req.getParameterValues("check");
-			long check[] = null;
-			check = new long[nn.length];
-			for(int i=0; i<nn.length; i++) {
-				check[i] = Long.parseLong(nn[i]);
+			String[] check = req.getParameterValues("check");
+			long nums[] = null;
+			nums = new long[check.length];
+			for(int i=0; i<check.length; i++) {
+				nums[i] = Long.parseLong(check[i]);
 			}
 			
 			ProductDAO dao = new ProductDAO();
 			
-			dao.deleteProduct(check);
+			// 상품 선택 삭제
+			dao.updateProductList(nums);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		viewPage(req, resp, "redirect:/admin/product/list.do?" + query);
-		
-	} 
-	
-	
-	protected void viewPage(HttpServletRequest req, HttpServletResponse resp, String string) throws ServletException, IOException {
-		
+		resp.sendRedirect(cp + "/admin/product/list.do?");
 	}
-	
 }
+	
+	
+

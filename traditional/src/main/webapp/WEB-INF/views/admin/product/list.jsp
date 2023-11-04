@@ -94,7 +94,7 @@ $(function(){
 		
 		if(confirm("선택한 상품을 삭제 하시겠습니까 ?")) {
 			const f = document.listForm;
-			f.action="${pageContext.request.contextPath}/admin/product/delete.do";
+			f.action="${pageContext.request.contextPath}/admin/product/updateList.do";
 			f.submit();
 		}
 	});
@@ -260,6 +260,7 @@ $(function(){
 			
 				<tbody >
 					<c:forEach var="dto" items="${list}" varStatus="status">
+					<c:if test="${dto.extinctOrNot==1 }">
 						<tr>
 							<td>
 								<input type="checkbox" name="check" value="${dto.productCode}">
@@ -286,6 +287,7 @@ $(function(){
 								<button type="button" class="btns" onclick="location.href='${pageContext.request.contextPath}/admin/product/update.do?productCode=${dto.productCode}&page=${page}';">수정</button>
 							</td>
 						</tr>
+					</c:if>
 					</c:forEach>
 				</tbody>
 			</table>

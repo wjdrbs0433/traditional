@@ -807,23 +807,13 @@ public class ProductDAO {
 		PreparedStatement pstmt = null;
 		String sql;
 		
-		// StringBuilder sb = new StringBuilder();
-		
 		try {
 			sql = "UPDATE product SET productName = ?, productPrice = ?, "
 					+ " productSubject = ?, expirationDate = ?, productStorage = ?, productCategory = ?,"
 					+ " hashTag = ?, alcoholPercent = ?, productTaste = ?, productPerson = ?, inventory = ?,"
 					+ " image = ?, extinctOrNot = ?, price = ?, volume = ?, breweryPage = ? "
 					+ "	WHERE productCode = ?";
-			/*
-			sb.append("UPDATE product SET productName = '?', productPrice = '?', ");
-			sb.append(" productSubject = '?', expirationDate = '?', productStorage = '?', productCategory = '?', ");
-			sb.append(" hashTag = '?', alcoholPercent = '?', productTaste = '?', productPerson = '?', inventory = '?', ");
-			sb.append(" image = '?', extinctOrNot = '?', price = '?', volume = '?', breweryPage = '?' ");
-			sb.append(" WHERE productCode = '?'");
-
-			pstmt = conn.prepareStatement(sb.toString());
-			*/
+		
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setString(1, dto.getProductName());
@@ -858,36 +848,32 @@ public class ProductDAO {
 		}
 	}
 	
-	public void deleteProduct(long[] check) throws SQLException {
+	
+	public void updateProductList(long[] nums) throws SQLException {
 		PreparedStatement pstmt = null;
 		String sql;
 		
 		try {
-			sql  = "DELETE FROM product WHERE productCode IN (";
-			for(int i = 0; i < check.length; i++) {
+			sql = "UPDATE product SET extinctOrNot = 0 WHERE productCode IN (";
+			for (int i = 0; i < nums.length; i++) {
 				sql += "?,";
 			}
 			sql = sql.substring(0, sql.length() - 1) + ")";
-			
+
 			pstmt = conn.prepareStatement(sql);
 			
-			for(int i = 0; i < check.length; i++) {
-				pstmt.setLong(i+1, check[i]);
+			for (int i = 0; i < nums.length; i++) {
+				pstmt.setLong(i + 1, nums[i]);
 			}
 			pstmt.executeUpdate();
-					
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw e;
 		} finally {
 			DBUtil.close(pstmt);
 		}
-		
-	}
 
-	
-	
-	
-	
+	}	
 
 }
