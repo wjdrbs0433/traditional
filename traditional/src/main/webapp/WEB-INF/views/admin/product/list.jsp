@@ -13,23 +13,59 @@
 <link rel="stylesheet" href="./resource/css/bootstrap.min.css">
 <link rel="stylesheet" href="./resource/css/custom.css">
 <link rel="stylesheet" href="./resource/css/index.css">
-<style type="text/css">
-.searchbox { margin: 20px auto; }
-
-.searchbutton { margin: 20px auto; }
-
-table th, td { border: 1; padding: 20px }
-
-.searchbox td { text-align: left; padding-left: 20px}
-
-
-</style>
-
 
 <script src="./resource	/js/jquery.min.js"></script>
 <script src="./resource/js/popper.js"></script>
 <script src="./resource/js/bootstrap.min.js"></script>
 <script src="./resource/js/custom.js"></script>
+
+
+<style>
+body { width: 100%; }
+
+.searchbox { margin: 5px auto; padding-bottom: 0;}
+
+.searchbox th { text-align: right; }
+.searchbox td { text-align: left; }
+#tbox { width: 200px;  }
+
+.searchbutton { margin: 0 auto; }
+
+  
+.btns {
+	color: #333333;
+	border: 1px solid #999999 !important; 
+	background-color: #ffffff;
+	padding: 5px 10px;
+	border-radius: 4px;
+	font-weight: 500;
+	cursor:pointer;
+	font-size: 14px;
+	font-family: "맑은 고딕", 나눔고딕, 돋움, sans-serif;
+	vertical-align: baseline;
+}
+
+
+.listbox { 
+border: 1px solid #b4b4b4; table-layout: auto; 
+margin: 20px auto;
+}
+.listbox th { text-align: center; font-size: 15px;}
+.listbox td { font-size: 15px;}
+.listbox thead tr th { white-space: nowrap; }
+
+header { padding-bottom: 30px; }
+header th { padding: 10px 10px 10px 5px; }
+header td { padding: 10px 0px 10px 20px; }
+
+main th, td{ padding: 10px; }
+
+
+
+</style>
+
+
+
 <script type="text/javascript">
 function modal() {
 	alert("공지사항입니다.")
@@ -37,16 +73,13 @@ function modal() {
 
 function searchList() {
 	const f = document.searchForm;
-	
 	f.submit();
 }
 
-$("#chkAll").click(function(){
-	if($("input:checked[id='chkAll']").prop("checked")) {
-		$("input[name=check]").prop("checked", true);
-	} else {
-		$("input[name=check]").prop("checked", false);
-	}
+$(function(){
+	$("#chkAll").click(function(){
+		$("input[name=check]").prop("checked", $(this).is(":checked"));
+	});
 });
 /*
 function check() {
@@ -144,6 +177,7 @@ function deleteList() {
            	관리자 페이지
         </a>
         <div class="col-auto">
+        
             <a class="btn" id="btn-modal" data-toggle="modal" href="#notificationModal"style="border: 0px; padding: 2px;" onclick="modal();">
             	<img src="./resource/images/icon/notification.png" width="28">
             </a>
@@ -153,33 +187,35 @@ function deleteList() {
      
     <hr>
     <div id="recommend">
-    <h2 style="margin: 40px;">상품관리</h2>
+    <h2 style="margin: 40px;">상품 리스트</h2>
     </div>
     
+    <header>
+    <div>
     <div class="search">
     <form name="searchForm" action="${pageContext.request.contextPath}/admin/product/list.do" method="post">
     	<table class="searchbox" border="1" style="width: 1000px">
     		<tr>
     			<th>제품명</th>
     			<td>
-    				<input type="text" name="productName"value="${productNameKwd}" class="form-control">
+    				<input type="text" name="productName"value="${productNameKwd}" id="tbox" class="form-control">
     			</td>
     		</tr>
     		<tr>
     			<th>가격</th>
     			<td>
-    				<input type="checkbox" name="price" value="p1">1만원 미만&nbsp;
-    				<input type="checkbox" name="price" value="p2">1만원 이상 ~ 3만원 미만&nbsp;
-    				<input type="checkbox" name="price" value="p3">3만원 이상 ~ 5만원 미만&nbsp;
-    				<input type="checkbox" name="price" value="p4">5만원 이상&nbsp;
+    				<input type="checkbox" name="price" value="p1">&nbsp;1만원 미만&nbsp;&nbsp;
+    				<input type="checkbox" name="price" value="p2">&nbsp;1만원 이상 ~ 3만원 미만&nbsp;&nbsp;
+    				<input type="checkbox" name="price" value="p3">&nbsp;3만원 이상 ~ 5만원 미만&nbsp;&nbsp;
+    				<input type="checkbox" name="price" value="p4">&nbsp;5만원 이상&nbsp;&nbsp;
     			</td>
     		</tr>
     		<tr>
     			<th>용량</th>
     			<td>
-    				<input type="checkbox" name="volume" value="b1">200ml 미만&nbsp;
-    				<input type="checkbox" name="volume" value="b2">200ml 이상 ~ 500ml 미만&nbsp;
-    				<input type="checkbox" name="volume" value="b3">500ml 이상&nbsp;
+    				<input type="checkbox" name="volume" value="b1">&nbsp;200ml 미만&nbsp;&nbsp;
+    				<input type="checkbox" name="volume" value="b2">&nbsp;200ml 이상 ~ 500ml 미만&nbsp;&nbsp;
+    				<input type="checkbox" name="volume" value="b3">&nbsp;500ml 이상&nbsp;&nbsp;
     			</td>
     		</tr>
     		<tr>
@@ -192,28 +228,28 @@ function deleteList() {
     		<tr>
     			<th>주종</th>
     			<td>
-    				<input type="checkbox" name="category" value="탁주">탁주&nbsp;
-    				<input type="checkbox" name="category" value="약,청주">약,청주&nbsp;
-    				<input type="checkbox" name="category" value="과실주">과실주&nbsp;
-    				<input type="checkbox" name="category" value="증류주">증류주&nbsp;
-    				<input type="checkbox" name="category" value="기타주류">기타주류&nbsp;
+    				<input type="checkbox" name="category" value="탁주">&nbsp;탁주&nbsp;&nbsp;
+    				<input type="checkbox" name="category" value="약,청주">&nbsp;약,청주&nbsp;&nbsp;
+    				<input type="checkbox" name="category" value="과실주">&nbsp;과실주&nbsp;&nbsp;
+    				<input type="checkbox" name="category" value="증류주">&nbsp;증류주&nbsp;&nbsp;
+    				<input type="checkbox" name="category" value="기타주류">&nbsp;기타주류&nbsp;&nbsp;
     			</td>
     		</tr>
     		<tr>
     			<th>도수</th>
     			<td>
-    				<input type="checkbox" name="alcohol" value="alcohol1">10도 미만&nbsp;
-    				<input type="checkbox" name="alcohol" value="alcohol2">10도 이상 ~ 30도 미만&nbsp;
-    				<input type="checkbox" name="alcohol" value="alcohol3">30도 이상&nbsp;
+    				<input type="checkbox" name="alcohol" value="alcohol1">&nbsp;10도 미만&nbsp;&nbsp;
+    				<input type="checkbox" name="alcohol" value="alcohol2">&nbsp;10도 이상 ~ 30도 미만&nbsp;&nbsp;
+    				<input type="checkbox" name="alcohol" value="alcohol3">&nbsp;30도 이상&nbsp;&nbsp;
     			</td>
     		</tr>
     		<tr>
     			<th>맛</th>
     			<td>
-    				<input type="checkbox" name="taste" value="단맛">단맛&nbsp;
-    				<input type="checkbox" name="taste" value="신맛">신맛&nbsp;
-    				<input type="checkbox" name="taste" value="쓴맛">쓴맛&nbsp;
-    				<input type="checkbox" name="taste" value="탄산">탄산&nbsp;
+    				<input type="checkbox" name="taste" value="단맛">&nbsp;단맛&nbsp;&nbsp;
+    				<input type="checkbox" name="taste" value="신맛">&nbsp;신맛&nbsp;&nbsp;
+    				<input type="checkbox" name="taste" value="쓴맛">&nbsp;쓴맛&nbsp;&nbsp;
+    				<input type="checkbox" name="taste" value="탄산">&nbsp;탄산&nbsp;&nbsp;
     			</td>
     		</tr>
     		<!-- 
@@ -230,27 +266,30 @@ function deleteList() {
     		 -->
     	</table>
     	</form>
-    	
+    	</div>
+    	<div>
     	<table class="searchbutton">
 			<tr align="center">
 				<td  width="100">
-					<button type="button" class="btn" onclick="searchList();">검색</button>
+					<button type="button" class="btns" onclick="searchList();">검색</button>
 				</td>
 				<td width="100">
-					<button type="button" class="btn" onclick="location.href='${pageContext.request.contextPath}/admin/product/list.do';">초기화</button>
+					<button type="button" class="btns" onclick="location.href='${pageContext.request.contextPath}/admin/product/list.do';">초기화</button>
 				</td>
 			</tr>    		
     	</table>
     </div>
+    </div>
+    </header>
     
+    <main>
     <div>
-		
 			<form name="listForm">
-			<table class="table table-border table-list" border=1>
+			<table class="listbox">
 				<thead>
 					<tr>
-						<th class="chk">
-							<input type="checkbox" name="chkAll" id="chkAll" >        
+						<th>
+							<input type="checkbox" name="chkAll" id="chkAll" onclick="check();" >        
 						</th>
 						<th class="num">번호</th>
 						<th class="code">제품코드</th>
@@ -274,10 +313,12 @@ function deleteList() {
 					</tr>
 				</thead>
 				
-				<tbody>
+				<tbody >
 					<c:forEach var="dto" items="${list}" varStatus="status">
 						<tr>
-							<td><input type="checkbox" name="check" value="${dto.productCode}" onclick="check();"></td>
+							<td>
+								<input type="checkbox" name="check" value="${dto.productCode}">
+							</td>
 							<td>${dataCount-(page-1)*size - status.index }</td>
 							<td>${dto.productCode}</td>
 							<td>${dto.productName}</td>
@@ -297,16 +338,8 @@ function deleteList() {
 							<td>${dto.volume}</td>
 							<td>${dto.breweryPage}</td>
 							<td>
-								<button type="button" class="btn" onclick="location.href='${pageContext.request.contextPath}/admin/product/update.do?productCode=${dto.productCode}&page=${page}';">수정</button>
+								<button type="button" class="btns" onclick="location.href='${pageContext.request.contextPath}/admin/product/update.do?productCode=${dto.productCode}&page=${page}';">수정</button>
 							</td>
-							
-							 
-							<%-- <td class="left">
-								<c:forEach var="n" begin="1" end="${dto.depth }">&nbsp;&nbsp;</c:forEach>
-								<c:if test="${dto.depth!=0}">└&nbsp;</c:if>
-								<a href="${articleUrl}&boardNum=${dto.boardNum}">${dto.subject}</a>
-							</td> --%>
-							 
 						</tr>
 					</c:forEach>
 				</tbody>
@@ -316,11 +349,11 @@ function deleteList() {
 			<table>
 			<tr align="right">
 				<td>
-					<button type="button" class="btn" onclick="location.href='${pageContext.request.contextPath}/admin/product/write.do';">상품등록</button>
+					<button type="button" class="btns" onclick="location.href='${pageContext.request.contextPath}/admin/product/write.do';">상품등록</button>
 				</td>
 				
 				<td>
-					<button type="button" class="btn" onclick="deleteList()">상품삭제</button>
+					<button type="button" class="btns" id="btnDeleteList">상품삭제</button>
 				</td>
 			</tr>
 			</table>
@@ -329,6 +362,8 @@ function deleteList() {
 			${dataCount == 0 ? "등록된 게시글이 없습니다." : paging }
 		</div>
     </div>
+    </main>
+    
     </div>
     
 
