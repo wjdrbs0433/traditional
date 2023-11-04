@@ -1,6 +1,7 @@
 package com.admin.product;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -387,7 +388,7 @@ public class ProductDAO {
 		
 		try {
 			sb.append("SELECT productCode, productName, productPrice, "); 
-			sb.append(" productSubject, expirationDate, productStorage, productCategory, ");
+			sb.append(" productSubject, TO_CHAR(expirationDate,'YYYY-MM-DD') expirationDate, productStorage, productCategory, ");
 			sb.append(" hashTag, alcoholPercent, productTaste, productPerson, inventory, ");
 			sb.append(" image, extinctOrNot, price, volume, breweryPage ");
 			sb.append(" FROM product ");
@@ -759,7 +760,7 @@ public class ProductDAO {
 		String sql;
 		
 		try {
-			sql = "SELECT productCode, productName, productPrice, productSubject, expirationDate, "
+			sql = "SELECT productCode, productName, productPrice, productSubject, TO_CHAR(expirationDate,'YYYY-MM-DD') expirationDate, "
 					+ "	productStorage, productCategory,"
 					+ "	hashTag, alcoholPercent, productTaste, productPerson, inventory,"
 					+ " image, extinctOrNot, price, volume, breweryPage "
@@ -772,6 +773,8 @@ public class ProductDAO {
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
 				dto = new ProductDTO();
+				
+				dto.setProductCode(rs.getString("productCode"));
 				
 				dto.setProductName(rs.getString("productName"));
 				dto.setProductPrice(rs.getInt("productPrice"));
@@ -803,7 +806,7 @@ public class ProductDAO {
 	public void updateProduct(ProductDTO dto) throws SQLException {
 		PreparedStatement pstmt = null;
 		String sql;
-
+		
 		// StringBuilder sb = new StringBuilder();
 		
 		try {
@@ -826,7 +829,10 @@ public class ProductDAO {
 			pstmt.setString(1, dto.getProductName());
 			pstmt.setInt(2, dto.getProductPrice());
 			pstmt.setString(3, dto.getProductSubject());
-			pstmt.setString(4, dto.getExpirationDate());
+			
+			Date expire = Date.valueOf(dto.getExpirationDate());
+			pstmt.setDate(4, expire);
+			
 			pstmt.setString(5, dto.getProductStorage());
 			pstmt.setString(6, dto.getProductCategory());
 			pstmt.setString(7, dto.getHashTag());

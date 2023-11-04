@@ -286,7 +286,6 @@ public class ProductServlet extends MyUploadServlet {
 		String cp = req.getContextPath();
 
 		String page = req.getParameter("page");
-		
 
 		try {
 			String productCode = req.getParameter("productCode");
@@ -301,6 +300,7 @@ public class ProductServlet extends MyUploadServlet {
 			
 			req.setAttribute("page", page);
 			req.setAttribute("mode", "update");
+			req.setAttribute("productCode", productCode);
 
 			forward(req, resp, "/WEB-INF/views/admin/product/write.jsp");
 			return;
@@ -320,6 +320,8 @@ public class ProductServlet extends MyUploadServlet {
 		
 
 		String page = req.getParameter("page");
+		
+		
 		
 		try {
 			ProductDTO dto = new ProductDTO();
