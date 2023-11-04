@@ -18,7 +18,7 @@
 
 .searchbutton { margin: 20px auto; }
 
-table th { border-right: 1; padding: 20px }
+table th, td { border: 1; padding: 20px }
 
 .searchbox td { text-align: left; padding-left: 20px}
 
@@ -30,7 +30,6 @@ table th { border-right: 1; padding: 20px }
 <script src="./resource/js/popper.js"></script>
 <script src="./resource/js/bootstrap.min.js"></script>
 <script src="./resource/js/custom.js"></script>
-
 <script type="text/javascript">
 function modal() {
 	alert("공지사항입니다.")
@@ -42,14 +41,51 @@ function searchList() {
 	f.submit();
 }
 
+$("#chkAll").click(function(){
+	if($("input:checked[id='chkAll']").prop("checked")) {
+		$("input[name=check]").prop("checked", true);
+	} else {
+		$("input[name=check]").prop("checked", false);
+	}
+});
+/*
 function check() {
-	const f = document.listForm
-	const chks = f.querySelectorAll('input[name=check]');
+	const f = document.listForm;
+	const chkEls = document.querySelectorAll('form input[name=check]');
+	/*
+	// checked 속성 : checkbox, radio 버튼의 선택/해제하거나 선택 유무 반환(true/false)
+	for(let el of chkEls) {
+		el.checked = f.chkAll.checked;
+	}
 	
-	chks.forEach(inputEL => 
-	inputEL.checked = f.chkAll.checked);
+	chkEls.forEach( el => el.checked = f.chkAll.checked);
+	
 }
+*/
+/*
+$(function(){
+	$("#chkAll").click(function(){
+		$("input[name=check]").prop("checked", $(this).is(":checked"));
+	});
+	
+	$("#btnDeleteList").click(function(){
+		let cnt = $("input[name=members]:checked").length;
+		if(cnt === 0) {
+			alert("삭제할 회원을 먼저 선택하세요.");
+			return false;
+		}
+		
+		if(confirm("선택한 회원을 삭제 하시겠습니까 ?")) {
+			const f = document.listForm;
+			f.action="${pageContext.request.contextPath}/admin/member/updateList.do";
+			f.submit();
+		}
+	});
+	
+});
+*/
 
+/*
 function deleteList() {
 	const f = document.listForm
 	const chks = f.querySelectorAll('input[name=check]:checked');
@@ -64,9 +100,10 @@ function deleteList() {
 		f.submit();
 	}
 }
-
+*/
 
 </script>
+
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.4.2/css/all.css">
 </head>
 <body id="body-pd">
@@ -209,11 +246,11 @@ function deleteList() {
     <div>
 		
 			<form name="listForm">
-			<table class="table table-border table-list">
+			<table class="table table-border table-list" border=1>
 				<thead>
 					<tr>
 						<th class="chk">
-							<input type="checkbox" name="chkAll" id="chkAll" onclick="check();">        
+							<input type="checkbox" name="chkAll" id="chkAll" >        
 						</th>
 						<th class="num">번호</th>
 						<th class="code">제품코드</th>
@@ -240,7 +277,7 @@ function deleteList() {
 				<tbody>
 					<c:forEach var="dto" items="${list}" varStatus="status">
 						<tr>
-							<td><input type="checkbox" name="check"></td>
+							<td><input type="checkbox" name="check" value="${dto.productCode}" onclick="check();"></td>
 							<td>${dataCount-(page-1)*size - status.index }</td>
 							<td>${dto.productCode}</td>
 							<td>${dto.productName}</td>
@@ -293,3 +330,10 @@ function deleteList() {
 		</div>
     </div>
     </div>
+    
+
+
+
+</body>
+
+</html>

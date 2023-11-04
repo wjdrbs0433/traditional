@@ -1,6 +1,7 @@
 package com.admin.product;
 
 import java.io.IOException;
+import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -48,9 +49,9 @@ public class ProductServlet extends MyUploadServlet {
 			writeSubmit(req,resp); 
 		} else if (uri.indexOf("update.do") != -1) {
 			updateForm(req,resp); 
-		
 		} else if (uri.indexOf("update_ok.do") != -1) {
-			updateSubmit(req, resp);} /*
+			updateSubmit(req, resp); }
+		/*
 		} else if (uri.indexOf("delete.do") != -1) {
 			delete(req, resp);
 		}
@@ -176,9 +177,6 @@ public class ProductServlet extends MyUploadServlet {
 				query = "productNameKwd=" + URLEncoder.encode(productNameKwd, "utf-8");
 			}
 			
-			if (productNameKwd.length() != 0) {
-				query = "productNameKwd=" + URLEncoder.encode(productNameKwd, "utf-8");
-			}
 			*/
 			
 			// 페이징 처리
@@ -200,8 +198,6 @@ public class ProductServlet extends MyUploadServlet {
 			req.setAttribute("size", size);
 			req.setAttribute("articleUrl", articleUrl);
 			req.setAttribute("paging", paging);
-			// req.setAttribute("schType", schType);
-			// req.setAttribute("kwd", kwd);
 			req.setAttribute("productNameKwd", productNameKwd);
 			req.setAttribute("productPriceKwd", productPriceKwd);
 			req.setAttribute("volumeKwd", volumeKwd);
@@ -255,7 +251,6 @@ public class ProductServlet extends MyUploadServlet {
 			
 			if(req.getParameter("alcoholPercent") != null) {
 			dto.setAlcoholPercent(Double.parseDouble(req.getParameter("alcoholPercent")));
-			
 			}
 			
 			dto.setProductTaste(req.getParameter("productTaste"));
@@ -285,24 +280,23 @@ public class ProductServlet extends MyUploadServlet {
 	}
 	
 	protected void updateForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// 수정 폼 // article을 보지않고 수정하는 방법
+		// 수정 폼 
 		 ProductDAO dao = new ProductDAO();
 
 		String cp = req.getContextPath();
 
 		String page = req.getParameter("page");
 		
-		
 
 		try {
 			String productCode = req.getParameter("productCode");
 			ProductDTO dto = dao.findById(productCode);
-/*
+
 			if (dto == null) {
 				resp.sendRedirect(cp + "/admin/product/list.do?page=" + page);
 				return;
 			}
-			*/
+			
 			req.setAttribute("dto", dto);
 			
 			req.setAttribute("page", page);
@@ -326,11 +320,10 @@ public class ProductServlet extends MyUploadServlet {
 		
 
 		String page = req.getParameter("page");
+		
 		try {
 			ProductDTO dto = new ProductDTO();
 			
-			
-			dto.setProductCode(req.getParameter("productCode"));
 			dto.setProductName(req.getParameter("productName"));
 			dto.setProductPrice(Integer.parseInt(req.getParameter("productPrice")));
 			dto.setProductSubject(req.getParameter("productSubject"));
@@ -347,12 +340,14 @@ public class ProductServlet extends MyUploadServlet {
 			dto.setPrice(Integer.parseInt(req.getParameter("price")));
 			dto.setVolume(Integer.parseInt(req.getParameter("volume")));
 			dto.setBreweryPage(req.getParameter("breweryPage"));
+			dto.setProductCode(req.getParameter("productCode"));
 			
 			dao.updateProduct(dto);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
+		
 		resp.sendRedirect(cp + "/admin/product/list.do?page=" + page);
 	}
 	/*
@@ -367,16 +362,13 @@ public class ProductServlet extends MyUploadServlet {
 
 		try {
 			String productCode = req.getParameter("productCode");
-			String schType = req.getParameter("schType");
+			
 			String kwd = req.getParameter("kwd");
-			if (schType == null) {
-				schType = "all";
-				kwd = "";
-			}
+			
 			kwd = URLDecoder.decode(kwd, "utf-8");
 
 			if (kwd.length() != 0) {
-				query += "&schType=" + schType + "&kwd=" + URLEncoder.encode(kwd, "UTF-8");
+				query += "&kwd=" + URLEncoder.encode(kwd, "UTF-8");
 			}
 
 			dao.deleteProduct(productCode);
@@ -386,8 +378,9 @@ public class ProductServlet extends MyUploadServlet {
 
 		resp.sendRedirect(cp + "/product/list.do?" + query);
 	}
-	*/
+	
 	protected void viewPage(HttpServletRequest req, HttpServletResponse resp, String string) throws ServletException, IOException {
 		
 	}
+	*/
 }

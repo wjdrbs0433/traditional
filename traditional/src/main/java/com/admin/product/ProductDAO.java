@@ -802,16 +802,26 @@ public class ProductDAO {
 	
 	public void updateProduct(ProductDTO dto) throws SQLException {
 		PreparedStatement pstmt = null;
-		StringBuilder sb = new StringBuilder();
+		String sql;
+
+		// StringBuilder sb = new StringBuilder();
 		
 		try {
-			sb.append("UPDATE product SET productName = ?, productPrice = ?, ");
-			sb.append(" productSubject = ?, expirationDate = ?, productStorage = ?, productCategory = ?, ");
-			sb.append(" hashTag = ?, alcoholPercent = ?, productTaste = ?, productPerson = ?, inventory = ?, ");
-			sb.append(" image = ?, extinctOrNot = ?, price = ?, volume = ?, breweryPage = ? ");
-			sb.append(" WHERE productCode = ?");
+			sql = "UPDATE product SET productName = ?, productPrice = ?, "
+					+ " productSubject = ?, expirationDate = ?, productStorage = ?, productCategory = ?,"
+					+ " hashTag = ?, alcoholPercent = ?, productTaste = ?, productPerson = ?, inventory = ?,"
+					+ " image = ?, extinctOrNot = ?, price = ?, volume = ?, breweryPage = ? "
+					+ "	WHERE productCode = ?";
+			/*
+			sb.append("UPDATE product SET productName = '?', productPrice = '?', ");
+			sb.append(" productSubject = '?', expirationDate = '?', productStorage = '?', productCategory = '?', ");
+			sb.append(" hashTag = '?', alcoholPercent = '?', productTaste = '?', productPerson = '?', inventory = '?', ");
+			sb.append(" image = '?', extinctOrNot = '?', price = '?', volume = '?', breweryPage = '?' ");
+			sb.append(" WHERE productCode = '?'");
 
 			pstmt = conn.prepareStatement(sb.toString());
+			*/
+			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setString(1, dto.getProductName());
 			pstmt.setInt(2, dto.getProductPrice());
@@ -863,6 +873,7 @@ public class ProductDAO {
 		
 	}
 
+	
 	
 	
 	
