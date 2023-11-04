@@ -582,7 +582,10 @@ public class OrderDAO {
 										pstmt.setInt(5, offset);
 										pstmt.setInt(6, size);
 									// 없을 때
-									} 
+									} else {
+										pstmt.setInt(4, offset);
+										pstmt.setInt(5, size);
+									}
 									
 								// 끝 날짜만 있을 때
 								} else if (!(orderDateStart.isEmpty()) || !(orderDateEnd.isEmpty()) ) {
@@ -594,7 +597,10 @@ public class OrderDAO {
 										pstmt.setInt(5, offset);
 										pstmt.setInt(6, size);
 									// 없을 때
-									} 
+									} else {
+										pstmt.setInt(4, offset);
+										pstmt.setInt(5, size);
+									}
 									
 								// 둘다 있을 때
 								} else if ( !(orderDateStart.isEmpty()) || !(orderDateEnd.isEmpty())) {
@@ -603,7 +609,12 @@ public class OrderDAO {
 									// 주문 상태 있을 때
 									if( !(orderStatus.isEmpty()) ) {
 										pstmt.setString(4, orderStatus);
+										pstmt.setInt(5, offset);
+										pstmt.setInt(6, size);
 									// 없을 때
+									} else {
+										pstmt.setInt(4, offset);
+										pstmt.setInt(5, size);
 									}
 								}
 									
@@ -611,12 +622,17 @@ public class OrderDAO {
 							} else {
 								if( !(orderStatus.isEmpty()) ) {
 									pstmt.setString(2, orderStatus);
-								} 
+									pstmt.setInt(3, offset);
+									pstmt.setInt(4, size);
+								} else {
+									pstmt.setInt(2, offset);
+									pstmt.setInt(3, size);
+								}
 							
 							}
 						// 주문 코드가 없을 때
 						} else {
-							
+
 							if( !(orderDateStart.isEmpty()) || !(orderDateEnd.isEmpty()) ) {                                                                                                                                                                                                                                                                                                                      
 								// 시작 날짜만 있을 때
 								if( !(orderDateStart.isEmpty()) && (orderDateEnd.isEmpty()) ) {
@@ -625,46 +641,158 @@ public class OrderDAO {
 									// 주문 상태 있을 때
 									if( !(orderStatus.isEmpty()) ) {
 										pstmt.setString(3, orderStatus);
-									// 없을 때
-									} 
-									
-								// 끝 날짜만 있을 때
+										pstmt.setInt(4, offset);
+										pstmt.setInt(5, size);
+										// 주문상태 없을 때
+									} else {
+										pstmt.setInt(3, offset);
+										pstmt.setInt(4, size);
+									}
+
+									// 끝 날짜만 있을 때
 								} else if (!(orderDateStart.isEmpty()) || !(orderDateEnd.isEmpty()) ) {
 									pstmt.setString(1, "1111-11-11");
 									pstmt.setString(2, orderDateEnd);
 									// 주문 상태 있을 때
 									if( !(orderStatus.isEmpty()) ) {
 										pstmt.setString(3, orderStatus);
-									// 없을 때
-									} 
-									
-								// 둘다 있을 때
+										pstmt.setInt(4, offset);
+										pstmt.setInt(5, size);
+										// 없을 때
+									} else {
+										pstmt.setInt(3, offset);
+										pstmt.setInt(4, size);
+									}
+
+									// 둘다 있을 때
 								} else if ( !(orderDateStart.isEmpty()) || !(orderDateEnd.isEmpty())) {
 									pstmt.setString(1, orderDateStart);
 									pstmt.setString(2, orderDateEnd);
 									// 주문 상태 있을 때
 									if( !(orderStatus.isEmpty()) ) {
 										pstmt.setString(3, orderStatus);
-									// 없을 때
+										pstmt.setInt(4, offset);
+										pstmt.setInt(5, size);
+										// 없을 때
+									} else {
+										pstmt.setInt(3, offset);
+										pstmt.setInt(4, size);
 									}
 								}
-									
-							// 주문 날짜가 없을 때	
+
+								// 주문 날짜가 없을 때	
 							} else {
 								if( !(orderStatus.isEmpty()) ) {
 									pstmt.setString(1, orderStatus);
-								} 
-							
+									pstmt.setInt(2, offset);
+									pstmt.setInt(3, size);
+								} else {
+									pstmt.setInt(1, offset);
+									pstmt.setInt(2, size);
+								}
+
 							}
 						}
-			
-			
-		} catch (Exception e) {
-			// TODO: handle exception
+
+						rs = pstmt.executeQuery();
+						
+						while( rs.next() ) {
+							OrderDTO dto = new OrderDTO();
+							dto.setOrderNum(Long.parseLong(rs.getString("orderNum")));
+							dto.setDeliveryNum(Long.parseLong(rs.getString("deliveryNum")));
+							dto.setOrderDate(rs.getString("orderDate"));
+							dto.setOrderPrice(Long.parseLong(rs.getString("orderPrice")));
+							dto.setTotalPrice(Long.parseLong(rs.getString("totalPrice")));
+							dto.setOrderRequire(rs.getString("orderRequire"));
+							dto.setDiscount(Long.parseLong(rs.getString("discount")));
+							dto.setShippingFee(Long.parseLong(rs.getString("shippingFee")));
+							dto.setOrderStatus(rs.getString("orderStatus"));
+							dto.setmNum(Long.parseLong(rs.getString("mNum")));
+							
+							list.add(dto);
+						}
+
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e2) {
+			e2.printStackTrace();
+		} finally {
+			DBUtil.close(rs);
+			DBUtil.close(pstmt);
 		}
 
 
 		return list;
+	}
+	
+	public OrderDTO findByOrderNum(Long orderNum) {
+		OrderDTO dto = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql;
+		
+		try {
+			sql = "SELECT orderNum, deliveryNum, orderDate, orderPrice, totalPrice, "
+					+ " orderRequire, discount, shippingFee, orderStatus, mNum "
+					+ " FROM orderPrice "
+					+ " WHERE orderNum = ?";
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setLong(1, orderNum);
+			
+			rs = pstmt.executeQuery();
+			
+			if( rs.next() ) {
+				dto = new OrderDTO();
+				
+				dto.setOrderNum(Long.parseLong(rs.getString("orderNum")));
+				dto.setDeliveryNum(Long.parseLong(rs.getString("deliveryNum")));
+				dto.setOrderDate(rs.getString("orderDate"));
+				dto.setOrderPrice(Long.parseLong(rs.getString("orderPrice")));
+				dto.setTotalPrice(Long.parseLong(rs.getString("totalPrice")));
+				dto.setOrderRequire(rs.getString("orderRequire"));
+				dto.setDiscount(Long.parseLong(rs.getString("discount")));
+				dto.setShippingFee(Long.parseLong(rs.getString("shippingFee")));
+				dto.setOrderStatus(rs.getString("orderStatus"));
+				dto.setmNum(Long.parseLong(rs.getString("mNum")));
+			}
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e2) {
+			e2.printStackTrace();
+		} finally {
+			DBUtil.close(rs);
+			DBUtil.close(pstmt);
+		}
+		
+		
+		
+		return dto;
+	}
+	
+	public void updateOrder(OrderDTO dto) throws SQLException {
+		PreparedStatement pstmt = null;
+		String sql;
+		
+		try {
+			sql = "UPDATE orderPrice SET orderStatus = ? "
+					+ " WHERE orderNum= ?";
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, dto.getOrderStatus());
+			pstmt.setLong(2, dto.getOrderNum());
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e2) {
+			e2.printStackTrace();
+		} finally {
+			DBUtil.close(pstmt);
+		}
+
 	}
 	
 	
