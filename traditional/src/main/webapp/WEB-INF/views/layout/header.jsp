@@ -50,14 +50,14 @@
 						    <img src="${pageContext.request.contextPath}/resource/images/icon/comment.png" style="width: 28px;" name="menu4" 
 						         onmouseover="this.src='${pageContext.request.contextPath}/resource/images/icon/comment01.png'" 
 						         onmouseout="this.src='${pageContext.request.contextPath}/resource/images/icon/comment.png'">
-						    <span class="nav_name">사용가이드</span>
+						    <span class="nav_name">마이페이지</span>
 						</a>
 	                   
 	                    <a href="${pageContext.request.contextPath}/notice/list.do" class="nav__link">
 						    <img src="${pageContext.request.contextPath}/resource/images/icon/messenger.png" style="width: 28px;" name="menu5" 
 						         onmouseover="this.src='${pageContext.request.contextPath}/resource/images/icon/messenger_hover.png'" 
 						         onmouseout="this.src='${pageContext.request.contextPath}/resource/images/icon/messenger.png'">
-						    <span class="nav_name">커뮤니티</span>
+						    <span class="nav_name">고객센터</span>
 						</a>
 				    </div>
 				</div>
@@ -123,12 +123,12 @@
                 <input id="search" class="form-control" type="search" placeholder="검색어를 입력하세요." aria-label="Search" style="width: 100%; padding-left: 50px;">
             </div>
         </form>
-        <a class="navbar-brand" href="${pageContext.request.contextPath}/	" style="position: absolute; left: 42%;">
+        <a class="navbar-brand" href="${pageContext.request.contextPath}/" style="position: absolute; left: 42%;">
             <img src = "${pageContext.request.contextPath}/resource/images/icon/logo.png" style="height:90px">
         </a>
         <div class="col-auto">
         
-            <a class="btn" id="btn-modal" data-toggle="modal" href="#notificationModal"style="border: 0px; padding: 2px;" onclick="modal();">
+            <a class="btn" id="btn-modal" data-toggle="modal" href="${pageContext.request.contextPath}/notice/list.do" style="border: 0px; padding: 2px;" onclick="modal();">
             	<img src="${pageContext.request.contextPath}/resource/images/icon/notification.png" width="28">
             </a>
             

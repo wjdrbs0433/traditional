@@ -48,7 +48,7 @@
 </head>
 <body id="body-pd">
 	<jsp:include page="/WEB-INF/views/layout/header.jsp" />
-
+	<h4 style="margin:30px auto; text-align:center;">[ 개인정보처리방침 ] </h4>
 	<div id="accordion">
 		<div class="group">
 			<h3>1. 개인정보의 처리목적 및 수집항목</h3>

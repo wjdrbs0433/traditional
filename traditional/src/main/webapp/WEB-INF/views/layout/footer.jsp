@@ -37,9 +37,11 @@
     <p>*상호 : 청 바 지 &nbsp;&nbsp;&nbsp;*대표 : 김태현 &nbsp;&nbsp;&nbsp; *주소 : 쌍용강북교육센터 &nbsp;&nbsp;&nbsp;*사업자 등록번호 : 123-12-12345</p>
     <hr>
     <p style="text-align:right;">
-        <a href="#">공지사항</a>
-        <a href="company.jsp">회사소개</a>
-        <a href="person.jsp">개인정보처리방침</a>
-        <a href="#">고객센터</a>
+        <a href="${pageContext.request.contextPath}/notice/list.do">공지사항</a>
+        <a href="${pageContext.request.contextPath}/company.jsp">회사소개</a>
+        <a href="${pageContext.request.contextPath}/person.jsp">개인정보처리방침</a>
+        <a href="${pageContext.request.contextPath}/qna/list.do">1:1문의</a>
+        <a href="${pageContext.request.contextPath}/event/list.do">이벤트</a>
+        
     </p>
 </div>

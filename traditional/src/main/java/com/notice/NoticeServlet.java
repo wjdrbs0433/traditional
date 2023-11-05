@@ -98,7 +98,7 @@ public class NoticeServlet extends MyUploadServlet {
 
 			// 한페이지 표시할 데이터 개수
 			String pageSize = req.getParameter("size");
-			int size = pageSize == null ? 10 : Integer.parseInt(pageSize);
+			int size = pageSize == null ? 5 : Integer.parseInt(pageSize);
 
 			int dataCount, total_page;
 
@@ -128,8 +128,8 @@ public class NoticeServlet extends MyUploadServlet {
 			listNotice = dao.listNotice();
 			for (NoticeDTO dto : listNotice) {
 				dto.setReg_date(dto.getReg_date().substring(0, 10));
-				/*
 			}
+
 			long gap;
 			Date curDate = new Date();
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -141,7 +141,6 @@ public class NoticeServlet extends MyUploadServlet {
 				dto.setGap(gap);
 
 				dto.setReg_date(dto.getReg_date().substring(0, 10));
-				*/
 			}
 
 			String query = "";
