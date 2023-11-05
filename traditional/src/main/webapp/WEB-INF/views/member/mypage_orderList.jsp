@@ -8,6 +8,9 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="./resource/css/custom.css">
 <link rel="stylesheet" href="./resource/css/index.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/bootstrap.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/custom.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/index.css">
 <link rel="icon" href="data:;base64,iVBORw0KGgo=">
 <style>
 .main {
@@ -168,9 +171,9 @@
     font-size: 15px;
     margin: auto;
     margin-top: 30px;
-    width: 45%;
+    width: 30%;
     position: relative;
-    padding: 5px;
+    padding: 0px;
     text-align: center;
     display: flex;
     flex-direction: column;
@@ -183,11 +186,11 @@
 }
 
 .orderDiv div:nth-child(2) {
-	background-color: red;
+	background-color: #FDF5E6;
 }
 
 .orderDiv div {
-	width: 60%;
+	width: 100%;
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -295,36 +298,50 @@
 	
 	<!-- order div
 	 -->
-	 <c:forEach var="dto" items="${list}" varStatus="status">
+	 
+	
+	<c:forEach var="dto" items="${list}" varStatus="status">
 	<div class = "orderDiv">
 		<!-- 날짜 + 주문상세보기 링크 -->	
-		<div>
-			<span> ${dto.orderDate}</span>
-			<span> 주문 상세 보기 </span>
+		<div style="height: 70px;">
+			<span style="color: black; font-weight: bold; font-size: 20px; display: inline-block; width: 45%; text-align: left; line-height: 70px;
+vertical-align: middle;" > ${dto.orderDate}</span>
+			<span style="font-weight: bold"> 주문 상세 보기 > </span>
 		</div>
 		<!-- 이름 + 전화번호(가운데 4자리는 *로) -->
-		<div>
-			<span> ${dto.memberName}</span>
-			<span> | </span>
-			<span> ${dto.memberPhone}</span>
-		</div>
-		<!-- 주문상태 -->
-		<div>
-			<span> ${dto.orderStatus}</span>
+		<div style="height: 55px;" >
+			<span style="font-weight: bold; display: inline-block; width: 40%; line-height: 55px;
+vertical-align: middle;">${dto.memberName}</span>
+			<span style="font-weight: bold; display: inline-block; width: 10%; text-align: left; line-height: 55px;
+vertical-align: middle;">|</span>
+			<span style="font-weight: bold; display: inline-block; width: 80%; text-align: left; line-height: 55px;
+vertical-align: middle;">${dto.memberPhone}</span>
+
 		</div>
 		<hr>
+		<!-- 주문상태 -->
+		<div style="height: 55px;">
+			<span style="color: rgb(244, 112, 112); font-weight: bold; font-size: 20px; display: inline-block; width: 85%; text-align: left; line-height: 55px;
+vertical-align: bottom;"> ${dto.orderStatus}</span>
+		</div>
+		
+	
 		<!-- 제품정보 -->
-		<div style='display: flex; flex-direction: row;'>
+		<div style='display: flex; flex-direction: row; border-top: 1px solid gray; border-bottom: 1px solid gray; width: 90%;'>
 			<!-- 제품사진 -->
 			<div>
 				<span> 사진 </span>
 			</div>
 			<!-- 제품 이름, 용량 옵션, 가격, 수량 -->
-			<div style='display: flex; flex-direction: column;'>
-				<p> ${dto.productName} </p>
-				<p> ${dto.productVolume} </p>
-				<p> ${dto.productPrice} </p>
-				<p> ${dto.orderCount} </p>
+			<div style='display: flex; flex-direction: column; background-color: white;'>
+				<span style="font-weight: bold; width: 300px; text-align: left; font-size: 13px; color: rgb(0, 220, 146);">&nbsp;&nbsp;담화배송</span>
+			
+				<span style="width: 300px; text-align: left; font-weight: bold;">&nbsp; ${dto.productName}</span>
+				<span style="width: 300px; text-align: left;">&nbsp; ${dto.productVolume} | ${dto.productName}</span>
+				
+				<hr>
+				<span style="width: 300px; text-align: left;">&nbsp; ${dto.productPrice} / ${dto.orderCount}</span>
+				<hr>
 			</div>
 			<!-- 배송조회 -->
 			<div>
@@ -334,8 +351,9 @@
 		<hr>
 		<!-- 배송비 -->
 		<div>
-			<span> ${dto.shippingFee}</span>
+			<span style="width: 500px; text-align: right; font-weight: bold; margin-right: 30px;"><i class="fa-solid fa-truck-fast"></i>${dto.shippingFee}</span>
 		</div>
+			<hr>
 	</div>
 	</c:forEach>
 	<div class="page-navigation">
