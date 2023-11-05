@@ -67,7 +67,7 @@ public class OrderListDAO {
 		
 		try {
 			System.out.println(mNum);
-			sb.append(" SELECT o.orderDate, m.mName, m.mPhone, o.orderStatus, p.image,  ");
+			sb.append(" SELECT o.orderDate, m.mName, m.mPhone, o.orderStatus, p.image, d.orderDetailNum ");
 			sb.append(" p.productName, p.volume, d.pricePerProduct, d.orderCount, o.shippingFee ");
 //			sb.append(" 	 ");
 			sb.append(" FROM orderDetail d, product p, orderPrice o, member m ");
@@ -97,7 +97,7 @@ public class OrderListDAO {
 				dto.setOrderDate(rs.getString("orderDate"));
 			}				
 				dto.setMemberName(rs.getString("mName"));
-				
+				dto.setOrderDetailNum(rs.getString("orderDetailNum"));
 				String mPhone = rs.getString("mPhone");
 				mPhone = mPhone.replace(mPhone.substring(mPhone.indexOf("-"), mPhone.lastIndexOf("-")+1), "-****-");
 				dto.setMemberPhone(mPhone);
@@ -125,21 +125,8 @@ public class OrderListDAO {
 				String shipping = rs.getString("shippingFee") + "원";
 				dto.setShippingFee(shipping);
 				list.add(dto);
-				
 			}
-			
-			
-			
-            
-            
-            
-            
-            
-            
-            
-            
-			
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (Exception e2) {
@@ -150,6 +137,21 @@ public class OrderListDAO {
 		}
 
 		return list;
+	}
+	
+	public List<OrderListDTO> listOrderDetail(int mNum) {
+		List<OrderListDTO> list = new ArrayList<OrderListDTO>();
+		PreparedStatement pstmt = null;
+		StringBuilder sb = new StringBuilder();
+		ResultSet rs = null;
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 MM월 dd일");
+		
+		
+		
+		
+		
+		return list;
+		
 	}
 	
 }

@@ -306,8 +306,9 @@
 		<div style="height: 70px;">
 			<span style="color: black; font-weight: bold; font-size: 20px; display: inline-block; width: 45%; text-align: left; line-height: 70px;
 vertical-align: middle;" > ${dto.orderDate}</span>
-			<span style="font-weight: bold"> 주문 상세 보기 > </span>
+			<a href="${pageContext.request.contextPath}/member/orderListDeatil.do?orderDetailNum=${dto.orderDetailNum}"><span style="font-weight: bold"> 주문 상세 보기 > </span></a>
 		</div>
+		"location.href='${pageContext.request.contextPath}/admin/product/update.do?productCode=${dto.productCode}&page=${page}';"
 		<!-- 이름 + 전화번호(가운데 4자리는 *로) -->
 		<div style="height: 55px;" >
 			<span style="font-weight: bold; display: inline-block; width: 40%; line-height: 55px;

@@ -1,6 +1,13 @@
 package com.orderList;
 
 public class OrderListDTO {
+	String orderDetailNum;
+	public String getOrderDetailNum() {
+		return orderDetailNum;
+	}
+	public void setOrderDetailNum(String orderDetailNum) {
+		this.orderDetailNum = orderDetailNum;
+	}
 	String orderDate;
 	String memberName;
 	String memberPhone;
