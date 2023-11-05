@@ -140,7 +140,7 @@
 	}
 	
 	.table th:nth-child(2) {
-		width:20%;
+		width:15%;
 	}
 	
 	.table th:nth-child(3) {
@@ -152,20 +152,23 @@
 	}
 	
 	.table th:nth-child(5) {
-		width:10%;
+		width:5%;
 	}
 	
 	.table th:nth-child(6) {
-		width:20%;
+		width:15%;
 	}
 	
+	.table th:nth-child(7) {
+		width:15%;
+	}
 	
 	.table td:first-child{
 		width:20%;
 	}
 	
 	.table td:nth-child(2) {
-		width:20%;
+		width:15%;
 	}
 	
 	.table td:nth-child(3) {
@@ -177,11 +180,15 @@
 	}
 	
 	.table td:nth-child(5) {
-		width:10%;
+		width:5%;
 	}
 	
 	.table td:nth-child(6) {
-		width:20%;
+		width:15%;
+	}
+	
+	.table td:nth-child(7) {
+		width:15%;
 	}
 	
 </style>
@@ -218,6 +225,7 @@
 					<th>가격</th>
 					<th>수량</th>
 					<th>주문상태</th>
+					<th>리뷰</th>
 				</tr>
 				<tr>
 					<td>1234567</td>
@@ -226,15 +234,10 @@
 					<td>20,000</td>
 					<td>2개</td>
 					<td>입금완료</td>
+					<td><button type="button" id="btnReview" onclick="#" >리뷰등록</button></td>
 				</tr>
-				<tr>
-					<td>8888888</td>
-					<td><img class="img1" src="resource/images/product/2.jpg"></td>
-					<td>매실주</td>
-					<td>32,000</td>
-					<td>4개</td>
-					<td>입금전</td>
-				</tr>
+				
+				
 			</table>
 		</div>
 		
