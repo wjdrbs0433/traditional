@@ -4,9 +4,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import com.util.DBConn;
 import com.util.DBUtil;
@@ -91,14 +93,33 @@ public class OrderListDAO {
 				System.out.println(sqlDate);
 				dto.setOrderDate(sqlDate);
 				dto.setMemberName(rs.getString("mName"));
-				dto.setMemberPhone(rs.getString("mPhone"));
+				
+				String mPhone = rs.getString("mPhone");
+				mPhone = mPhone.replace(mPhone.substring(mPhone.indexOf("-"), mPhone.lastIndexOf("-")+1), "-****-");
+				dto.setMemberPhone(mPhone);
+				
 				dto.setOrderStatus(rs.getString("orderStatus"));
 				dto.setProductImage(rs.getString("image"));
 				dto.setProductName(rs.getString("productName"));
-				dto.setProductVolume(rs.getString("volume"));
-				dto.setProductPrice(rs.getString("pricePerProduct"));
-				dto.setOrderCount(rs.getString("orderCount"));
-				dto.setShippingFee(rs.getString("shippingFee"));
+				
+				String volume = rs.getString("volume");
+				volume += "ml";
+				dto.setProductVolume(volume);
+				
+				
+				
+				int price = Integer.parseInt(rs.getString("pricePerProduct"));
+				String result = NumberFormat.getCurrencyInstance(Locale.KOREA).format(price);
+				dto.setProductPrice(result);
+				
+				
+				
+				String count = "수량 " + rs.getString("orderCount") + "개"; 
+				dto.setOrderCount(count);
+						
+				
+				String shipping = rs.getString("shippingFee") + "원";
+				dto.setShippingFee(shipping);
 				list.add(dto);
 				
 			}

@@ -141,32 +141,34 @@
     font-size: 18px;
     margin: auto;
     margin-top: 30px;
-    width: 70%;
-    height: 200px;
-    outline: 1px #6c6c6c;
-    position: relative;
+    margin-bottom: 50px;
+    width: 35%;
     padding: 5px;
     text-align: center;
-
+    display: flex;
+    border: 2px solid #e2e2e2;
+    border-radius: 20px;
 }
 
 .midDiv div {
-	width: 5%;
+	width: 100%;
     background-color: #ffffff;
     top: 50%;
-    display: table-cell;
-    padding: 30px 5px 5px 5px;
+    padding: 15px 5px 5px 5px;
     position: relative;
+	flex-direction: row;
+}
+
+.midDiv div span {
+	border-bottom : 1.5px solid gray;
 }
 
 .orderDiv {
 	font-family: arial;
-    font-size: 18px;
+    font-size: 15px;
     margin: auto;
     margin-top: 30px;
-    width: 70%;
-
-    outline: 1px #6c6c6c;
+    width: 45%;
     position: relative;
     padding: 5px;
     text-align: center;
@@ -175,11 +177,21 @@
     flex-wrap: nowrap;
     justify-content: space-between;
     align-items: center;
+    border: 2px solid #e2e2e2;
+    border-radius: 20px;
+	color: gray;
+}
 
+.orderDiv div:nth-child(2) {
+	background-color: red;
 }
 
 .orderDiv div {
 	width: 60%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: nowrap;
 }
 
 
@@ -293,21 +305,22 @@
 		<!-- 이름 + 전화번호(가운데 4자리는 *로) -->
 		<div>
 			<span> ${dto.memberName}</span>
+			<span> | </span>
 			<span> ${dto.memberPhone}</span>
 		</div>
 		<!-- 주문상태 -->
 		<div>
 			<span> ${dto.orderStatus}</span>
 		</div>
-		<br>
+		<hr>
 		<!-- 제품정보 -->
-		<div>
+		<div style='display: flex; flex-direction: row;'>
 			<!-- 제품사진 -->
 			<div>
 				<span> 사진 </span>
 			</div>
 			<!-- 제품 이름, 용량 옵션, 가격, 수량 -->
-			<div>
+			<div style='display: flex; flex-direction: column;'>
 				<p> ${dto.productName} </p>
 				<p> ${dto.productVolume} </p>
 				<p> ${dto.productPrice} </p>
@@ -318,7 +331,7 @@
 				<span> 배송조회 </span>
 			</div>
 		</div>
-		<br>
+		<hr>
 		<!-- 배송비 -->
 		<div>
 			<span> ${dto.shippingFee}</span>
