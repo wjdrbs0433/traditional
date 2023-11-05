@@ -1,7 +1,6 @@
 package com.orderList;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +13,6 @@ import javax.servlet.http.HttpSession;
 import com.member.MemberDAO;
 import com.member.MemberDTO;
 import com.member.SessionInfo;
-import com.util.DBUtil;
 import com.util.MyServlet;
 import com.util.MyUtil;
 
@@ -41,16 +39,15 @@ public class OrderListServlet extends MyServlet {
 		String cp = req.getContextPath();
 		List<OrderListDTO> list = new ArrayList<OrderListDTO>();
 		SessionInfo memberInfo = (SessionInfo) session.getAttribute("member");
-		int mnum = memberInfo.getMnum();
-		MemberDTO memberDTO = memberDAO.mypage(mnum);
+		int mNum = memberInfo.getMnum();
+		MemberDTO memberDTO = memberDAO.mypage(mNum);
 		req.setAttribute("memberDTO", memberDTO);
-		list = listDAO.listOrder(memberDTO);
 		MyUtil util = new MyUtil();
 		
-		if (req.getMethod().equalsIgnoreCase("GET")) {
-			resp.sendRedirect(cp + "/");
-			return;
-		}
+//		if (req.getMethod().equalsIgnoreCase("GET")) {
+//			resp.sendRedirect(cp + "/");
+//			return;
+//		}
 		
 		try {
 			String page = req.getParameter("page");
@@ -58,7 +55,7 @@ public class OrderListServlet extends MyServlet {
 			if(page != null) {
 				current_page = Integer.parseInt(page);
 			}
-			int dataCount = listDAO.dataCount();
+			int dataCount = listDAO.dataCount(mNum);
 			int size = 10;
 			int total_page = util.pageCount(dataCount, size);
 			if (current_page > total_page) {
@@ -68,7 +65,7 @@ public class OrderListServlet extends MyServlet {
 			int offset = (current_page - 1) * size;
 			if(offset < 0) offset = 0;
 			
-			list = listDAO.listOrder(memberDTO);
+			list = listDAO.listOrder(mNum);
 			
 			String listUrl = cp + "/member/mypage_orderList.do";
 			String articleUrl = cp + "/member/mypage_orderList.do?page=" + current_page;
@@ -90,7 +87,7 @@ public class OrderListServlet extends MyServlet {
 			e.printStackTrace();
 		}
 		
-		forward(req,resp, "/WEB-INF/views/member/mypage_orderList.jsp");
+		forward(req,resp, "/WEB-INF/views/orderList/mypage_orderList.jsp");
 		
 		
 	}

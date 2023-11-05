@@ -159,6 +159,29 @@
     position: relative;
 }
 
+.orderDiv {
+	font-family: arial;
+    font-size: 18px;
+    margin: auto;
+    margin-top: 30px;
+    width: 70%;
+
+    outline: 1px #6c6c6c;
+    position: relative;
+    padding: 5px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+.orderDiv div {
+	width: 60%;
+}
+
 
 }
 </style>
@@ -261,7 +284,7 @@
 	<!-- order div
 	 -->
 	 <c:forEach var="dto" items="${list}" varStatus="status">
-	<div class = "midDiv">
+	<div class = "orderDiv">
 		<!-- 날짜 + 주문상세보기 링크 -->	
 		<div>
 			<span> ${dto.orderDate}</span>
@@ -292,7 +315,7 @@
 			</div>
 			<!-- 배송조회 -->
 			<div>
-				<span> 배송조회 ㄴ</span>
+				<span> 배송조회 </span>
 			</div>
 		</div>
 		<br>
@@ -303,7 +326,7 @@
 	</div>
 	</c:forEach>
 	<div class="page-navigation">
-			${dataCount == 0 ? "등록된 게시글이 없습니다." : paging }
+			${dataCount == 0 ? "주문 내역이 없습니다." : paging }
 	</div>
 	
 	
