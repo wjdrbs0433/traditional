@@ -64,7 +64,8 @@ header td { padding: 10px 0px 10px 20px; }
 
 main th, td{ padding: 10px; }
 
-
+#body-pd{ overflow: auto;
+  white-space: nowrap; }
 
 </style>
 
@@ -278,7 +279,10 @@ $(function(){
 							<td>${dto.productTaste}</td>
 							<td>${dto.productPerson}</td>
 							<td>${dto.inventory}</td>
-							<td>${dto.image}</td>
+							<td>
+								<img src="${pageContext.request.contextPath }/resource/images/product/<c:out value="${dto.productCode}" />.jpg"
+								 width="100px" height="100px">
+							</td>
 							<td>${dto.extinctOrNot}</td>
 							<td>${dto.price}</td>
 							<td>${dto.volume}</td>

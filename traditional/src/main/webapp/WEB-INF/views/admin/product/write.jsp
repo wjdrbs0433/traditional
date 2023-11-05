@@ -49,23 +49,100 @@ function modal() {
 function sendOk() {
     
 	const f = document.writeForm;
-	/*
+	
 	let str;
 	
-    str = f.subject.value.trim();
+    str = f.productName.value.trim();
     if(!str) {
-        alert("제목을 입력하세요. ");
-        f.subject.focus();
+        alert("상품명을 입력하세요. ");
+        f.productName.focus();
         return;
     }
 
-    str = f.content.value.trim();
+    str = f.productPrice.value.trim();
     if(!str) {
-        alert("내용을 입력하세요. ");
+        alert("가격을 입력하세요. ");
+        f.productPrice.focus();
+        return;
+    }
+    
+    str = f.productSubject.value.trim();
+    if(!str) {
+        alert("설명을 입력하세요. ");
         f.content.focus();
         return;
     }
-*/
+    
+    str = f.expirationDate.value.trim();
+    if(!str) {
+        alert("유통기한을 입력하세요. ");
+        f.expirationDate.focus();
+        return;
+    }
+    
+    str = f.productStorage.value.trim();
+    if(!str) {
+        alert("저장방법을 입력하세요. ");
+        f.productStorage.focus();
+        return;
+    }
+    
+    str = f.hashTag.value.trim();
+    if(!str) {
+        alert("해쉬태그를 입력하세요. ");
+        f.hashTag.focus();
+        return;
+    }
+    
+    str = f.alcoholPercent.value.trim();
+    if(!str) {
+        alert("도수를 입력하세요. ");
+        f.alcoholPercent.focus();
+        return;
+    }
+    
+    str = f.inventory.value.trim();
+    if(!str) {
+        alert("재고를 입력하세요. ");
+        f.inventory.focus();
+        return;
+    }
+    
+    str = f.image.value.trim();
+    if(!str) {
+        alert("사진을 입력하세요. ");
+        f.image.focus();
+        return;
+    }
+    
+    str = f.extinctOrNot.value.trim();
+    if(!str) {
+        alert("단종여부를 입력하세요.(1:판매중, 0:단종) ");
+        f.extinctOrNot.focus();
+        return;
+    }
+    
+    str = f.price.value.trim();
+    if(!str) {
+        alert("원가를 입력하세요. ");
+        f.price.focus();
+        return;
+    }
+    
+    str = f.volume.value.trim();
+    if(!str) {
+        alert("용량을 입력하세요. ");
+        f.volume.focus();
+        return;
+    }
+    
+    str = f.breweryPage.value.trim();
+    if(!str) {
+        alert("양조장홈페이지를 입력하세요. ");
+        f.breweryPage.focus();
+        return;
+    }
+
     f.action = "${pageContext.request.contextPath}/admin/product/${mode}_ok.do";
     f.submit();
 }
@@ -104,7 +181,7 @@ function sendOk() {
 		</tr>
 		 -->
 		<tr>
-			<td>제품명</td>
+			<td>상품명</td>
 			<td>
 				<input type="text" name="productName" class="form-control" id="tbox" value="${dto.productName}">
 				
@@ -220,7 +297,7 @@ function sendOk() {
 			<td>
 				<button type="button" class="btn" onclick="sendOk();">${mode=='update'?'수정완료':'등록하기'}</button>
 				<button type="reset" class="btn">다시입력</button>
-				<button type="button" class="btn" onclick="location.href='${pageContext.request.contextPath}/admin/product/list.do?page=${page}';">${mode=='update'?'수정취소':'등록취소'}</button>
+				<button type="button" class="btn" onclick="location.href='${pageContext.request.contextPath}/admin/product/list.do?size=${size}';">${mode=='update'?'수정취소':'등록취소'}</button>
 				<c:if test="${mode=='update'}">
 					<input type="hidden" name="productCode" value="${dto.productCode}">
 					<input type="hidden" name="page" value="${page}">

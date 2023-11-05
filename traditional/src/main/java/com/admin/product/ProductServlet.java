@@ -1,11 +1,8 @@
 package com.admin.product;
 
+import java.io.File;
 import java.io.IOException;
-import java.net.URLDecoder;
-import java.net.URLEncoder;
-import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -13,12 +10,8 @@ import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import org.apache.jasper.tagplugins.jstl.core.Catch;
-
-import com.notice.NoticeDTO;
-import com.product.productDTO;
-import com.util.MyServlet;
 import com.util.MyUploadServlet;
 import com.util.MyUtil;
 
@@ -27,15 +20,23 @@ import com.util.MyUtil;
 public class ProductServlet extends MyUploadServlet {
 	private static final long serialVersionUID = 1L;
 
+	private String pathname;
+	
 	@Override
 	protected void execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.setCharacterEncoding("utf-8");
-
+		
+		HttpSession session = req.getSession();
+		
+		// 이미지를 저장할 경로(pathname)
+		String root = session.getServletContext().getRealPath("/");
+		pathname = root + "uploads" + File.separator + "photo";
+		
 		String uri = req.getRequestURI();
 		
 		/*
 		// 세션 정보
-		HttpSession session = req.getSession();
+		
 		SessionInfo info = (SessionInfo) session.getAttribute("admin");
 
 		if (info == null) {
@@ -76,6 +77,7 @@ public class ProductServlet extends MyUploadServlet {
 				current_page = Integer.parseInt(page);
 			}
 			
+			
 			// 검색
 			String productNameKwd = req.getParameter("productName");
 			String[] productPriceKwd = req.getParameterValues("price");
@@ -86,8 +88,8 @@ public class ProductServlet extends MyUploadServlet {
 			String[] alcoholPercentKwd = req.getParameterValues("alcohol");
 			String[] productTasteKwd = req.getParameterValues("taste");
 
-			// 전체 데이터 개수
 			
+			// 전체 데이터 개수
 			List<String> productPriceKwdlist = new ArrayList<String>();
 			if(productPriceKwd != null ) {
 				for(String s : productPriceKwd) {
@@ -144,7 +146,6 @@ public class ProductServlet extends MyUploadServlet {
 			}
 			
 			
-			
 			// 전체 페이지 수
 			int size = 10;
 			int total_page = util.pageCount(dataCount, size);
@@ -158,6 +159,7 @@ public class ProductServlet extends MyUploadServlet {
 			if(offset < 0) offset = 0;
 			
 			List<ProductDTO> list = null;
+			
 			if (productNameKwd == null
 					&& productPriceKwd == null
 					&& volumeKwd == null
@@ -216,10 +218,18 @@ public class ProductServlet extends MyUploadServlet {
 
 		// JSP로 포워딩
 		forward(req, resp, "/WEB-INF/views/admin/product/list.jsp");
+	
 	}
 	
 	protected void writeForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// 글쓰기 폼
+		
+		String size = req.getParameter("size");
+		req.setAttribute("size", size);
+		
+		String page = req.getParameter("page");
+		req.setAttribute("page", page);
+		
 		req.setAttribute("mode", "write");
 		forward(req, resp, "/WEB-INF/views/admin/product/write.jsp");
 		
@@ -289,6 +299,7 @@ public class ProductServlet extends MyUploadServlet {
 		String cp = req.getContextPath();
 
 		String page = req.getParameter("page");
+		String size = req.getParameter("size");
 
 		try {
 			String productCode = req.getParameter("productCode");
@@ -300,20 +311,26 @@ public class ProductServlet extends MyUploadServlet {
 			}
 			
 			req.setAttribute("dto", dto);
-			
 			req.setAttribute("page", page);
+			req.setAttribute("size", size);
 			req.setAttribute("mode", "update");
 			req.setAttribute("productCode", productCode);
 
 			forward(req, resp, "/WEB-INF/views/admin/product/write.jsp");
 			return;
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		viewPage(req, resp, "redirect:/notice/admin/product/list.do?page=" + page + "&size=" + size);
 
-		resp.sendRedirect(cp + "/admin/product/list.do?page=" + page);
 	}
 	
+	private void viewPage(HttpServletRequest req, HttpServletResponse resp, String string) {
+		// TODO Auto-generated method stub
+		
+	}
+
 	protected void updateSubmit(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// 수정 완료
 		ProductDAO dao = new ProductDAO();
