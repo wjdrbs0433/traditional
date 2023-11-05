@@ -88,10 +88,14 @@ public class OrderListDAO {
 			while( rs.next() ) {
 				OrderListDTO dto = new OrderListDTO();
 				
-			
+			try {
 				String sqlDate = rs.getString("orderDate").substring(0, rs.getString("orderDate").lastIndexOf("-")+3);
 				System.out.println(sqlDate);
 				dto.setOrderDate(sqlDate);
+			} catch (Exception e) {
+				e.printStackTrace();
+				dto.setOrderDate(rs.getString("orderDate"));
+			}				
 				dto.setMemberName(rs.getString("mName"));
 				
 				String mPhone = rs.getString("mPhone");

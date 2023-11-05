@@ -66,9 +66,9 @@ public class MainDAO {
 					startMonth = String.valueOf(tmpMonth);
 					// 일 처리
 					
-					System.out.println(past + "past");
+					
 					pastDate = past.withDayOfMonth(past.lengthOfMonth()).toString();
-					System.out.println(pastDate + "pastDate");
+					
 					// 2023-10-31
 
 					pastDate = pastDate.substring(pastDate.length()-2, pastDate.length());
@@ -113,8 +113,7 @@ public class MainDAO {
 					
 					dto.setmRegDate(rs.getString("mRegDate"));
 					dto.setCnt(rs.getInt("cnt"));
-					System.out.println(rs.getString("mRegDate"));
-					System.out.println(rs.getInt("cnt"));
+
 					list.add(dto);
 				
 				}
