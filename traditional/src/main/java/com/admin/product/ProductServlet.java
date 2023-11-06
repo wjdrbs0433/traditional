@@ -326,7 +326,7 @@ public class ProductServlet extends MyUploadServlet {
 
 	}
 	
-	private void viewPage(HttpServletRequest req, HttpServletResponse resp, String string) {
+	protected void viewPage(HttpServletRequest req, HttpServletResponse resp, String string) {
 		// TODO Auto-generated method stub
 		
 	}
