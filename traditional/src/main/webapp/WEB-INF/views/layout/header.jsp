@@ -59,6 +59,14 @@
 						         onmouseout="this.src='${pageContext.request.contextPath}/resource/images/icon/messenger.png'">
 						    <span class="nav_name">고객센터</span>
 						</a>
+						
+						<a href="${pageContext.request.contextPath}/review/list.do">
+							 <img src="${pageContext.request.contextPath}/resource/images/icon/messenger.png" style="width: 28px;" name="menu6" 
+						         onmouseover="this.src='${pageContext.request.contextPath}/resource/images/icon/messenger_hover.png'" 
+						         onmouseout="this.src='${pageContext.request.contextPath}/resource/images/icon/messenger.png'">
+							<span class="nav_name">리뷰게시판</span>
+						</a>
+						
 				    </div>
 				</div>
 
@@ -105,6 +113,13 @@
 					         onmouseover="this.src='${pageContext.request.contextPath}/resource/images/icon/messenger_hover.png'" 
 					         onmouseout="this.src='${pageContext.request.contextPath}/resource/images/icon/messenger.png'">
 					    <span class="nav_name">커뮤니티</span>
+					</a>
+					
+					<a href="${pageContext.request.contextPath}/review/list.do">
+						 <img src="${pageContext.request.contextPath}/resource/images/icon/messenger.png" style="width: 28px;" name="menu6" 
+					         onmouseover="this.src='${pageContext.request.contextPath}/resource/images/icon/messenger_hover.png'" 
+					         onmouseout="this.src='${pageContext.request.contextPath}/resource/images/icon/messenger.png'">
+						<span class="nav_name">리뷰게시판</span>
 					</a>
                      
                 </div>
