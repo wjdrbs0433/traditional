@@ -91,6 +91,7 @@ public class productServlet extends MyServlet{
 	
 	protected void productdetail(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+		
 	    String productCode = req.getParameter("productCode");
 	    
 	    

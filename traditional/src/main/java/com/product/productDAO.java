@@ -133,6 +133,7 @@ public class productDAO {
 		            averageStarMap.put(productCode, avgStar);
 		        }
 
+		        
 		    } catch (SQLException e) {
 		        e.printStackTrace();
 		    } finally {
