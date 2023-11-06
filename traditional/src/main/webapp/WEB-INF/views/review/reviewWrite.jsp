@@ -56,21 +56,15 @@ function sendOk() {
     const f = document.boardForm;
 	let str;
 	
-    str = f.subject.value.trim();
-    if(!str) {
-        alert("제목을 입력하세요. ");
-        f.subject.focus();
-        return;
-    }
-
-    str = f.content.value.trim();
+    str = f.reviewContent.value.trim();
     if(!str) {
         alert("내용을 입력하세요. ");
-        f.content.focus();
+        f.reviewContent.focus();
         return;
     }
+    
 
-    f.action = "${pageContext.request.contextPath}/bbs/${mode}_ok.do";
+    f.action = "${pageContext.request.contextPath}/review/${mode}_ok.do";
     f.submit();
 }
 
@@ -177,7 +171,7 @@ window.addEventListener("load", function(){
 					<tr> 
 						<td>작성자</td>
 						<td> 
-							<p>${dto.reviewer}</p>
+							<p>${dto.mName}</p>
 						</td>
 					</tr>
 					
@@ -202,7 +196,7 @@ window.addEventListener("load", function(){
 					<tr> 
 						<td valign="top">내&nbsp;&nbsp;&nbsp;&nbsp;용</td>
 						<td> 
-							<textarea name="content" class="form-control">${dto.content}</textarea>
+							<textarea name="reviewContent" class="form-control"></textarea>
 						</td>
 					</tr>
 				</table>
@@ -212,11 +206,10 @@ window.addEventListener("load", function(){
 						<td align="center">
 							<button type="button" class="btn" onclick="sendOk();">${mode=='update'?'수정완료':'등록하기'}</button>
 							<button type="reset" class="btn">다시입력</button>
-							<button type="button" class="btn" onclick="location.href='${pageContext.request.contextPath}/bbs/list.do';">${mode=='update'?'수정취소':'등록취소'}</button>
-							<c:if test="${mode=='update'}">
-								<input type="hidden" name="num" value="${dto.num}">
-								<input type="hidden" name="page" value="${page}">
-							</c:if>
+							<button type="button" class="btn" onclick="location.href='${pageContext.request.contextPath}/review/myList.do';">${mode=='update'?'수정취소':'등록취소'}</button>
+							<input type="hidden" name="productCode" value="${dto.productCode}">
+							<input type="hidden" name="orderDetailNum" value="${orderDetailNum}">
+							
 						</td>
 					</tr>
 				</table>

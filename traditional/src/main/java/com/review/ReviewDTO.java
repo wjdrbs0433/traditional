@@ -5,7 +5,7 @@ public class ReviewDTO {
 	private String productCode;
 	private String reviewContent;
 	private String regDate;
-	private int star;
+	private double star;
 	private int bestOrNot;
 	private int reviewShowOrNot;
 	private int hitCount;
@@ -14,9 +14,18 @@ public class ReviewDTO {
 	private String image;
 	private String productName;
 	private String orderDate;
+	private String mName;
 	
 	
 	
+	
+	
+	public String getmName() {
+		return mName;
+	}
+	public void setmName(String mName) {
+		this.mName = mName;
+	}
 	public String getOrderDate() {
 		return orderDate;
 	}
@@ -59,10 +68,10 @@ public class ReviewDTO {
 	public void setRegDate(String regDate) {
 		this.regDate = regDate;
 	}
-	public int getStar() {
+	public double getStar() {
 		return star;
 	}
-	public void setStar(int star) {
+	public void setStar(double star) {
 		this.star = star;
 	}
 	public int getBestOrNot() {

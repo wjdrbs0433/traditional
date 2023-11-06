@@ -7,23 +7,64 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="icon" href="data:;base64,iVBORw0KGgo=">
-<style type="text/css">
-.body-main {
-	max-width: 700px;
-}
 
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/bootstrap.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/custom.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/index.css">
+<script src="${pageContext.request.contextPath}/resource/js/jquery.min.js"></script>
+<script src="${pageContext.request.contextPath}/resource/js/popper.js"></script>
+<script src="${pageContext.request.contextPath}/resource/js/bootstrap.min.js"></script>
+<script src="${pageContext.request.contextPath}/resource/js/custom.js"></script>
+
+<style type="text/css">
+
+	.r1{
+		margin: 50px 100px 30px 100px;
+	}
+	
+	.r1 p{
+		font-size:25px;
+		font-weight: bold;
+		color: gray;
+		padding-left: 15px;
+	}
+/*
+	
+.body-main {
+	max-width: 100%;
+}
 .table-list thead > tr:first-child{ background: #f8f8f8; }
 .table-list th, .table-list td { text-align: center; }
 .table-list .left { text-align: left; padding-left: 5px; }
 
 .table-list .num { width: 60px; color: #787878; }
 .table-list .image{ width : 100px;}
-.table-list .subject { width: 400px; color: #787878; }
+.table-list .subject { width: 200px; color: #787878; }
+.table-list .content { width: 600px; color: #787878; }
 .table-list .name { width: 100px; color: #787878; }
 .table-list .date { width: 100px; color: #787878; }
-.table-list .hit { width: 70px; color: #787878; }
+.table-list .star { width: 70px; color: #787878; }
+*/
 
-img { width:60px; height:60px;}
+.img { width:60px; height:60px;}
+
+.review{
+		width: 90%; /* 너비를 70%로 설정합니다. */
+        margin: 0 auto; /* 왼쪽과 오른쪽에 10px의 공백을 추가합니다. */
+   		margin-top: 50px;
+        border: 1px solid #e2e2e2;
+        border-radius: 20px;
+}
+
+.table th{
+		
+	    text-align: left;
+	    color: #989898;
+	    font-size:20px;
+	    padding-left: 15px;
+	    font-weight: 600;
+}
+
 </style>
 
 <script type="text/javascript">
@@ -34,31 +75,24 @@ function searchList() {
 </script>
 </head>
 <body>
-	<main>
-	<div class="container body-container">
-	    <div class="body-title">
-			<h2> 리뷰 게시판 </h2>
-	    </div>
-	    
-	    <div class="body-main mx-auto">
-			<table class="table">
-				<tr>
-					<td width="50%">
-						${dataCount}개(${page}/${total_page} 페이지)
-					</td>
-					<td align="right">&nbsp;</td>
-				</tr>
-			</table>
+	<jsp:include page="/WEB-INF/views/layout/header.jsp"></jsp:include>
+	
+	<div class="review">
+		<div class="r1">
+		<div>
+			<p> 리뷰 게시판 </p>		
 			
+		</div>
 			<table class="table table-border table-list">
 				<thead>
 					<tr>
 						<th class="num">번호</th>
 						<th class="image">이미지</th>
 						<th class="subject">상품명</th>
+						<th class="content">리뷰내용</th>
 						<th class="name">작성자</th>
 						<th class="date">작성일</th>
-						<th class="hit">조회수</th>
+						<th class="star">별점</th>
 					</tr>
 				</thead>
 				
@@ -66,44 +100,24 @@ function searchList() {
 					<c:forEach var="dto" items="${list}" varStatus="status">
 						<tr>
 							<td>${(page-1) * size + (status.index+1)}</td>
-							<td><img src="${pageContext.request.contextPath }/resource/<c:out value="${dto.image}"/>"></td>
+							<td><img class="img" src="${pageContext.request.contextPath }/resource/<c:out value="${dto.image}"/>"></td>
 							<td>${dto.productName}</td>
-							<td>${dto.reviewer}</td>
+							<td>${dto.reviewContent}</td>
+							<td>${dto.mName}</td>
 							<td>${dto.regDate}</td>
-							<td>${dto.hitCount}</td>
+							<td>${dto.star}</td>
 						</tr>
 					</c:forEach>
 				</tbody>
 			</table>
 			
+			<span style="float:right">${dataCount}개(${page}/${total_page} 페이지)</span>
+			
 			<div class="page-navigation">
 				${dataCount == 0 ? "등록된 게시물이 없습니다." : paging}
 			</div>
-			
-			<table class="table">
-				<tr>
-					<td width="100">
-						<button type="button" class="btn" onclick="location.href='${pageContext.request.contextPath}/bbs/list.do';" title="새로고침"><i class="fa-solid fa-arrow-rotate-right"></i></button>
-					</td>
-					<td align="center">
-						<form name="searchForm" action="${pageContext.request.contextPath}/bbs/list.do" method="post">
-							<select name="schType" class="form-select">
-								<option value="all"      ${schType=="all"?"selected":"" }>제목+내용</option>
-								<option value="userName" ${schType=="userName"?"selected":"" }>작성자</option>
-								<option value="reg_date"  ${schType=="reg_date"?"selected":"" }>등록일</option>
-								<option value="subject"  ${schType=="subject"?"selected":"" }>제목</option>
-								<option value="content"  ${schType=="content"?"selected":"" }>내용</option>
-							</select>
-							<input type="text" name="kwd" value="${kwd}" class="form-control">
-							<button type="button" class="btn" onclick="searchList();">검색</button>
-						</form>
-					</td>
-					
-				</tr>
-			</table>
-
-	    </div>
+		</div>	
 	</div>
-</main>
+
 </body>
 </html>

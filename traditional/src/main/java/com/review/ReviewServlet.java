@@ -24,18 +24,66 @@ public class ReviewServlet extends MyServlet {
 
 		if (uri.indexOf("list.do") != -1) {
 			list(req, resp);
-		}
-		if (uri.indexOf("myList.do") != -1) {
+		} else if (uri.indexOf("myList.do") != -1) {
 			myList(req, resp);
-		}
-		if (uri.indexOf("reviewWrite.do") != -1) {
+		} else if (uri.indexOf("reviewWrite.do") != -1) {
 			reviewWrite(req, resp);
+		} else if (uri.indexOf("write_ok.do") != -1) {
+			writeSubmit(req,resp);
 		}
+		
 	}
 
 	
+	private void writeSubmit(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
+		ReviewDAO dao = new ReviewDAO();
+		
+		//HttpSession session = req.getSession();
+		//SessionInfo info = (SessionInfo) session.getAttribute("member");
+		
+		
+		try {
+			ReviewDTO dto = new ReviewDTO();
+
+			// userId는 세션에 저장된 정보
+			dto.setProductCode(req.getParameter("productCode"));
+			dto.setOrderDetailNum(Integer.parseInt(req.getParameter("orderDetailNum")) );			
+			dto.setReviewContent(req.getParameter("reviewContent"));
+			dto.setStar(Double.parseDouble(req.getParameter("rating")));
+
+			dao.insertReview(dto);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		viewPage(req, resp, "redirect:/review/list.do");
+	}
+
+
 	private void reviewWrite(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
-		req.setAttribute("mode", "write");
+		ReviewDAO dao = new ReviewDAO();
+		String cp = req.getContextPath();
+
+		
+		try {
+			String productCode = req.getParameter("productCode");
+			String orderDetailNum = req.getParameter("orderDetailNum");
+			
+			ReviewDTO dto = dao.findByCode(productCode);
+			
+			if(dto == null) {
+				resp.sendRedirect(cp+"/review/myList.do");
+				return;
+			}
+			
+			req.setAttribute("dto", dto);
+			req.setAttribute("orderDetailNum", orderDetailNum);
+			req.setAttribute("mode", "write");
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 		viewPage(req, resp, "review/reviewWrite.jsp");	
 	}
 

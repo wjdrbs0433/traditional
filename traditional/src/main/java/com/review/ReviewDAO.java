@@ -90,18 +90,13 @@ public class ReviewDAO {
 		StringBuilder sb = new StringBuilder();
 
 		try {
-			sb.append(" SELECT reviewboardnum, rb.productcode, reviewcontent, star, hitCount, ");
-			sb.append(" bestOrNot,reviewShowOrNot, orderDetailNum, reviewer, TO_CHAR(regDate, 'YYYY-MM-DD') regDate, p.image, p.productName");
-			//sb.append("      NVL(replyCount, 0) replyCount ");
+			sb.append(" SELECT reviewboardnum, rb.productcode, reviewcontent, star,  ");
+			sb.append(" bestOrNot,reviewShowOrNot, od.orderDetailNum, m.mName, TO_CHAR(regDate, 'YYYY-MM-DD') regDate, p.image, p.productName");
 			sb.append(" FROM reviewboard rb");
-			sb.append(" JOIN  product p ON rb.productcode = p.productcode ");
-			//sb.append(" JOIN member1 m ON b.userId = m.userId ");
-			//sb.append(" LEFT OUTER JOIN ( ");
-			//sb.append("     SELECT num, COUNT(*) replyCount ");
-			//sb.append("     FROM bbsReply ");
-			//sb.append("     WHERE answer = 0 ");
-			//sb.append("     GROUP BY num");
-			//sb.append(" ) c ON b.num = c.num");
+			sb.append(" JOIN product p ON rb.productcode = p.productcode ");
+			sb.append(" JOIN orderDetail od ON od.orderDetailNum = rb.orderDetailNum ");
+			sb.append(" JOIN orderPrice op On op.orderNum = od.orderNum ");
+			sb.append(" JOIN member m ON m.mNum =op.mNum ");
 			sb.append(" ORDER BY reviewboardnum ASC ");
 			sb.append(" OFFSET ? ROWS FETCH FIRST ? ROWS ONLY ");
 
@@ -118,16 +113,14 @@ public class ReviewDAO {
 				dto.setReviewBoardNum(rs.getLong("reviewboardnum"));
 				dto.setProductCode(rs.getString("productcode"));
 				dto.setReviewContent(rs.getString("reviewcontent"));
-				dto.setStar(rs.getInt("star"));
-				dto.setHitCount(rs.getInt("hitCount"));
+				dto.setStar(rs.getDouble("star"));
 				dto.setBestOrNot(rs.getInt("bestOrNot"));
 				dto.setReviewShowOrNot(rs.getInt("reviewShowOrNot"));
 				dto.setOrderDetailNum(rs.getInt("orderDetailNum"));
-				dto.setReviewer(rs.getString("reviewer"));
 				dto.setRegDate(rs.getString("regDate"));
 				dto.setImage(rs.getString("image"));
 				dto.setProductName(rs.getString("productName"));
-				//dto.setReplyCount(rs.getInt("replyCount"));
+				dto.setmName(rs.getString("mName"));
 
 				list.add(dto);
 			}
@@ -142,6 +135,45 @@ public class ReviewDAO {
 		return list;
 	}
 	
+	// 작성가능한 리뷰 찾기
+	public ReviewDTO findByCode(String productCode) {
+		ReviewDTO dto = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql;
+
+		try {
+			sql = "SELECT m.mName, od.productCode, p.productName, od.orderDetailNum "
+					+ " FROM orderDetail od "
+					+ " JOIN orderPrice op on op.orderNum = od.orderNum "
+					+ " JOIN member m on m.mNum=op.mNum "
+					+ " JOIN product p on p.productCode = od.productCode "
+					+ " WHERE od.productCode = ? ";
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, productCode);
+
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				dto = new ReviewDTO();
+				
+				dto.setmName(rs.getString("mName"));
+				dto.setProductCode(rs.getString("productCode"));
+				dto.setProductName(rs.getString("productName"));
+				dto.setOrderDetailNum(rs.getInt("orderDetailNum"));
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBUtil.close(rs);
+			DBUtil.close(pstmt);
+		}
+
+		return dto;
+	}
+	
 	
 	// 마이리뷰 리스트
 	public List<ReviewDTO> listMyReview(int offset, int size) {
@@ -151,22 +183,14 @@ public class ReviewDAO {
 		StringBuilder sb = new StringBuilder();
 
 		try {
-			sb.append(" SELECT reviewboardnum, rb.productcode, reviewcontent, star, hitCount, ");
-			sb.append(" bestOrNot,reviewShowOrNot, od.orderDetailNum, reviewer, TO_CHAR(regDate, 'YYYY-MM-DD') regDate, "
+			sb.append(" SELECT reviewboardnum, rb.productcode, reviewcontent, star, ");
+			sb.append(" bestOrNot,reviewShowOrNot, od.orderDetailNum, TO_CHAR(regDate, 'YYYY-MM-DD') regDate, "
 					+ " p.image,  p.productName, TO_CHAR(op.orderDate,'YYYY-MM-DD') orderDate ");
-			//sb.append("      NVL(replyCount, 0) replyCount ");
 			sb.append(" FROM reviewboard rb");
 			sb.append(" JOIN  product p ON rb.productcode = p.productcode ");
 			sb.append(" JOIN orderdetail od ON od.orderDetailNum = rb.orderDetailNum ");
 			sb.append(" JOIN orderprice op ON od.orderNum = op.orderNum ");
-			
-			//sb.append(" JOIN member1 m ON b.userId = m.userId ");
-			//sb.append(" LEFT OUTER JOIN ( ");
-			//sb.append("     SELECT num, COUNT(*) replyCount ");
-			//sb.append("     FROM bbsReply ");
-			//sb.append("     WHERE answer = 0 ");
-			//sb.append("     GROUP BY num");
-			//sb.append(" ) c ON b.num = c.num");
+
 			sb.append(" ORDER BY reviewboardnum ASC ");
 			sb.append(" OFFSET ? ROWS FETCH FIRST ? ROWS ONLY ");
 
@@ -183,17 +207,14 @@ public class ReviewDAO {
 				dto.setReviewBoardNum(rs.getLong("reviewboardnum"));
 				dto.setProductCode(rs.getString("productcode"));
 				dto.setReviewContent(rs.getString("reviewcontent"));
-				dto.setStar(rs.getInt("star"));
-				dto.setHitCount(rs.getInt("hitCount"));
+				dto.setStar(rs.getDouble("star"));
 				dto.setBestOrNot(rs.getInt("bestOrNot"));
 				dto.setReviewShowOrNot(rs.getInt("reviewShowOrNot"));
 				dto.setOrderDetailNum(rs.getInt("orderDetailNum"));
-				dto.setReviewer(rs.getString("reviewer"));
 				dto.setRegDate(rs.getString("regDate"));
 				dto.setImage(rs.getString("image"));
 				dto.setProductName(rs.getString("productName"));
 				dto.setOrderDate(rs.getString("orderDate"));
-				//dto.setReplyCount(rs.getInt("replyCount"));
 				
 				list.add(dto);
 			}
@@ -205,6 +226,31 @@ public class ReviewDAO {
 			DBUtil.close(pstmt);
 		}
 		return list;
+	}
+	
+	
+	public void insertReview(ReviewDTO dto) throws SQLException {
+		PreparedStatement pstmt = null;
+		String sql;
+
+		try {
+			sql = "INSERT INTO reviewBoard(reviewBoardNum, productCode, reviewContent, star, regDate, bestOrNot, ReviewShowOrNot, orderDetailNum) "
+					+ " VALUES (reviewBoard_seq.NEXTVAL, ?, ?, ?,SYSDATE, 0,0,?)";
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, dto.getProductCode());
+			pstmt.setString(2, dto.getReviewContent());
+			pstmt.setDouble(3, dto.getStar());
+			pstmt.setInt(4,dto.getOrderDetailNum());
+
+			pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			DBUtil.close(pstmt);
+		}
 	}
 	
 	
