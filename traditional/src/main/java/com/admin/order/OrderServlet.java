@@ -65,7 +65,6 @@ public class OrderServlet extends MyServlet {
 			String[] orderPrice= req.getParameterValues("orderPrice");
 			String[] totalPrice = req.getParameterValues("totalPrice");
 			String orderStatus = req.getParameter("orderStatus");
-			
 
 			List<String> orderPriceList = new ArrayList<String>();
 			List<String> totalPriceList = new ArrayList<String>();
@@ -86,8 +85,8 @@ public class OrderServlet extends MyServlet {
 			if ( orderNumKwd == null
 					&& orderDateStart == null
 					&& orderDateEnd == null
-					&& orderPriceList.isEmpty()
-					&& totalPriceList.isEmpty()
+					&& orderPrice == null
+					&& totalPrice == null
 					&& orderStatus == null
 				) 
 			{
@@ -116,8 +115,8 @@ public class OrderServlet extends MyServlet {
 			if( orderNumKwd == null
 					&& orderDateStart == null
 					&& orderDateEnd == null
-					&& orderPriceList.isEmpty()
-					&& totalPriceList.isEmpty()
+					&& orderPrice == null
+					&& totalPrice == null
 					&& orderStatus == null  ) {
 				list = dao.listOrder(offset, size);
 			} else {
@@ -164,13 +163,13 @@ public class OrderServlet extends MyServlet {
 		String page = req.getParameter("page");
 		String size = req.getParameter("size");
 		
+		
 		try {
 			Long orderNum = Long.parseLong(req.getParameter("orderNum"));
 			OrderDTO dto = dao.findByOrderNum(orderNum);
 			
 			if(dto == null) {
 				resp.sendRedirect(cp + "/admin/order/list.do?page=" + page);
-				System.out.println("dto==null");
 				return;
 			}
 			
@@ -178,6 +177,7 @@ public class OrderServlet extends MyServlet {
 			req.setAttribute("page", page);
 			req.setAttribute("size", size);
 			req.setAttribute("orderNum", orderNum);
+
 			
 			forward(req, resp, "/WEB-INF/views/admin/order/write.jsp");
 			
@@ -185,14 +185,19 @@ public class OrderServlet extends MyServlet {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
-		viewPage(req, resp, "redirect:/notice/admin/order/list.do?page=" + page + "&size=" + size);
+		
+		
 	}
 	
 	protected void updateSubmit(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String cp = req.getContextPath();
 		OrderDAO dao = new OrderDAO();
 		String page = req.getParameter("page");
+		req.getParameter("orderNum");
+		
+		System.out.println(req.getParameter("orderNum") + "updateSubmit");
+		System.out.println(req.getParameter("orderPrice") + "updateSubmit");
+		System.out.println(req.getParameter("shippingFee"));
 		
 		try {
 			OrderDTO dto = new OrderDTO();
@@ -204,6 +209,8 @@ public class OrderServlet extends MyServlet {
 			dto.setTotalPrice(Long.parseLong(req.getParameter("totalPrice")));
 			dto.setShippingFee(Long.parseLong(req.getParameter("shippingFee")));
 			dto.setOrderStatus(req.getParameter("orderStatus"));
+			
+			System.out.println(req.getParameter("orderStatus"));
 			dto.setmNum(Long.parseLong(req.getParameter("mNum")));
 			
 			dao.updateOrder(dto);

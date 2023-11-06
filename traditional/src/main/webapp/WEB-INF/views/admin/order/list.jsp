@@ -231,11 +231,11 @@ main th, td {
 					<table class="listbox">
 						<thead>
 							<tr>
+								<th>번호</th>
 								<th>주문 번호</th>
 								<th>주문 날짜</th>
 								<th>주문 금액</th>
 								<th>총 결제 금액</th>
-								<th>할인 금액</th>
 								<th>배송비</th>
 								<th>주문 상태</th>
 								<th>회원 번호</th>

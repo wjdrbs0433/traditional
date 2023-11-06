@@ -36,7 +36,7 @@
 </style>
 
 
-<script src="${pageContext.request.contextPath}/resource	/js/jquery.min.js"></script>
+<script src="${pageContext.request.contextPath}/resource/js/jquery.min.js"></script>
 <script src="${pageContext.request.contextPath}/resource/js/popper.js"></script>
 <script src="${pageContext.request.contextPath}/resource/js/bootstrap.min.js"></script>
 <script src="${pageContext.request.contextPath}/resource/js/custom.js"></script>
@@ -61,7 +61,9 @@ function sendOk() {
         return;
     }
 
-    f.action = "${pageContext.request.contextPath}/admin/order/update_ok.do";
+    f.action = "${pageContext.request.contextPath}/admin/order/update_ok.do?orderNum=${dto.orderNum}&orderDate=${dto.orderDate}&orderPrice=${dto.orderPrice}&totalPrice=${dto.totalPrice}&deliveryNum=${dto.deliveryNum}&mNum=${dto.mNum}&shippingFee=${dto.shippingFee}&orderStatusKwd=${orderStatusKwd}&page=${page}";
+    
+    /*  */
     f.submit();
 }
 
@@ -76,7 +78,7 @@ function sendOk() {
     <div id="wrap" style="padding: 0px 100px;">
     <div class="navbar" style="margin-top: 52px;">
         
-        <a class="navbar-brand" href="#" style="position: absolute; left: 45%;">
+        <a class="navbar-brand" href="${pageContext.request.contextPath}/admin/order/list.do" style="position: absolute; left: 45%;">
            	주문 수정
         </a>
     </div>
@@ -116,6 +118,13 @@ function sendOk() {
 				<input type="text" name="orderPrice" class="form-control" id="tbox" readonly="readonly" value="${dto.orderPrice}">
 			</td>
 		</tr>
+		
+		<tr>
+			<td>배송비</td>
+			<td>
+				<input type="text" name="shippingFee" class="form-control" id="tbox" readonly="readonly" value="${dto.shippingFee}">
+			</td>
+		</tr>
 		<tr>
 			<td>총 결제 금액</td>
 			<td>
@@ -133,12 +142,13 @@ function sendOk() {
 					<option value="배송 완료">배송 완료</option>
 					<option value="구매 확정">구매 확정</option>
 				</select>
+				
 			</td>
 		</tr>
 		<tr>
 			<td>회원번호</td>
 			<td>
-				<input type="text" name="hashTag" class="form-control" id="tbox" readonly="readonly" value="${dto.mNum}">
+				<input type="text" name="mNum" class="form-control" id="tbox" readonly="readonly" value="${dto.mNum}">
 			</td>
 		</tr>
 		
@@ -147,11 +157,9 @@ function sendOk() {
 	<table class="tablebutton">
 		<tr align="center">
 			<td>
-				<button type="button" class="btn" onclick="sendOk();">수정완료</button>
+	 			<button type="button" class="btn" onclick="location.href='${pageContext.request.contextPath}/admin/order/update_ok.do?orderNum=${dto.orderNum}&page=${page}';">수정완료</button>
 				<button type="reset" class="btn">다시입력</button>
 				<button type="button" class="btn" onclick="location.href='${pageContext.request.contextPath}/admin/order/list.do?size=${size}';">수정취소</button>
-				<input type="hidden" name="orderNum" value="${dto.orderNum}">
-				<input type="hidden" name="page" value="${page}">
 
 			</td>
 		</tr>
