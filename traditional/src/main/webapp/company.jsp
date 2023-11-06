@@ -51,13 +51,13 @@ function modal() {
   <div class="accordion-item">
     <h2 class="accordion-header" id="headingOne">
       <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-        청춘은
+        청춘을 느끼고 싶은 날
       </button>
     </h2>
     <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
       <div class="accordion-body">
-        <strong>청춘청춘청춘</strong> 
-        바로바로바로 <code>지금부터</code> 홀짜악
+        <strong>가장 쉬운 방법	</strong> 
+        <!-- 바로바로바로 <code>지금부터</code> 홀짜악 -->
       </div>
     </div>
   </div>
@@ -69,8 +69,8 @@ function modal() {
     </h2>
     <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
       <div class="accordion-body">
-        <strong>지금부터 지금부터</strong>
-         <code>홀짜악</code>청춘
+        <strong>2000종이 넘는 다채로운 전통주	</strong>
+        <!-- <code>홀짜악</code>청춘 --> 
       </div>
     </div>
   </div>
@@ -82,64 +82,74 @@ function modal() {
     </h2>
     <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
       <div class="accordion-body">
-        <strong>좋다좋다</strong> 맛있겠다 <code>전통주</code>헤헤헤헿
+        <strong>4도부터 53도까지 다양하게 갖춰진 전통주 쇼핑몰 청바지를 이용해보세요</strong>
+        <!-- 맛있겠다 <code>전통주</code>헤헤헤헿  -->
       </div>
     </div>
   </div>
 </div>
     
+    <br>
+    <h3>1. 인사말</h3>
    
  <div class="card" style="width: 14rem; float:left; margin-right:7px; margin-top:40px;">
   <img src="${pageContext.request.contextPath}/resource/images/company/1.jpg" class="card-img-top" height="270px" width="220px">
   <div class="card-body">
-    <h5 class="card-title">김태현</h5>
-    <p class="card-text">인사말인사말인사말인사말인사말인사말인사말인사말인사말인사말인사말인사말인사말인사말인사말인사말인사말인사말인사</p>
-    <a href="#" class="btn btn-primary">회장</a>
+    <h5 class="card-title">김태현<span style="float:right;"><a href="#" class="btn btn-primary">회장</a></span></h5>
+        <br>
+    <p class="card-text"><strong>나가자</strong> : 나라와 가정과 자신의 발전을 위하여</p>
   </div>
 </div>
 
  <div class="card" style="width: 14rem; float:left; margin-right:7px; margin-top:40px;">
   <img src="${pageContext.request.contextPath}/resource/images/company/5.png" class="card-img-top" height="270px" width="220px">
   <div class="card-body">
-    <h5 class="card-title">전태희</h5>
-    <p class="card-text">인사말인사말인사말인사말인사말인사말인사말인사말인사말인사말인사말인사말인사말인사말인사말인사말인사말인사말인사</p>
-    <a href="#" class="btn btn-primary">부회장</a>
+    <h5 class="card-title">전태희<span style="float:right;"><a href="#" class="btn btn-primary">부회장</a></span></h5>
+    <br>
+    
+    <p class="card-text"><strong>재건축</strong> : 재미있고, 건강하게, 축복하며 살자</p>
+    
   </div>
 </div>
 
  <div class="card" style="width: 14rem; float:left; margin-right:7px; margin-top:40px;">
   <img src="${pageContext.request.contextPath}/resource/images/company/3.jpg" class="card-img-top" height="270px" width="220px">
   <div class="card-body">
-    <h5 class="card-title">김수연</h5>
-    <p class="card-text">인사말인사말인사말인사말인사말인사말인사말인사말인사말인사말인사말인사말인사말인사말인사말인사말인사말인사말인사</p>
-    <a href="#" class="btn btn-primary">사장</a>
+    <h5 class="card-title">김수연<span style="float:right;"><a href="#" class="btn btn-primary">사장</a></span></h5>
+        <br>
+    <p class="card-text"><strong>모바일</strong> : 모든것이 바라는대로 일어나길</p>
+    
   </div>
 </div>
 
  <div class="card" style="width: 14rem; float:left; margin-right:7px; margin-top:40px;">
   <img src="${pageContext.request.contextPath}/resource/images/company/4.png" class="card-img-top" height="270px" width="220px">
   <div class="card-body">
-    <h5 class="card-title">이상은</h5>
-    <p class="card-text">인사말인사말인사말인사말인사말인사말인사말인사말인사말인사말인사말인사말인사말인사말인사말인사말인사말인사말인사</p>
-    <a href="#" class="btn btn-primary">부사장</a>
+    <h5 class="card-title">이상은<span style="float:right;"><a href="#" class="btn btn-primary">부사장</a></span></h5>
+        <br>
+    <p class="card-text"><strong>흥청망청</strong> : 흥해도 청춘 망해도 청춘</p>
+    
   </div>
 </div>
+
 
  <div class="card" style="width: 14rem; float:left; margin-right:7px; margin-top:40px;">
   <img src="${pageContext.request.contextPath}/resource/images/company/2.png" class="card-img-top" height="270px" width="220px">
   <div class="card-body">
-    <h5 class="card-title">박진영</h5>
-    <p class="card-text">인사말인사말인사말인사말인사말인사말인사말인사말인사말인사말인사말인사말인사말인사말인사말인사말인사말인사말인사</p>
-    <a href="#" class="btn btn-primary">전무</a>
+    <h5 class="card-title">박진영<span style="float:right;"><a href="#" class="btn btn-primary">전무</a></span></h5>
+        <br>
+    <p class="card-text"><strong>뚝배기</strong> : 뚝심있고, 배짱있게, 기운차게</p>
+    
   </div>
 </div>
 
  <div class="card" style="width: 14rem; float:right; margin-top:40px;">
   <img src="${pageContext.request.contextPath}/resource/images/company/6.png" class="card-img-top" height="270px" width="220px">
   <div class="card-body">
-    <h5 class="card-title">김정균</h5>
-    <p class="card-text">인사말인사말인사말인사말인사말인사말인사말인사말인사말인사말인사말인사말인사말인사말인사말인사말인사말인사말인사</p>
-    <a href="#" class="btn btn-primary">인턴</a>
+    <h5 class="card-title">김정균<span style="float:right;"><a href="#" class="btn btn-primary">인턴</a></span></h5>
+        <br>
+    <p class="card-text"><strong>고진감래</strong> : 고객을 진심으로 대하면 감동으로 돌아온다</p>
+    
   </div>
 </div>
 
