@@ -6,13 +6,11 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="./resource/css/custom.css">
+<link rel="stylesheet" href="./resource/css/index.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/bootstrap.min.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/custom.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/index.css">
-<script src="${pageContext.request.contextPath}/resource/js/jquery.min.js"></script>
-<script src="${pageContext.request.contextPath}/resource/js/popper.js"></script>
-<script src="${pageContext.request.contextPath}/resource/js/bootstrap.min.js"></script>
-<script src="${pageContext.request.contextPath}/resource/js/custom.js"></script>
 <link rel="icon" href="data:;base64,iVBORw0KGgo=">
 <style>
 .main {
@@ -191,7 +189,6 @@
 	background-color: #FDF5E6;
 }
 
-
 .orderDiv div {
 	width: 100%;
     display: flex;
@@ -203,14 +200,17 @@
 
 }
 </style>
+<!-- <script type="text/javascript">
+	function orderDetail() {
+		const f = document.idfindForm;
+		f.submit();
+	}
+</script> -->
 </head>
 <body>
-		
-	<jsp:include page="/WEB-INF/views/layout/header.jsp"></jsp:include>
-		
 	<div class="main">
 		<div>
-			<p class="name" style="line-height:80px; float:right;">${memberDTO.mname} <span>님</span></p>
+			<p class="name">${memberDTO.mname} <span>님</span></p>
 		</div>
 		<div>
 		</div>
@@ -229,52 +229,6 @@
 		</div>
 	</div>	
 	
-	<div class="member">
-		<div class="m1">
-			<p>주문내역</p>
-			<hr>
-			 <table class="table">
-                <tr>
-                    <td>회원 이름</td>
-                    <td>${memberDTO.mname}</td>
-                </tr>
-                <tr>
-                    <td>아이디</td>
-                    <td>${memberDTO.mid}</td>
-                </tr>
-                <tr>
-                    <td>비밀번호</td>
-                    <td>${memberDTO.mpwd}</td>
-                </tr>
-                <tr>
-                    <td>이메일</td>
-                    <td>${memberDTO.memail}</td>
-                </tr>
-                <tr>
-                    <td>휴대폰번호</td>
-                    <td>${memberDTO.mphone}</td>
-                </tr>
-                <tr>
-                    <td>문자수신여부</td>
-                    <td>${memberDTO.field}</td>
-                </tr>
-                <tr>
-                    <td>이메일수신여부</td>
-                    <td>${memberDTO.field2}</td>
-                </tr>
-                <tr>
-                    <td> &nbsp </td>
-                    <td> </td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td style="color: blue; text-decoration: underline; font-weight: bold;"><a href="">수정</a></td>
-                </tr>
-            </table>
-		</div>
-		
-	</div>
-
 
 	<div class="midDiv">
 			<div>
@@ -302,7 +256,7 @@
 			</div>
 	</div>
 	
-	<!-- order div
+	<!-- "location.href='${pageContext.request.contextPath}/admin/product/update.do?productCode=${dto.productCode}&page=${page}';"
 	 -->
 	 
 	
@@ -312,9 +266,13 @@
 		<div style="height: 70px;">
 			<span style="color: black; font-weight: bold; font-size: 20px; display: inline-block; width: 45%; text-align: left; line-height: 70px;
 vertical-align: middle;" > ${dto.orderDate}</span>
-			<a href="${pageContext.request.contextPath}/member/orderListDeatil.do?orderDetailNum=${dto.orderDetailNum}"><span style="font-weight: bold"> 주문 상세 보기 > </span></a>
+			<%-- <form method="post" name="orderDetailForm" autocomplete="off" action="${pageContext.request.contextPath}/member/orderListDetail.do"> --%>
+
+				<a onclick="location.href='${pageContext.request.contextPath}/member/orderListDetail.do?orderDetailNum=${dto.orderDetailNum}';"><span style="font-weight: bold"> 주문 상세 보기 > </span></a>
+				<%-- <input type="hidden" name="orderDetailNum" value="${dto.orderDetailNum}"> --%>
+			<!-- </form> -->
 		</div>
-		"location.href='${pageContext.request.contextPath}/admin/product/update.do?productCode=${dto.productCode}&page=${page}';"
+		
 		<!-- 이름 + 전화번호(가운데 4자리는 *로) -->
 		<div style="height: 55px;" >
 			<span style="font-weight: bold; display: inline-block; width: 40%; line-height: 55px;
@@ -323,7 +281,7 @@ vertical-align: middle;">${dto.memberName}</span>
 vertical-align: middle;">|</span>
 			<span style="font-weight: bold; display: inline-block; width: 80%; text-align: left; line-height: 55px;
 vertical-align: middle;">${dto.memberPhone}</span>
-
+		<input type="hidden" name="orderDetailNum" value="${dto.orderDetailNum}">
 		</div>
 		<hr>
 		<!-- 주문상태 -->

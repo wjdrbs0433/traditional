@@ -16,6 +16,13 @@ public class OrderListDTO {
 	String productName;
 	String productVolume;
 	String productPrice;
+	String productCode;
+	public String getProductCode() {
+		return productCode;
+	}
+	public void setProductCode(String productCode) {
+		this.productCode = productCode;
+	}
 	String orderCount;
 	String shippingFee;
 	public String getOrderDate() {

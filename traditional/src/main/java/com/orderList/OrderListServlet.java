@@ -27,6 +27,8 @@ public class OrderListServlet extends MyServlet {
 		
 		if (uri.indexOf("orderList.do") != -1) {
 			orderList(req, resp);
+		} else if( uri.indexOf("detail.do") != -1) {
+			orderListDetail(req, resp);
 		}
 	}
 	
@@ -89,6 +91,40 @@ public class OrderListServlet extends MyServlet {
 		
 		forward(req,resp, "/WEB-INF/views/orderList/mypage_orderList.jsp");
 		
+		
+	}
+	
+	
+	protected void orderListDetail(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		HttpSession session = req.getSession();
+		MemberDAO memberDAO = new MemberDAO(); 
+		OrderListDAO listDAO = new OrderListDAO();
+		OrderListDTO listDTO = new OrderListDTO();
+		String cp = req.getContextPath();
+		List<OrderListDTO> list = new ArrayList<OrderListDTO>();
+		SessionInfo memberInfo = (SessionInfo) session.getAttribute("member");
+		int mNum = memberInfo.getMnum();
+		MemberDTO memberDTO = memberDAO.mypage(mNum);
+		req.setAttribute("memberDTO", memberDTO);
+		MyUtil util = new MyUtil();
+		OrderListDetailDTO dto = null;
+		
+		
+		try {
+			
+			dto = listDAO.orderDetail(mNum, 1);
+			
+			
+			
+			
+			req.setAttribute("dto", listDTO);
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		forward(req,resp, "/WEB-INF/views/orderList/mypage_orderListDetail.jsp");
 		
 	}
 }
