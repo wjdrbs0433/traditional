@@ -55,33 +55,31 @@
         <label for="playlist-btn3" onClick="moodClick()">과실주</label>
         <input type="radio" class="btn" id="playlist-btn4" name="playlist-radio" style="display: none;" value="a">
         <label for="playlist-btn4" onClick="aClick()">증류주</label>
-        <input type="radio" class="btn" id="playlist-btn5" name="playlist-radio" style="display: none;" value="b">
-        <label for="playlist-btn5" onClick="bClick()">선물세트</label>
         
         
     
         <div id="genre" style="margin-top: 30px;">
-            <a href="#">
-                <img src="${pageContext.request.contextPath}/resource/images/product/1.jpg">
-                <p>요구르트</p>
+            <a href="${pageContext.request.contextPath}/product/productdetail.do?productCode=7">
+                <img src="${pageContext.request.contextPath}/resource/images/product/7.jpg">
+                <p>붉은 원숭이</p>
             </a>
-            <a href="#">
-                <img src="${pageContext.request.contextPath}/resource/images/product/2.jpg">
-                <p>단풍술</p>
+            <a href="${pageContext.request.contextPath}/product/productdetail.do?productCode=12">
+                <img src="${pageContext.request.contextPath}/resource/images/product/12.jpg">
+                <p>복순도가 손 막걸리</p>
             </a>
-            <a href="#">
-                <img src="${pageContext.request.contextPath}/resource/images/product/3.jpg">
-                <p>사과술</p>
+            <a href="${pageContext.request.contextPath}/product/productdetail.do?productCode=14">
+                <img src="${pageContext.request.contextPath}/resource/images/product/14.jpg">
+                <p>백련 미스티 살균 막걸리</p>
             </a>
-            <a href="#">
-                <img src="${pageContext.request.contextPath}/resource/images/product/4.jpg">
-                <p>매실술</p>
+            <a href="${pageContext.request.contextPath}/product/productdetail.do?productCode=17">
+                <img src="${pageContext.request.contextPath}/resource/images/product/17.jpg">
+                <p>잣 진주</p>
             </a>
-            <a href="#">
-                <img src="${pageContext.request.contextPath}/resource/images/product/5.jpg">
-                <p>나무술</p>
+            <a href="${pageContext.request.contextPath}/product/productdetail.do?productCode=24">
+                <img src="${pageContext.request.contextPath}/resource/images/product/24.jpg">
+                <p>삼양춘 청주</p>
             </a>
-            <a href="${pageContext.request.contextPath}/productdetail.jsp">
+            <a href="${pageContext.request.contextPath}/product/productdetail.do?productCode=6">
                 <img src="${pageContext.request.contextPath}/resource/images/product/6.jpg">
                 <p>담은[3병/6병/10병]</p>
             </a>
@@ -92,29 +90,29 @@
         </div>
     
         <div id="situation" style="margin-top: 30px; display: none;">
-            <a href="#">
-                <img src="${pageContext.request.contextPath}/resource/images/playlist/situation/Exercise.jpg">
-                <p>샘플</p>
+            <a href="${pageContext.request.contextPath}/product/productdetail.do?productCode=33">
+                <img src="${pageContext.request.contextPath}/resource/images/product/33.jpg">
+                <p>겨울 소주25%</p>
             </a>
-            <a href="#">
-                <img src="${pageContext.request.contextPath}/resource/images/playlist/situation/study.jpg">
-                <p>샘플</p>
+            <a href="${pageContext.request.contextPath}/product/productdetail.do?productCode=34">
+                <img src="${pageContext.request.contextPath}/resource/images/product/34.jpg">
+                <p>감 보드카</p>
             </a>
-            <a href="#">
-                <img src="${pageContext.request.contextPath}/resource/images/playlist/situation/study.jpg">
-                <p>샘플</p>
+            <a href="${pageContext.request.contextPath}/product/productdetail.do?productCode=21">
+                <img src="${pageContext.request.contextPath}/resource/images/product/21.jpg">
+                <p>우렁이쌀 청주</p>
             </a>
-            <a href="#">
-                <img src="${pageContext.request.contextPath}/resource/images/playlist/situation/food.jpg">
-                <p>샘플</p>
+            <a href="${pageContext.request.contextPath}/product/productdetail.do?productCode=15">
+                <img src="${pageContext.request.contextPath}/resource/images/product/15.jpg">
+                <p>고흥 유자주 8%</p>
             </a>
-            <a href="#">
-                <img src="${pageContext.request.contextPath}/resource/images/playlist/situation/hayley.jpg">
-                <p>샘플</p>
+            <a href="${pageContext.request.contextPath}/product/productdetail.do?productCode=16">
+                <img src="${pageContext.request.contextPath}/resource/images/product/16.jpg">
+                <p>토박이 한산 소곡주</p>
             </a>
-            <a href="#">
-                <img src="${pageContext.request.contextPath}/resource/images/playlist/situation/work.jpg">
-                <p>샘플</p>
+            <a href="${pageContext.request.contextPath}/product/productdetail.do?productCode=22">
+                <img src="${pageContext.request.contextPath}/resource/images/product/22.jpg">
+                <p>서설</p>
             </a>
             <a href="${pageContext.request.contextPath}/product/product.do">
                 <img src="${pageContext.request.contextPath}/resource/images/icon/add.png">
@@ -123,29 +121,29 @@
         </div>
     
         <div id="mood" style="margin-top: 30px; display: none;">
-            <a href="#">
-                <img src="${pageContext.request.contextPath}/resource/images/playlist/mood/jeremy.jpg">
-                <p>샘플</p>
+            <a href="${pageContext.request.contextPath}/product/productdetail.do?productCode=25">
+                <img src="${pageContext.request.contextPath}/resource/images/product/25.jpg">
+                <p>혼디주</p>
             </a>
-            <a href="#">
-                <img src="${pageContext.request.contextPath}/resource/images/playlist/mood/ian.jpg">
-                <p>샘플</p>
+            <a href="${pageContext.request.contextPath}/product/productdetail.do?productCode=26">
+                <img src="${pageContext.request.contextPath}/resource/images/product/26.jpg">
+                <p>샤인머스켓 와인</p>
             </a>
-            <a href="#">
-                <img src="${pageContext.request.contextPath}/resource/images/playlist/mood/maxime.jpg">
-                <p>샘플</p>
+            <a href="${pageContext.request.contextPath}/product/productdetail.do?productCode=27">
+                <img src="${pageContext.request.contextPath}/resource/images/product/27.jpg">
+                <p>복숭아 와인</p>
             </a>
-            <a href="#">
-                <img src="${pageContext.request.contextPath}/resource/images/playlist/mood/jene.jpg">
-                <p>샘플</p>
+            <a href="${pageContext.request.contextPath}/product/productdetail.do?productCode=28">
+                <img src="${pageContext.request.contextPath}/resource/images/product/28.jpg">
+                <p>무주 산머루주</p>
             </a>
-            <a href="#">
-                <img src="${pageContext.request.contextPath}/resource/images/playlist/mood/mae.jpg">
-                <p>샘플</p>
+            <a href="${pageContext.request.contextPath}/product/productdetail.do?productCode=30">
+                <img src="${pageContext.request.contextPath}/resource/images/product/30.jpg">
+                <p>매실 원주</p>
             </a>
-            <a href="#">
-                <img src="${pageContext.request.contextPath}/resource/images/playlist/mood/pawel.jpg">
-                <p>샘플</p>
+            <a href="${pageContext.request.contextPath}/product/productdetail.do?productCode=20">
+                <img src="${pageContext.request.contextPath}/resource/images/product/20.jpg">
+                <p>동학1957</p>
             </a>
             <a href="${pageContext.request.contextPath}/product/product.do">
                 <img src="${pageContext.request.contextPath}/resource/images/icon/add.png">
@@ -154,60 +152,29 @@
         </div>
         
         <div id="a" style="margin-top: 30px; display: none;">
-            <a href="#">
-                <img src="${pageContext.request.contextPath}/resource/images/playlist/genre/nature.jpg">
-                <p>샘플</p>
+            <a href="${pageContext.request.contextPath}/product/productdetail.do?productCode=31">
+                <img src="${pageContext.request.contextPath}/resource/images/product/31.jpg">
+                <p>추사 40%</p>
             </a>
-            <a href="#">
-                <img src="${pageContext.request.contextPath}/resource/images/playlist/genre/animal.jpg">
-                <p>샘플</p>
+            <a href="${pageContext.request.contextPath}/product/productdetail.do?productCode=32">
+                <img src="${pageContext.request.contextPath}/resource/images/product/32.jpg">
+                <p>서울의 밤</p>
             </a>
-            <a href="#">
-                <img src="${pageContext.request.contextPath}/resource/images/playlist/genre/white noise.jpg">
-                <p>샘플</p>
+            <a href="${pageContext.request.contextPath}/product/productdetail.do?productCode=23">
+                <img src="${pageContext.request.contextPath}/resource/images/product/23.jpg">
+                <p>한청</p>
             </a>
-            <a href="#">
-                <img src="${pageContext.request.contextPath}/resource/images/playlist/genre/irina.jpg">
-                <p>샘플</p>
+            <a href="${pageContext.request.contextPath}/product/productdetail.do?productCode=19">
+                <img src="${pageContext.request.contextPath}/resource/images/product/19.jpg">
+                <p>단상지교</p>
             </a>
-            <a href="#">
-                <img src="${pageContext.request.contextPath}/resource/images/playlist/genre/universe.jpg">
-                <p>샘플</p>
+            <a href="${pageContext.request.contextPath}/product/productdetail.do?productCode=18">
+                <img src="${pageContext.request.contextPath}/resource/images/product/18.jpg">
+                <p>솔송주 8%</p>
             </a>
-            <a href="#">
-                <img src="${pageContext.request.contextPath}/resource/images/playlist/genre/ware.jpg">
-                <p>샘플</p>
-            </a>
-            <a href="${pageContext.request.contextPath}/product/product.do">
-                <img src="${pageContext.request.contextPath}/resource/images/icon/add.png">
-                <p>더보기</p>
-            </a>
-        </div>
-        
-        <div id="b" style="margin-top: 30px; display: none;">
-            <a href="#">
-                <img src="${pageContext.request.contextPath}/resource/images/playlist/situation/Exercise.jpg">
-                <p>샘플</p>
-            </a>
-            <a href="#">
-                <img src="${pageContext.request.contextPath}/resource/images/playlist/situation/study.jpg">
-                <p>샘플</p>
-            </a>
-            <a href="#">
-                <img src="${pageContext.request.contextPath}/resource/images/playlist/situation/sleep.jpg">
-                <p>샘플</p>
-            </a>
-            <a href="#">
-                <img src="${pageContext.request.contextPath}/resource/images/playlist/situation/food.jpg">
-                <p>샘플</p>
-            </a>
-            <a href="#">
-                <img src="${pageContext.request.contextPath}/resource/images/playlist/situation/hayley.jpg">
-                <p>샘플</p>
-            </a>
-            <a href="#">
-                <img src="${pageContext.request.contextPath}/resource/images/playlist/situation/work.jpg">
-                <p>샘플</p>
+            <a href="${pageContext.request.contextPath}/product/productdetail.do?productCode=13">
+                <img src="${pageContext.request.contextPath}/resource/images/product/13.jpg">
+                <p>일주142</p>
             </a>
             <a href="${pageContext.request.contextPath}/product/product.do">
                 <img src="${pageContext.request.contextPath}/resource/images/icon/add.png">

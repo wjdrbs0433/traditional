@@ -6,7 +6,6 @@ function genreClick() {
 	$("#situation").hide();
 	$("#mood").hide();
 	$("#a").hide();
-	$("#b").hide();
 }
 
 function situationClick() {
@@ -14,7 +13,6 @@ function situationClick() {
 	$("#situation").show();
 	$("#mood").hide();
 	$("#a").hide();
-	$("#b").hide();
 }
 
 function moodClick() {
@@ -22,7 +20,6 @@ function moodClick() {
 	$("#situation").hide();
 	$("#mood").show();
 	$("#a").hide();
-	$("#b").hide();
 }
 
 function aClick() {
@@ -30,15 +27,6 @@ function aClick() {
 	$("#situation").hide();
 	$("#mood").hide();
 	$("#a").show();
-	$("#b").hide();
-}
-
-function bClick() {
-	$("#genre").hide();
-	$("#situation").hide();
-	$("#mood").hide();
-	$("#a").hide();
-	$("#b").show();
 }
 
 
