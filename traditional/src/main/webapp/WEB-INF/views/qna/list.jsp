@@ -252,8 +252,6 @@ function searchList() {
 						</button>
 					</td>
 					
-					
-					
 				</tr>
 			</table>
 

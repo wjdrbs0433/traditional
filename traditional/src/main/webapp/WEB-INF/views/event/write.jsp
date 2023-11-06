@@ -159,7 +159,6 @@ function check() {
 </head>
 <body>
 
-
 	<jsp:include page="/WEB-INF/views/layout/header.jsp"></jsp:include>
 	
 	<div class="main">

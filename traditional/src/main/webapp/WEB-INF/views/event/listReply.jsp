@@ -51,6 +51,7 @@
 	</c:forEach>	
 </table>
 
+
 <div class="page-navigation" style="text-align:center; margin:20px auto;">
 	${paging}
 </div>			

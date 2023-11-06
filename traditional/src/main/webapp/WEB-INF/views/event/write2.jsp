@@ -70,7 +70,6 @@ function sendOk() {
 
 	<jsp:include page="/WEB-INF/views/layout/header.jsp"></jsp:include>
 
-	
 	<div class="container body-container">
 	    <div class="body-title">
 			<h2></h2>

@@ -264,7 +264,6 @@ function searchList() {
 	    
 	    <div class="body-main mx-auto" style="margin:40px auto;">
 	
-	
 	<ul class="qna">
             <li>
                 <input type="checkbox" id="qna-1">

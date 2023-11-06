@@ -182,7 +182,6 @@
 	            				style="background-color: #1682b0; border-radius: 40px; padding: 10px;"></a>
             </c:otherwise>
             </c:choose>
-            
         </div>
     </div>
-    <hr>
+<hr>

@@ -62,7 +62,6 @@ function modal() {
 </head>
 <body id="body-pd">
     
-    
     <jsp:include page="/WEB-INF/views/layout/adminheader.jsp"/>
 	
 	<div id="wrap" style="padding: 0px 100px;">
