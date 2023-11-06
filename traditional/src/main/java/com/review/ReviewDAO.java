@@ -91,7 +91,7 @@ public class ReviewDAO {
 
 		try {
 			sb.append(" SELECT reviewboardnum, rb.productcode, reviewcontent, star,  ");
-			sb.append(" bestOrNot,reviewShowOrNot, od.orderDetailNum, m.mName, TO_CHAR(regDate, 'YYYY-MM-DD') regDate, p.image, p.productName");
+			sb.append(" bestOrNot,reviewWriteOrNot, od.orderDetailNum, m.mName, TO_CHAR(regDate, 'YYYY-MM-DD') regDate, p.image, p.productName");
 			sb.append(" FROM reviewboard rb");
 			sb.append(" JOIN product p ON rb.productcode = p.productcode ");
 			sb.append(" JOIN orderDetail od ON od.orderDetailNum = rb.orderDetailNum ");
@@ -115,7 +115,7 @@ public class ReviewDAO {
 				dto.setReviewContent(rs.getString("reviewcontent"));
 				dto.setStar(rs.getDouble("star"));
 				dto.setBestOrNot(rs.getInt("bestOrNot"));
-				dto.setReviewShowOrNot(rs.getInt("reviewShowOrNot"));
+				dto.setReviewWriteOrNot(rs.getInt("reviewWriteOrNot"));
 				dto.setOrderDetailNum(rs.getInt("orderDetailNum"));
 				dto.setRegDate(rs.getString("regDate"));
 				dto.setImage(rs.getString("image"));
@@ -183,17 +183,26 @@ public class ReviewDAO {
 		StringBuilder sb = new StringBuilder();
 
 		try {
+			/*
 			sb.append(" SELECT reviewboardnum, rb.productcode, reviewcontent, star, ");
-			sb.append(" bestOrNot,reviewShowOrNot, od.orderDetailNum, TO_CHAR(regDate, 'YYYY-MM-DD') regDate, "
-					+ " p.image,  p.productName, TO_CHAR(op.orderDate,'YYYY-MM-DD') orderDate ");
+			sb.append(" bestOrNot,reviewWriteOrNot, od.orderDetailNum, TO_CHAR(regDate, 'YYYY-MM-DD') regDate, "
+					+ " p.image,  p.productName, m.mNum, TO_CHAR(op.orderDate,'YYYY-MM-DD') orderDate ");
 			sb.append(" FROM reviewboard rb");
 			sb.append(" JOIN  product p ON rb.productcode = p.productcode ");
 			sb.append(" JOIN orderdetail od ON od.orderDetailNum = rb.orderDetailNum ");
 			sb.append(" JOIN orderprice op ON od.orderNum = op.orderNum ");
+			sb.append(" JOIN member m ON m.mNum = op.mNum ");
+			sb.append(" WHERE od.reviewWriteOrNot = 0 ");
+*/
+			
+			sb.append(" select op.orderDate, p.image, p.productName ");
+			sb.append(" from orderdetail od ");
+			sb.append(" JOIN orderprice op ON od.orderNum = op.orderNum ");
+			sb.append(" JOIN product p ON od.productcode = p.productcode ");
+			sb.append(" WHERE od.reviewWriteOrNot = 0 ");
 
-			sb.append(" ORDER BY reviewboardnum ASC ");
+			//sb.append(" ORDER BY reviewboardnum ASC ");
 			sb.append(" OFFSET ? ROWS FETCH FIRST ? ROWS ONLY ");
-
 			pstmt = conn.prepareStatement(sb.toString());
 			
 			pstmt.setInt(1, offset);
@@ -204,17 +213,17 @@ public class ReviewDAO {
 			while (rs.next()) {
 				ReviewDTO dto = new ReviewDTO();
 
-				dto.setReviewBoardNum(rs.getLong("reviewboardnum"));
-				dto.setProductCode(rs.getString("productcode"));
-				dto.setReviewContent(rs.getString("reviewcontent"));
-				dto.setStar(rs.getDouble("star"));
-				dto.setBestOrNot(rs.getInt("bestOrNot"));
-				dto.setReviewShowOrNot(rs.getInt("reviewShowOrNot"));
-				dto.setOrderDetailNum(rs.getInt("orderDetailNum"));
-				dto.setRegDate(rs.getString("regDate"));
+				//dto.setReviewBoardNum(rs.getLong("reviewboardnum"));
+				//dto.setProductCode(rs.getString("productcode"));
+				//dto.setReviewContent(rs.getString("reviewcontent"));
+				//dto.setStar(rs.getDouble("star"));
+				//dto.setReviewWriteOrNot(rs.getInt("reviewWriteOrNot"));
+				//dto.setOrderDetailNum(rs.getInt("orderDetailNum"));
+				//dto.setRegDate(rs.getString("regDate"));
 				dto.setImage(rs.getString("image"));
 				dto.setProductName(rs.getString("productName"));
 				dto.setOrderDate(rs.getString("orderDate"));
+				//dto.setmNum(rs.getInt("mNum"));
 				
 				list.add(dto);
 			}
@@ -225,6 +234,9 @@ public class ReviewDAO {
 			DBUtil.close(rs);
 			DBUtil.close(pstmt);
 		}
+		
+		
+		
 		return list;
 	}
 	
@@ -234,8 +246,8 @@ public class ReviewDAO {
 		String sql;
 
 		try {
-			sql = "INSERT INTO reviewBoard(reviewBoardNum, productCode, reviewContent, star, regDate, bestOrNot, ReviewShowOrNot, orderDetailNum) "
-					+ " VALUES (reviewBoard_seq.NEXTVAL, ?, ?, ?,SYSDATE, 0,0,?)";
+			sql = "INSERT INTO reviewBoard(reviewBoardNum, productCode, reviewContent, star, regDate, bestOrNot, reviewWriteOrNot, orderDetailNum) "
+					+ " VALUES (reviewBoard_seq.NEXTVAL, ?, ?, ?,SYSDATE, 0,1,?)";
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setString(1, dto.getProductCode());

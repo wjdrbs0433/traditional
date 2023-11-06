@@ -166,9 +166,8 @@
 				<tr>
 					<th>주문일자</th>
 					<th>상품이미지</th>
-					<th>상품코드</th>
 					<th>상품이름</th>
-					<th>리뷰등록</th>
+					<th>&nbsp;</th>
 				</tr>
 				
 				
@@ -177,7 +176,6 @@
 					<tr>
 						<td>${dto.orderDate}</td>
 						<td><img src="${pageContext.request.contextPath }/resource/<c:out value="${dto.image}"/>"></td>
-						<td>${dto.productCode}</td>
 						<td>${dto.productName}</td>
 						<td><button type="button" class="btn" onclick="location.href='${pageContext.request.contextPath}/review/reviewWrite.do?productCode=${dto.productCode}&orderDetailNum=${dto.orderDetailNum}';">리뷰등록</button></td>
 					</tr>

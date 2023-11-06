@@ -7,7 +7,7 @@ public class ReviewDTO {
 	private String regDate;
 	private double star;
 	private int bestOrNot;
-	private int reviewShowOrNot;
+	private int reviewWriteOrNot;
 	private int hitCount;
 	private int orderDetailNum;
 	private String reviewer;
@@ -15,11 +15,18 @@ public class ReviewDTO {
 	private String productName;
 	private String orderDate;
 	private String mName;
+	private int mNum;
 	
 	
 	
 	
 	
+	public int getmNum() {
+		return mNum;
+	}
+	public void setmNum(int mNum) {
+		this.mNum = mNum;
+	}
 	public String getmName() {
 		return mName;
 	}
@@ -80,11 +87,11 @@ public class ReviewDTO {
 	public void setBestOrNot(int bestOrNot) {
 		this.bestOrNot = bestOrNot;
 	}
-	public int getReviewShowOrNot() {
-		return reviewShowOrNot;
+	public int getReviewWriteOrNot() {
+		return reviewWriteOrNot;
 	}
-	public void setReviewShowOrNot(int reviewShowOrNot) {
-		this.reviewShowOrNot = reviewShowOrNot;
+	public void setReviewWriteOrNot(int reviewWriteOrNot) {
+		this.reviewWriteOrNot = reviewWriteOrNot;
 	}
 	
 	public int getHitCount() {
