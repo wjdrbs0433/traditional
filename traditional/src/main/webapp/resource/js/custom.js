@@ -15,6 +15,7 @@ function situationClick() {
 	$("#a").hide();
 }
 
+
 function moodClick() {
 	$("#genre").hide();
 	$("#situation").hide();
