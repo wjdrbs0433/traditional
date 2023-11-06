@@ -21,7 +21,8 @@
 				         <c:choose>
 			                 <c:when test="${empty sessionScope.member}">
 			                    <a href="${pageContext.request.contextPath}/member/login.do" class="nav__link active">
-			                        <img src="${pageContext.request.contextPath}/resource/images/icon/person.png" style="width: 28px; background-color: #cccccc; border-radius: 50%; padding: 5px;" name="menu1">
+			                        <img src="${pageContext.request.contextPath}/resource/images/icon/person.png" 
+			                        		style="width: 28px; background-color: #cccccc; border-radius: 50%; padding: 5px;" name="menu1">
 			                        	<span class="nav_name">로그인 / 회원가입</span>
 			                         </a>
 			                 </c:when> 
@@ -60,12 +61,23 @@
 						    <span class="nav_name">고객센터</span>
 						</a>
 						
-						<a href="${pageContext.request.contextPath}/review/list.do">
+						<a href="${pageContext.request.contextPath}/review/list.do" class="nav__link">
 							 <img src="${pageContext.request.contextPath}/resource/images/icon/messenger.png" style="width: 28px;" name="menu6" 
 						         onmouseover="this.src='${pageContext.request.contextPath}/resource/images/icon/messenger_hover.png'" 
 						         onmouseout="this.src='${pageContext.request.contextPath}/resource/images/icon/messenger.png'">
 							<span class="nav_name">리뷰게시판</span>
 						</a>
+						<hr style="border:3px solid #cccccc;">
+						<c:if test="${sessionScope.member.mid == 'admin'}">
+				            <!--관리자 모드-->
+					        <a href="${pageContext.request.contextPath}/admin/main.do" class="nav__link">
+							<img src="${pageContext.request.contextPath}/resource/images/icon/home01.png" style="width: 28px;" name="menu2" 
+									onmouseover="this.src='${pageContext.request.contextPath}/resource/images/icon/home.png'" 
+									onmouseout="this.src='${pageContext.request.contextPath}/resource/images/icon/home01.png'">
+								<span class="nav_name">관리자 페이지</span>
+							</a>
+			            </c:if>
+						
 						
 				    </div>
 				</div>
@@ -115,13 +127,13 @@
 					    <span class="nav_name">커뮤니티</span>
 					</a>
 					
-					<a href="${pageContext.request.contextPath}/review/list.do">
+					<a href="${pageContext.request.contextPath}/review/list.do" class="nav__link">
 						 <img src="${pageContext.request.contextPath}/resource/images/icon/messenger.png" style="width: 28px;" name="menu6" 
 					         onmouseover="this.src='${pageContext.request.contextPath}/resource/images/icon/messenger_hover.png'" 
 					         onmouseout="this.src='${pageContext.request.contextPath}/resource/images/icon/messenger.png'">
 						<span class="nav_name">리뷰게시판</span>
 					</a>
-                     
+					
                 </div>
                 
             </div>

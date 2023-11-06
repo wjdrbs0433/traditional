@@ -44,10 +44,6 @@ th, td { padding: 10px; }
     align-items: center;
 }
 
-
-
-
-
 </style>
 
 
@@ -58,7 +54,7 @@ th, td { padding: 10px; }
 
 <script type="text/javascript">
 function modal() {
-	alert("공지사항입니다.")
+	alert("통계페이지로 이동합니다.");
 }
 
 </script>
@@ -77,10 +73,32 @@ function modal() {
            	관리자 페이지
         </a>
         <div class="col-auto">
-            <a class="btn" id="btn-modal" data-toggle="modal" href="#notificationModal"style="border: 0px; padding: 2px;" onclick="modal();">
+            <a class="btn" id="btn-modal" data-toggle="modal" href="${pageContext.request.contextPath}/admin/statistic/statistic.do" style="border: 0px; padding: 2px;" onclick="modal();">
             	<img src="${pageContext.request.contextPath}/resource/images/icon/notification.png" width="28">
             </a>
-            <a href="loginRegister.jsp"><img src="${pageContext.request.contextPath}/resource/images/icon/person.png" width="52" style="background-color: #1682b0; border-radius: 40px; padding: 10px;"></a>
+           <c:choose>
+                  <c:when test="${empty sessionScope.member}">
+                     <!--로그인 전-->
+                <a href="${pageContext.request.contextPath}/member/login.do" title="로그인">     
+	            	<img src="${pageContext.request.contextPath}/resource/images/icon/person.png" width="52" 
+	            				style="background-color: #1682b0; border-radius: 40px; padding: 10px;">
+	            </a>
+	        </c:when>
+	        
+	        <c:when test="${sessionScope.member.mid == 'admin'}">
+                     <!--관리자 모드-->
+                <a href="${pageContext.request.contextPath}/member/logout.do" title="로그아웃">
+                	<img src="${pageContext.request.contextPath}/resource/images/icon/play-button.png" width="52" 
+	            				style="background-color: #1682b0; border-radius: 40px; padding: 10px;"></a>
+            </c:when>
+            
+            <c:otherwise>
+                     <!--로그인 후-->
+                <a href="${pageContext.request.contextPath}/member/logout.do" title="로그아웃">
+                	<img src="${pageContext.request.contextPath}/resource/images/icon/play-button.png" width="52" 
+	            				style="background-color: #1682b0; border-radius: 40px; padding: 10px;"></a>
+            </c:otherwise>
+            </c:choose>
         </div>
     </div>
    

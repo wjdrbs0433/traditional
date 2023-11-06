@@ -176,17 +176,17 @@
 		</div>
 		<div>
 			<a href="${pageContext.request.contextPath}/notice/list.do" style="color:#cccccc;">공지사항
-				<img class="img" src="${pageContext.request.contextPath}/resource/images/mypage/member.png">
+				<img class="img" src="${pageContext.request.contextPath}/resource/images/icon/notice1.png">
 			</a>
 		</div>
 		<div>
 			<a href="${pageContext.request.contextPath}/event/list.do">이벤트
-				<img class="img" src="${pageContext.request.contextPath}/resource/images/mypage/riview.png">
+				<img class="img" src="${pageContext.request.contextPath}/resource/images/icon/notice2.png">
 			</a>
 		</div>
 		<div>
 			<a href="${pageContext.request.contextPath}/question.jsp" style="color:#cccccc;">자주묻는질문
-				<img class="img" src="${pageContext.request.contextPath}/resource/images/mypage/jomon.png">
+				<img class="img" src="${pageContext.request.contextPath}/resource/images/icon/notice3.png">
 			</a>
 		</div>
 		<div>
