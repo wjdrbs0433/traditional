@@ -52,6 +52,8 @@ public class MemberServlet extends MyServlet{
 			orderList(req, resp);
 		} else if (uri.indexOf("memberupdate.do") != -1) {
             memberUpdate(req, resp);
+        } else if (uri.indexOf("memberupdate_ok.do") != -1) {
+            memberUpdate_ok(req, resp);
         }
 		
 	}
@@ -393,7 +395,25 @@ public class MemberServlet extends MyServlet{
         SessionInfo memberInfo = (SessionInfo) session.getAttribute("member");
         int mnum = memberInfo.getMnum();
 
-        MemberDTO dto1 = dao.mypage(mnum);
+       MemberDTO dto1 = dao.mypage(mnum);
+
+        req.setAttribute("memberDTO", dto1);
+
+        
+
+        req.setAttribute("mode", "member");
+
+        forward(req, resp, "/WEB-INF/views/member/memberupdate.jsp");
+    }
+	
+	protected void memberUpdate_ok(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        HttpSession session = req.getSession();
+        MemberDAO dao = new MemberDAO();
+
+        SessionInfo memberInfo = (SessionInfo) session.getAttribute("member");
+        int mnum = memberInfo.getMnum();
+
+       MemberDTO dto1 = dao.mypage(mnum);
 
         req.setAttribute("memberDTO", dto1);
 
@@ -414,7 +434,7 @@ public class MemberServlet extends MyServlet{
             dao.updateMember(dto);
             req.setAttribute("dto", dto);
 
-            mypageId(req, resp);
+            resp.sendRedirect(req.getContextPath()+"/member/mypage.do");
             return;
         } catch (Exception e) {
             e.printStackTrace();
@@ -422,6 +442,6 @@ public class MemberServlet extends MyServlet{
 
         req.setAttribute("mode", "member");
 
-        forward(req, resp, "/WEB-INF/views/member/memberupdate.jsp");
+        forward(req, resp, "/WEB-INF/views/member/mypage.jsp");
     }
 }

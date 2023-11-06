@@ -156,7 +156,7 @@
 </style>
 </head>
 <body>	
-<form name="memberupdate" action="${pageContext.request.contextPath}/member/memberupdate.do" method="post">
+<form name="memberupdate" action="${pageContext.request.contextPath}/member/memberupdate_ok.do" method="post">
 	<div class="member">
 		<div class="m1">
 			<p>회원정보</p>
