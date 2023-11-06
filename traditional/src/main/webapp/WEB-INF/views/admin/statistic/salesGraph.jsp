@@ -1,52 +1,122 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
+
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>admin main page</title>
 <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resource/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resource/css/custom.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resource/css/index.css">
+
+<script
+	src="${pageContext.request.contextPath}/resource/js/jquery.min.js"></script>
+<script src="${pageContext.request.contextPath}/resource/js/popper.js"></script>
+<script
+	src="${pageContext.request.contextPath}/resource/js/bootstrap.min.js"></script>
+<script src="${pageContext.request.contextPath}/resource/js/custom.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
-<style type="text/css">
-body {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	margin: 0 auto;
-	height: 100vh;
-	background-color: #f1f1f1;
+
+<style>
+.searchbox {
+	margin: 5px auto;
+	padding-bottom: 0;
+	box-shadow: 0 0 0 1px #999;
+	width: 1100px;
 }
 
-table {
-	width: 100%; border-spacing: 0; border-collapse: collapse;
-}
-
-table td {
+.searchbox th {
 	text-align: right;
+	padding: 10px;
 }
 
-.box1 { width: 1600px; 
+.searchbox td {
+	text-align: left;
+	padding: 10px;
+}
+
+#tbox {
+	width: 200px;
+}
+
+.searchbutton {
+	margin: 0 auto;
+}
+
+.btns {
+	color: #333333;
+	border: 1px solid #999999 !important;
+	background-color: #ffffff;
+	padding: 5px 10px;
+	border-radius: 4px;
+	font-weight: 500;
+	cursor: pointer;
+	font-size: 14px;
+	font-family: "맑은 고딕", 나눔고딕, 돋움, sans-serif;
+	vertical-align: baseline;
+}
+
+.listbox {
+	table-layout: auto;
+	margin: 20px auto;
+}
+
+.listbox tr {
+	border-bottom: 1px solid #b4b4b4;
+}
+
+.listbox th {
+	text-align: center;
+	font-size: 15px;
+	margin: 5px;
+}
+
+.listbox td {
+	font-size: 15px;
+	margin: 5px;
+}
+
+.listbox thead tr th {
+	white-space: nowrap;
+}
+
+header {
+	padding-bottom: 30px;
+}
+
+header th {
+	padding: 10px 10px 10px 5px;
+}
+
+header td {
+	padding: 10px 0px 10px 20px;
+}
+
+main th, td {
+	padding: 10px;
+}
+
+.box1 {
 	display: flex;
 	overflow: auto;
 	justify-content: center;
-    align-items: center;}
-    
-.box2 { width: 1600px;}
+	align-items: center;
+	text-align: center;
+}
 
-.dashbox { border: 2px solid skyblue; width: 300px;  margin: 10px;}
-
-.summary { border: 2px solid skyblue; width: 50%; text-align: right; margin: 10px 15px 40px 15px;}
-
-th, td { padding: 10px; }
-
-
-.dashbox td:nth-child(2n-1) { text-align: left; }
-.dashbox td:nth-child(2n) { text-align: right; }
-
-.summary tr:last-child {border-top: 1px dotted gray; border-collapse: collapse;}
-.summary td:nth-child(6n+1) { text-align: center; }
+.dashbox {
+	border: 2px solid skyblue;
+	width: 300px;
+	margin: 10px;
+}
 
 .dash {
 	display: flex;
@@ -56,79 +126,112 @@ th, td { padding: 10px; }
     align-items: center;
 }
 
-.container {
-	width: 1000px; margin: 20px auto 10px;
-	border: 3px solid black;
-}
-
 </style>
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.4.2/css/all.css">
+
+
+
+
+
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v6.4.2/css/all.css">
 </head>
-<body>
-<div>
-	<h3> 통계 </h3>
-</div>
 
-<div class="container">
-	<div class="dash">
-		<div class="box1">
-			<table class="dashbox">
-				<tr>
-					<th onclick="location.href='${pageContext.request.contextPath}/statistic/graph.do';"><i class="fa-solid fa-store"></i>&nbsp; 회원 가입자 통계</th>
-				</tr>
-			</table>
-			
-			<table class="dashbox">
-				<tr>
-					<th onclick="location.href='${pageContext.request.contextPath}/statistic/sales.do';"><i class="fa-solid fa-truck-fast"></i>&nbsp; 매출 관리 </th>
-				</tr>
-			</table>
-			
-			<table class="dashbox">
-				<tr>
-					<th><i class="fa-solid fa-newspaper">&nbsp; 접속자 수 관리</i></th>
-				</tr>
-			</table>
+<body id="body-pd">
+	<jsp:include page="/WEB-INF/views/layout/adminheader.jsp" />
+
+	<div id="wrap" style="padding: 0px 20px;">
+		<div class="navbar" style="margin-top: 52px;">
+
+			<a class="navbar-brand"
+				href="${pageContext.request.contextPath}/admin/statistic/statistic.do"
+				style="position: absolute; left: 49%;"> 통 계 </a>
+
 		</div>
-	</div>
+		<hr>
 
-	<div style="width: 100%; height: 100%;">
-		<div>
-			<form name="dateForm" action="${pageContext.request.contextPath}/statistic/sales.do" method="post">
-				<table>
+
+
+
+		<div class="dash">
+			<div class="box1">
+				<table class="dashbox">
 					<tr>
-	
-						<td>
-							<span style="align-items: flex-end;">기간</span>
-							<select name = "date" id = "date">
-								<option value="1" ${ date == "1" ? "selected":"0"}>일별</option>
-								<option value="2" ${ date == "2" ? "selected":"0"}>월별</option>
-<%-- 								<option value="3" ${ date == "3" ? "selected":"0"}>연별</option> --%>
-							</select>
-							<button type="submit" onclick="location.href='${pageContext.request.contextPath}/statistic/sales.do';"> 전송 </button>
-							
-						</td>
+						<th
+							onclick="location.href='${pageContext.request.contextPath}/admin/statistic/graph.do';"><i
+							class="fa-solid fa-store"></i>&nbsp; 회원 가입자 통계</th>
 					</tr>
 				</table>
-			</form>	
+
+				<table class="dashbox">
+					<tr>
+						<th
+							onclick="location.href='${pageContext.request.contextPath}/admin/statistic/sales.do';"><i
+							class="fa-solid fa-truck-fast"></i>&nbsp; 매출 관리</th>
+					</tr>
+				</table>
+
+				<table class="dashbox">
+					<tr>
+						<th
+							onclick="location.href='${pageContext.request.contextPath}/admin/statistic/visitor.do';"><i 
+							class="fa-solid fa-newspaper"></i>&nbsp; 접속자 수 관리</th>
+					</tr>
+				</table>
+			</div>
 		</div>
-	
-		<div>
-			<canvas id="myChart">
-			</canvas>
+
+
+	<hr>
+
+
+
+
+		<div id="recommend">
+			<h6 style="margin: 10px;">&nbsp;&nbsp;&nbsp;&nbsp;통계 > 총 매출 ${date == "2" ? "> 월별" : "> 일별"}</h6>
 		</div>
+
+		<header> </header>
+
+		<main>
+
+			<div style="width: 80%; height: 80%; margin: 0px auto;">
+				<form name="dateForm"
+					action="${pageContext.request.contextPath}/admin/statistic/sales.do"
+					method="post">
+
+					<table class="listbox">
+						<thead>
+							<tr>
+
+								<td><span style="align-items: flex-end;">기간</span> <select
+									name="date" id="date">
+										<option value="1" ${ date == "1" ? "selected":"0"}>일별</option>
+										<option value="2" ${ date == "2" ? "selected":"0"}>월별</option>
+										<%-- 								<option value="3" ${ date == "3" ? "selected":"0"}>연별</option> --%>
+								</select>
+									<button type="submit"
+										onclick="location.href='${pageContext.request.contextPath}/admin/statistic/sales.do';">
+										전송</button></td>
+							</tr>
+
+						</thead>
+
+						<tbody>
+							<canvas id="myChart">
+							</canvas>
+						</tbody>
+					</table>
 		
-		<div>
-			
-		</div>
-		
+				</form>
+				</div>
+		</main>
+
 	</div>
-</div>
+
 
 
 
 </body>
-
 <script>
 const ctx = document.getElementById('myChart').getContext('2d');
 const myChart = new Chart(ctx, {
@@ -139,7 +242,7 @@ const myChart = new Chart(ctx, {
         	/* 'Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange' */
         	],
         datasets: [{
-            label: '매출 (단위 : 원)' ,
+            label: '매출 (단위 : 원)',
             data: [
             	/* 12, 19, 3, 5, 2, 3 */
             	${data}
@@ -172,9 +275,4 @@ const myChart = new Chart(ctx, {
     }
 });
 </script>
-
-
-
-
-
 </html>

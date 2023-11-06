@@ -138,6 +138,11 @@
 	
 	
 </style>
+<script>
+function orderList() {
+	
+}
+</script>
 </head>
 <body>
 	<div class="main">
@@ -152,8 +157,8 @@
 		<div>
 			<p>리 뷰 </p><img class="img" src="${pageContext.request.contextPath}/resource/images/mypage/riview.png">
 		</div>
-		<div>
-			<p>주문 내역</p><img class="img" src="${pageContext.request.contextPath}/resource/images/mypage/jomon.png">
+		<div onclick="location.href='${pageContext.request.contextPath}/member/orderList.do';">
+			<p>주문 내역</p><img class="img" src="${pageContext.request.contextPath}/resource/images/mypage/jomon.png" onclick="">
 		</div>
 		<div>
 			<p>문의내역</p><img class="img" src="${pageContext.request.contextPath}/resource/images/mypage/gogek.png">

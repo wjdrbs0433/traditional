@@ -153,8 +153,7 @@ public class StatisticDAO {
 				
 				dto.setmRegDate(rs.getString("mRegDate"));
 				dto.setCnt(rs.getInt("cnt"));
-				System.out.println(rs.getString("mRegDate"));
-				System.out.println(rs.getInt("cnt"));
+
 				list.add(dto);
 				
 			}
@@ -185,7 +184,7 @@ public class StatisticDAO {
 		
 		
 		try {
-//			count가 1이면 일별 2면 월별 3이면 연별
+//			count가 1이면 일별 2면 월별
 			if ( count == 1 ) {
 	 			// 일별 조회
 				String currentYear = String.valueOf(now.getYear());
@@ -347,6 +346,213 @@ public class StatisticDAO {
 		
 		return list;
 	}
+	
+	public boolean isToday(String day){
+		boolean result = false;
+
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		String sql = "SELECT * FROM visitor WHERE day=?";
+
+		try {
+
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, day);
+			rs = pstmt.executeQuery();
+			if(rs.next()){
+				result = true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBUtil.close(rs);
+			DBUtil.close(pstmt);
+		}
+		return result;
+	}
+	
+	public void updateStats(String day){
+
+		  PreparedStatement pstmt = null;
+		  String sql = "UPDATE visitor SET count=count+1 WHERE day=?";
+		  try {
+				pstmt = conn.prepareStatement(sql);
+		   pstmt = conn.prepareStatement(sql);
+		   pstmt.setString(1, day);
+		   pstmt.executeUpdate();
+		  } catch (SQLException e) {
+		   e.printStackTrace();
+		  } finally {
+				DBUtil.close(pstmt);
+		  }
+		 }
+	
+	 public void insertStats(VisitDTO dto){
+		  PreparedStatement pstmt = null;
+		  String sql = "INSERT INTO visitor(day,count) VALUES(TO_DATE(?,'YYYY-MM-DD'),?)";
+		  try {
+			
+		   pstmt = conn.prepareStatement(sql);
+		   pstmt.setString(1, dto.getDay());
+		   pstmt.setInt(2, dto.getCount());
+		   pstmt.executeUpdate();
+		  } catch (SQLException e) {
+		   e.printStackTrace();
+		  } finally {
+			  DBUtil.close(pstmt);
+		  }
+		 }
+	 public List<VisitDTO> selectStatsList(int count){
+		  List<VisitDTO> list = new ArrayList<VisitDTO>();
+			LocalDate now = LocalDate.now();
+			LocalDate past = LocalDate.of(now.getYear(), now.getMonthValue()-1, 1);
+		  PreparedStatement pstmt = null;
+		  ResultSet rs = null;
+		  StringBuilder sb = new StringBuilder();
+		  String sql = "SELECT day,count FROM visitor";
+		  VisitDTO dto = null;
+		  try {
+//				count가 1이면 일별 2면 월별
+				if ( count == 1 ) {
+		 			// 일별 조회
+					String currentYear = String.valueOf(now.getYear());
+					String currentMonth;
+					String startMonth;
+					String currentDayOfMonth;
+					String startDayOfMonth;
+					int tmpMonth;
+					String pastDate;
+					String endDate = now.withDayOfMonth(now.lengthOfMonth()).toString();
+					endDate = endDate.substring(endDate.length()-2, endDate.length());
+					
+					// 오늘이 말일이면 다음달 1월로
+					if ( now.getDayOfMonth() == Integer.parseInt(endDate) ) {
+
+						currentMonth = String.valueOf(now.getMonthValue()+1);
+						startMonth = String.valueOf(now.getMonthValue());
+						currentDayOfMonth = String.valueOf(1);
+					} else {
+						// 아니면 평소처럼
+						startMonth = String.valueOf(now.getMonthValue());
+						currentMonth = String.valueOf(now.getMonthValue());
+						currentDayOfMonth = String.valueOf(now.getDayOfMonth()+1);
+					}
+					
+					// 오늘이 1~7일이면
+					if (now.getDayOfMonth() <= 7) {
+						int difference = 7 - now.getDayOfMonth();
+						
+						// 월 처리
+						tmpMonth = Integer.parseInt(startMonth);
+						tmpMonth -= 1;
+						startMonth = String.valueOf(tmpMonth);
+						// 일 처리
+						pastDate = past.withDayOfMonth(past.lengthOfMonth()).toString();
+
+						pastDate = pastDate.substring(pastDate.length()-2, pastDate.length());
+						int a = Integer.parseInt(pastDate);
+						a -= difference;
+						startDayOfMonth = String.valueOf(a) ;
+					} else {
+						startDayOfMonth = String.valueOf(now.getDayOfMonth()-7);
+					}
+
+					sb.append("SELECT TO_CHAR(b.dt, 'YYYY-MM-DD') AS day, NVL(SUM(a.count), 0) AS count ");
+		            sb.append(" FROM (SELECT TO_CHAR(day, 'YYYY-MM-DD') AS day, count ");
+		            sb.append(" FROM visitor ");
+		            sb.append(" WHERE day BETWEEN TO_DATE(?, 'YYYY-MM-DD') AND TO_DATE(?, 'YYYY-MM-DD') ");
+		            sb.append(" GROUP BY day, count) a , ");
+		            sb.append(" ( SELECT TO_DATE(?, 'YYYY-MM-DD') + LEVEL - 1 AS dt ");
+		            sb.append(" FROM dual ");
+		            sb.append(" CONNECT BY LEVEL <= (TO_DATE(?, 'YYYY-MM-DD') - TO_DATE(?, 'YYYY-MM-DD') + 1)) b ");
+		            sb.append(" WHERE b.dt = a.day(+) ");
+		            sb.append(" GROUP BY b.dt ");
+		            sb.append(" ORDER BY b.dt");
+		            
+		            String start = currentYear + "-" + startMonth + "-" + startDayOfMonth;
+					String last = currentYear + "-" + currentMonth + "-" + currentDayOfMonth;
+					pstmt = conn.prepareStatement(sb.toString());
+					
+					
+					pstmt.setString(1, start);
+					pstmt.setString(2, last);
+					pstmt.setString(3, start);
+					pstmt.setString(4, last);
+					pstmt.setString(5, start);
+
+			} else if ( count == 2) {
+				// 월별
+		            
+		            String currentYear = String.valueOf(now.getYear());
+					String currentMonth = String.valueOf(now.getMonthValue()+1);
+					String currentDayOfMonth = "01";
+
+					String startMonth = String.valueOf(now.getMonthValue()-6);
+				
+					
+					sb.append(" SELECT TO_CHAR(day, 'YYYY-MM') AS orderMonth, SUM(count) AS count ");
+					sb.append(" FROM visitor ");
+					sb.append(" WHERE day BETWEEN TO_DATE(?, 'YYYY-MM-DD') ");
+					sb.append(" AND TO_DATE(?, 'YYYY-MM-DD') ");
+					sb.append(" GROUP BY TO_CHAR(day, 'YYYY-MM') ");
+					sb.append(" ORDER BY TO_CHAR(day, 'YYYY-MM')");
+					
+
+					
+					if (currentMonth.length() == 1) {
+						currentMonth = "0" + currentMonth; 
+					} 
+					if( currentDayOfMonth.length() == 1) {
+						currentDayOfMonth = "0" + currentDayOfMonth;
+					} 
+					if (startMonth.length() == 1) {
+						startMonth = "0" + startMonth;
+					}
+					
+					
+					String last = currentYear + "-" + currentMonth + "-" + currentDayOfMonth;
+					String start = currentYear + "-" + startMonth + "-" + currentDayOfMonth;
+				
+					pstmt = conn.prepareStatement(sb.toString());
+					
+					
+					
+					pstmt.setString(1, start);
+					pstmt.setString(2, last);
+				
+			} 		
+				
+
+				rs = pstmt.executeQuery();
+				
+				if( count ==2 ) {
+					while ( rs.next() ) {
+						dto = new VisitDTO();
+						dto.setDay(rs.getString("orderMonth"));
+						dto.setCount(rs.getInt("count"));
+
+						list.add(dto);
+					}
+				} else {
+					while ( rs.next() ) {
+						dto = new VisitDTO();
+						dto.setDay(rs.getString("day"));
+						dto.setCount(rs.getInt("count"));
+
+						list.add(dto);
+					}
+				}
+				
+				
+			} catch (SQLException e) {
+		   e.printStackTrace();
+		  } finally {
+			  DBUtil.close(rs);
+			  DBUtil.close(pstmt);
+		  }
+		  return list;
+		 }
 
 	
 }

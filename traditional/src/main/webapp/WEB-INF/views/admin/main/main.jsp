@@ -65,9 +65,11 @@ function modal() {
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.4.2/css/all.css">
 </head>
 <body id="body-pd">
-    <jsp:include page="/WEB-INF/views/layout/adminheader.jsp"/>
     
-    <div id="wrap" style="padding: 0px 100px;">
+    
+    <jsp:include page="/WEB-INF/views/layout/adminheader.jsp"/>
+	
+	<div id="wrap" style="padding: 0px 100px;">
     <div class="navbar" style="margin-top: 52px;">
         <form class="row">
         </form>
@@ -81,8 +83,9 @@ function modal() {
             <a href="loginRegister.jsp"><img src="${pageContext.request.contextPath}/resource/images/icon/person.png" width="52" style="background-color: #1682b0; border-radius: 40px; padding: 10px;"></a>
         </div>
     </div>
-     
+   
     <hr>
+    
     <div id="recommend">
     <h2 style="margin: 40px;">DASHBOARD</h2>
     </div>

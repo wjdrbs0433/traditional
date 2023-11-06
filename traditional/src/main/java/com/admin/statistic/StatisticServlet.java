@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.admin.statistic.StatisticDAO;
 import com.util.MyServlet;
 
-@WebServlet("/statistic/*")
+@WebServlet("/admin/statistic/*")
 public class StatisticServlet extends MyServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -25,13 +25,14 @@ public class StatisticServlet extends MyServlet {
 		if(uri.indexOf("statistic.do") != -1) {
 
 			// forward(req,resp, "/WEB-INF/main.jsp");
+			regDateGraph(req, resp);
 		} else if (uri.indexOf("sales.do") != -1) {
 //			판매 정산
 //			- 필터링 ( 기간별, 상품 카테고리별 )
 			salesGraph(req, resp);
-		} else if(uri.indexOf("register.do") != -1) {
 			
-			
+		} else if(uri.indexOf("visitor.do") != -1) {
+			visitorGraph(req,resp);
 			
 		} else {
 			//회원가입자수 그래프
@@ -90,7 +91,7 @@ public class StatisticServlet extends MyServlet {
 			req.setAttribute("list", list);
 			req.setAttribute("label", label);
 			req.setAttribute("data", data);
-			
+			req.setAttribute("date", count);
 			
 			
 		} catch (SQLException e) {
@@ -164,16 +165,95 @@ public class StatisticServlet extends MyServlet {
 			
 			req.setAttribute("label", label);
 			req.setAttribute("data", data);
-			
-			
-			
+			req.setAttribute("date", count);
+
+
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		forward(req, resp,"/WEB-INF/views/admin/statistic/salesGraph.jsp");
 
 	}
+
+
+
+	protected void visitorGraph(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		StatisticDAO dao = new StatisticDAO();
+
+		String cp = req.getContextPath();
+		String label = "";
+		String data = "";
+		int count;
+		try {
+			List<VisitDTO> list = null;
+			
+			if(req.getParameter("date") != null) {
+				count = Integer.parseInt(req.getParameter("date"));
+			} else {
+				count = 1;
+			}
+			
+			
+			 list = dao.selectStatsList(count);
+			
+			 
+			 
+			 
+			
+			for(VisitDTO dto: list) {
+				if( list.indexOf(dto) == list.size()-1 && count == 1) {
+					
+					break;
+				}
+				
+				
+				
+				
+				
+				label += dto.getDay();
+				data += dto.getCount();
+				
+				label += "','";
+				data += ",";
+				
+			}
+			
+			if( label.substring(label.length()-1, label.length()).equals("'") ) {
+				label = label.substring(0, label.length() - 3);
+			}
+				
+			if( data.substring(data.length()-1, data.length()).equals(",") ) {
+				data = data.substring(0, data.length() - 1);
+			}
+				 
+
+			
+			req.setAttribute("list", list);
+			
+			
+			
+			req.setAttribute("label", label);
+			req.setAttribute("data", data);
+			req.setAttribute("date", count);
+
+
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+			 
+
+		forward(req, resp,"/WEB-INF/views/admin/statistic/visitorGraph.jsp");
+
+	}
+
+
+
+
+
+
 }

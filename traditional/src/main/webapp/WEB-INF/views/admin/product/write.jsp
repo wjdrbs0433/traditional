@@ -10,23 +10,36 @@
 <meta charset="UTF-8">
 <title>admin main page</title>
 <link rel="icon" href="data:;base64,iVBORw0KGgo=">
-<link rel="stylesheet" href="./resource/css/bootstrap.min.css">
-<link rel="stylesheet" href="./resource/css/custom.css">
-<link rel="stylesheet" href="./resource/css/index.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/bootstrap.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/custom.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/index.css">
 <style type="text/css">
 .table {  width: 1000px; margin: 20px auto;}
 
 .tablebutton { margin: 20px auto; }
 
+#tbox { width: 500px;  }
 
+.btn {
+	color: #333333;
+	border: 1px solid #999999 !important; 
+	background-color: #ffffff;
+	padding: 5px 10px;
+	border-radius: 4px;
+	font-weight: 500;
+	cursor:pointer;
+	font-size: 14px;
+	font-family: "맑은 고딕", 나눔고딕, 돋움, sans-serif;
+	vertical-align: baseline;
+}
 
 </style>
 
 
-<script src="./resource	/js/jquery.min.js"></script>
-<script src="./resource/js/popper.js"></script>
-<script src="./resource/js/bootstrap.min.js"></script>
-<script src="./resource/js/custom.js"></script>
+<script src="${pageContext.request.contextPath}/resource	/js/jquery.min.js"></script>
+<script src="${pageContext.request.contextPath}/resource/js/popper.js"></script>
+<script src="${pageContext.request.contextPath}/resource/js/bootstrap.min.js"></script>
+<script src="${pageContext.request.contextPath}/resource/js/custom.js"></script>
 
 <script type="text/javascript">
 function modal() {
@@ -36,23 +49,100 @@ function modal() {
 function sendOk() {
     
 	const f = document.writeForm;
-	/*
+	
 	let str;
 	
-    str = f.subject.value.trim();
+    str = f.productName.value.trim();
     if(!str) {
-        alert("제목을 입력하세요. ");
-        f.subject.focus();
+        alert("상품명을 입력하세요. ");
+        f.productName.focus();
         return;
     }
 
-    str = f.content.value.trim();
+    str = f.productPrice.value.trim();
     if(!str) {
-        alert("내용을 입력하세요. ");
+        alert("가격을 입력하세요. ");
+        f.productPrice.focus();
+        return;
+    }
+    
+    str = f.productSubject.value.trim();
+    if(!str) {
+        alert("설명을 입력하세요. ");
         f.content.focus();
         return;
     }
-*/
+    
+    str = f.expirationDate.value.trim();
+    if(!str) {
+        alert("유통기한을 입력하세요. ");
+        f.expirationDate.focus();
+        return;
+    }
+    
+    str = f.productStorage.value.trim();
+    if(!str) {
+        alert("저장방법을 입력하세요. ");
+        f.productStorage.focus();
+        return;
+    }
+    
+    str = f.hashTag.value.trim();
+    if(!str) {
+        alert("해쉬태그를 입력하세요. ");
+        f.hashTag.focus();
+        return;
+    }
+    
+    str = f.alcoholPercent.value.trim();
+    if(!str) {
+        alert("도수를 입력하세요. ");
+        f.alcoholPercent.focus();
+        return;
+    }
+    
+    str = f.inventory.value.trim();
+    if(!str) {
+        alert("재고를 입력하세요. ");
+        f.inventory.focus();
+        return;
+    }
+    
+    str = f.image.value.trim();
+    if(!str) {
+        alert("사진을 입력하세요. ");
+        f.image.focus();
+        return;
+    }
+    
+    str = f.extinctOrNot.value.trim();
+    if(!str) {
+        alert("단종여부를 입력하세요.(1:판매중, 0:단종) ");
+        f.extinctOrNot.focus();
+        return;
+    }
+    
+    str = f.price.value.trim();
+    if(!str) {
+        alert("원가를 입력하세요. ");
+        f.price.focus();
+        return;
+    }
+    
+    str = f.volume.value.trim();
+    if(!str) {
+        alert("용량을 입력하세요. ");
+        f.volume.focus();
+        return;
+    }
+    
+    str = f.breweryPage.value.trim();
+    if(!str) {
+        alert("양조장홈페이지를 입력하세요. ");
+        f.breweryPage.focus();
+        return;
+    }
+
     f.action = "${pageContext.request.contextPath}/admin/product/${mode}_ok.do";
     f.submit();
 }
@@ -62,53 +152,21 @@ function sendOk() {
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.4.2/css/all.css">
 </head>
 <body id="body-pd">
-    <div class="l-navbar" id="navbar">
-        <nav class="nav">
-            <div>	
-                <div class="nav__brand">
-                        <img src="./resource/images/icon/more.png" name="menu-outline" class="nav__toggle" id="nav-toggle" style="width: 28px;" onclick="langHide()">
-                </div>
-                <div class="nav__list">
-                    <a href="#" class="nav__link active">
-                        <img src="./resource/images/icon/person.png" style="width: 28px; background-color: #cccccc; border-radius: 50%; padding: 5px;" name="menu1">
-                        	<span class="nav_name">로그인 / 회원가입</span>
-                         </a>
-                    <a href="#" class="nav__link">
-                        <img src="./resource/images/icon/home.png" style="width: 28px;" name="menu2">
-                        <span class="nav_name" style="color: #1682b0;">홈</span>
-                    </a>
-                    <a href="#" class="nav__link" onmouseover="menu3.src='./resource/images/icon/messenger_hover.png'" onmouseout="menu3.src='./resource/images/icon/messenger.png'">
-                        <img src="./resource/images/icon/messenger.png" style="width: 28px;" name="menu3">
-                        <span class="nav_name">커뮤니티</span>
-                    </a>
-                    <a href="#" class="nav__link" onmouseover="menu4.src='./resource/images/icon/comment01.png'" onmouseout="menu4.src='./resource/images/icon/comment.png'">
-                        <img src="./resource/images/icon/comment.png" style="width: 28px;" name="menu4">
-                        <span class="nav_name">사용가이드</span>
-                    </a>
-                </div>
-                
-            </div>
-        </nav>
-    </div>
+<jsp:include page="/WEB-INF/views/layout/adminheader.jsp"/>
+    
     
     <div id="wrap" style="padding: 0px 100px;">
     <div class="navbar" style="margin-top: 52px;">
-        <form class="row">
-        </form>
+        
         <a class="navbar-brand" href="#" style="position: absolute; left: 45%;">
-           	관리자 페이지
+           	${mode=='update'?'상품수정':'상품등록'}
         </a>
-        <div class="col-auto">
-            <a class="btn" id="btn-modal" data-toggle="modal" href="#notificationModal"style="border: 0px; padding: 2px;" onclick="modal();">
-            	<img src="./resource/images/icon/notification.png" width="28">
-            </a>
-            <a href="loginRegister.jsp"><img src="./resource/images/icon/person.png" width="52" style="background-color: #1682b0; border-radius: 40px; padding: 10px;"></a>
-        </div>
     </div>
      
     <hr>
     <div id="recommend">
-    <h2 style="margin: 40px;">상품등록</h2>
+    <h6 style="margin: 10px;">
+    상품관리 > 상품 리스트 > ${mode=='update'?'상품수정':'상품등록'}</h6>
     </div>
     
 	
@@ -123,34 +181,34 @@ function sendOk() {
 		</tr>
 		 -->
 		<tr>
-			<td>제품명</td>
+			<td>상품명</td>
 			<td>
-				<input type="text" name="productName" class="form-control" value="${dto.productName}">
+				<input type="text" name="productName" class="form-control" id="tbox" value="${dto.productName}">
 				
 			</td>
 		</tr>
 		<tr>
 			<td>가격</td>
 			<td>
-				<input type="text" name="productPrice" class="form-control" value="${dto.productPrice}">
+				<input type="text" name="productPrice" class="form-control" id="tbox" value="${dto.productPrice}">
 			</td>
 		</tr>
 		<tr>
 			<td>설명</td>
 			<td>
-				<input type="text" name="productSubject" class="form-control" value="${dto.productSubject}">
+				<input type="text" name="productSubject" class="form-control" id="tbox" value="${dto.productSubject}">
 			</td>
 		</tr>
 		<tr>
 			<td>유통기한</td>
 			<td>
-				<input type="text" name="expirationDate" class="form-control" value="${dto.expirationDate}">
+				<input type="text" name="expirationDate" class="form-control" id="tbox" value="${dto.expirationDate}">
 			</td>
 		</tr>
 		<tr>
 			<td>저장방법</td>
 			<td>
-				<input type="text" name="productStorage" class="form-control" value="${dto.productStorage}">
+				<input type="text" name="productStorage" class="form-control" id="tbox" value="${dto.productStorage}">
 			</td>
 		</tr>
 		<tr>
@@ -166,13 +224,13 @@ function sendOk() {
 		<tr>
 			<td>해쉬태그</td>
 			<td>
-				<input type="text" name="hashTag" class="form-control" value="${dto.hashTag}">
+				<input type="text" name="hashTag" class="form-control" id="tbox" value="${dto.hashTag}">
 			</td>
 		</tr>
 		<tr>
 			<td>도수</td>
 			<td>
-				<input type="text" name="alcoholPercent" class="form-control" value="${dto.alcoholPercent}">
+				<input type="text" name="alcoholPercent" class="form-control" id="tbox" value="${dto.alcoholPercent}">
 			</td>
 		</tr>
 		<tr>
@@ -197,38 +255,38 @@ function sendOk() {
 		<tr>
 			<td>재고</td>
 			<td>
-				<input type="text" name="inventory" class="form-control" value="${dto.inventory}">
+				<input type="text" name="inventory" class="form-control" id="tbox" value="${dto.inventory}">
 			</td>
 		</tr>
 		<tr>
 			<td>사진</td>
 			<td>
-				<input type="text" name="image" class="form-control" value="${dto.image}">
+				<input type="text" name="image" class="form-control" id="tbox" value="${dto.image}">
 				 
 			</td>
 		</tr>
 		<tr>
 			<td>단종여부</td>
 			<td>
-				<input type="text" name="extinctOrNot" class="form-control" value="${dto.extinctOrNot}">
+				<input type="text" name="extinctOrNot" class="form-control" id="tbox" value="${dto.extinctOrNot}">
 			</td>
 		</tr>
 		<tr>
 			<td>원가</td>
 			<td>
-				<input type="text" name="price" class="form-control" value="${dto.price}">
+				<input type="text" name="price" class="form-control" id="tbox" value="${dto.price}">
 			</td>
 		</tr>
 		<tr>
 			<td>용량</td>
 			<td>
-				<input type="text" name="volume" class="form-control" value="${dto.volume}">
+				<input type="text" name="volume" class="form-control" id="tbox" value="${dto.volume}">
 			</td>
 		</tr>
 		<tr>
 			<td>양조장홈페이지</td>
 			<td>
-				<input type="text" name="breweryPage" class="form-control" value="${dto.breweryPage}">
+				<input type="text" name="breweryPage" class="form-control" id="tbox" value="${dto.breweryPage}">
 			</td>
 		</tr>
 		
@@ -239,7 +297,7 @@ function sendOk() {
 			<td>
 				<button type="button" class="btn" onclick="sendOk();">${mode=='update'?'수정완료':'등록하기'}</button>
 				<button type="reset" class="btn">다시입력</button>
-				<button type="button" class="btn" onclick="location.href='${pageContext.request.contextPath}/admin/product/list.do?page=${page}';">${mode=='update'?'수정취소':'등록취소'}</button>
+				<button type="button" class="btn" onclick="location.href='${pageContext.request.contextPath}/admin/product/list.do?size=${size}';">${mode=='update'?'수정취소':'등록취소'}</button>
 				<c:if test="${mode=='update'}">
 					<input type="hidden" name="productCode" value="${dto.productCode}">
 					<input type="hidden" name="page" value="${page}">
