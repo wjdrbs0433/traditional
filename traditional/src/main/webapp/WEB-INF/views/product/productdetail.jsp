@@ -231,8 +231,8 @@ function redirectToOrderPage() {
             <a style="color:lightblue;">${product.hashtag}</a><br>
             <a style="color:lightblue;">#카페라떼처럼 부드러운</a> <br>
             <!-- 리뷰하는 곳 -->
-            <a href="#" style="color:blue; text-decoration:underline;">
-            	별점 5.0 / 리뷰 0개
+            <a href="#" style="color:blue; text-decoration:none; font-weight: bold; margin: top;">
+            	<img style="width: 19px; height: 19px;" src="${pageContext.request.contextPath}/resource/images//product/star.png">${averageStarMap[product.productCode]}<c:out value="" /> | 리뷰 ${dataCountreview[product.productCode]}<c:out value="" />
             </a>
             <p style="margin-top:20px;">*주종 : ${product.productcategory}</p>
             <p>*도수 : ${product.alcoholPercent}%</p>
