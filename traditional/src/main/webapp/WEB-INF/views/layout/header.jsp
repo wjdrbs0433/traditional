@@ -4,7 +4,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.4.2/css/all.css">
 <div class="l-navbar" id="navbar" style="z-index:99999;">
         <nav class="nav">
             <div>	
@@ -62,11 +62,9 @@
 						</a>
 						
 						<a href="${pageContext.request.contextPath}/review/list.do" class="nav__link">
-							 <img src="${pageContext.request.contextPath}/resource/images/icon/messenger.png" style="width: 28px;" name="menu6" 
-						         onmouseover="this.src='${pageContext.request.contextPath}/resource/images/icon/messenger_hover.png'" 
-						         onmouseout="this.src='${pageContext.request.contextPath}/resource/images/icon/messenger.png'">
-							<span class="nav_name">리뷰게시판</span>
-						</a>
+		                    <i class="fa-regular fa-star"></i>
+		                       <span class="nav_name">리뷰게시판</span>
+		                </a>
 						<hr style="border:3px solid #cccccc;">
 						<c:if test="${sessionScope.member.mid == 'admin'}">
 				            <!--관리자 모드-->
@@ -117,7 +115,7 @@
 					    <img src="${pageContext.request.contextPath}/resource/images/icon/comment.png" style="width: 28px;" name="menu4" 
 					         onmouseover="this.src='${pageContext.request.contextPath}/resource/images/icon/comment01.png'" 
 					         onmouseout="this.src='${pageContext.request.contextPath}/resource/images/icon/comment.png'">
-					    <span class="nav_name">사용가이드</span>
+					    <span class="nav_name">마이페이지</span>
 					</a>
                    
                     <a href="${pageContext.request.contextPath}/notice/list.do" class="nav__link">
@@ -128,11 +126,9 @@
 					</a>
 					
 					<a href="${pageContext.request.contextPath}/review/list.do" class="nav__link">
-						 <img src="${pageContext.request.contextPath}/resource/images/icon/messenger.png" style="width: 28px;" name="menu6" 
-					         onmouseover="this.src='${pageContext.request.contextPath}/resource/images/icon/messenger_hover.png'" 
-					         onmouseout="this.src='${pageContext.request.contextPath}/resource/images/icon/messenger.png'">
-						<span class="nav_name">리뷰게시판</span>
-					</a>
+                    <i class="fa-regular fa-star"></i>
+                       <span class="nav_name">리뷰게시판</span>
+                    </a>
 					
                 </div>
                 

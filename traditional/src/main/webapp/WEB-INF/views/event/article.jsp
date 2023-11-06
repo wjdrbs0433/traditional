@@ -230,7 +230,7 @@
 					<tr style="border-bottom: none;">
 						<td colspan="2" align="center" style="padding-bottom: 20px;">
 							<button type="button" class="btn btnSendBoardLike" title="좋아요">
-								<i class="fas fa-thumbs-up" style="color: ${isUserLike?'blue':'black'}">★
+								<i class="fas fa-thumbs-up" style="color: ${isUserLike?'blue':'black'}">
 								</i>&nbsp;&nbsp;
 									<span id="boardLikeCount">${dto.likeCount}</span>
 							</button>

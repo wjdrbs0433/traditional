@@ -94,11 +94,9 @@
 						</a>
 						
 						<a href="${pageContext.request.contextPath}/review/list.do" class="nav__link">
-							 <img src="${pageContext.request.contextPath}/resource/images/icon/messenger.png" style="width: 28px;" name="menu6" 
-						         onmouseover="this.src='${pageContext.request.contextPath}/resource/images/icon/messenger_hover.png'" 
-						         onmouseout="this.src='${pageContext.request.contextPath}/resource/images/icon/messenger.png'">
-							<span class="nav_name">리뷰게시판</span>
-						</a>
+		                    <i class="fa-regular fa-star"></i>
+		                       <span class="nav_name">리뷰게시판</span>
+		                </a>
 						
 						<hr style="border:3px solid #cccccc;">
 						

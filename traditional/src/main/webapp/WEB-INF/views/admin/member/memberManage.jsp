@@ -152,14 +152,14 @@ $(function(){
     		<tr>
     			<th>수신동의</th>
     			<td>
-    				<input type="checkbox" name="agreeSms" value="Y">sms
-    				<input type="checkbox" name="agreeEmail" value="Y">email
+    				<input type="checkbox" name="agreeSms" value="Y">&nbsp; sms
+    				<input type="checkbox" name="agreeEmail" value="Y">&nbsp; Email
     			</td>
     		</tr>
     		<tr style="border:hidden">
     			<th>검색</th>
     			<td>
-					<select name="schType" >
+					<select name="schType">
 						<option value="">:::선택:::</option>
 						<option value="mName">이름</option>
 						<option value="mAge">연령대</option>
@@ -190,7 +190,7 @@ $(function(){
 			 
 			 <h6>${dataCount}개(${page}/${total_page} 페이지)</h6>
 			
-			<table class="table table-border table-list mytable2" >
+			<table class="table table-border table-list mytable2" style="text-align:center;">
 				<thead>
 					<tr>
 						<th>
@@ -199,7 +199,7 @@ $(function(){
 						<th>번호</th>
 						<th>아이디</th>
 						<th>이름</th>
-						<th>주민번호</th>
+						<th>생년월일</th>
 						<th>일반전화번호</th>
 						<th>핸드폰번호</th>
 						<th>이메일</th>
@@ -248,8 +248,6 @@ $(function(){
 			</div>
 				
 	    </div>
-    	
-    
 </div>
 
 </body>

@@ -203,8 +203,7 @@ function searchList() {
 
 	<div class="container body-container">
 	    <div class="body-title">
-			<h2><i class="fas fa-graduation-cap"></i> 
-			</h2>
+			<h2></h2>
 	    </div>
 	    
 	    <div class="body-main mx-auto">

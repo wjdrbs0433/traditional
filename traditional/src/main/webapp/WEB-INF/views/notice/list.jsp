@@ -237,7 +237,7 @@ function searchList() {
 	
 	<div class="container body-container">
 	    <div class="body-title">
-			<h2 style="margin:10px auto; float:left;"></h2>
+			<h2></h2>
 	    </div>
 	    
 	    <div class="body-main mx-auto" style="margin:40px auto;">
