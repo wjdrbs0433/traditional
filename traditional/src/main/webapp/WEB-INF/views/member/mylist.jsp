@@ -52,16 +52,16 @@
     background-color: #0e4aae;
 }
 
-.main{
-		width: 900px; /* 너비를 70%로 설정합니다. */
-		height: 120px;
-        margin: 0 auto; /* 왼쪽과 오른쪽에 10px의 공백을 추가합니다. */
-   		margin-top: 50px;
-        border: 1px solid #e2e2e2;
-        border-radius: 20px;
-        display: flex;
-        justify-content: space-between;
-	}
+.main {
+	width: 70%; /* 너비를 70%로 설정합니다. */
+	height: 120px;
+	margin: 0 auto; /* 왼쪽과 오른쪽에 10px의 공백을 추가합니다. */
+	margin-top: 50px;
+	border: 1px solid #e2e2e2;
+	border-radius: 20px;
+	display: flex;
+	justify-content: space-between;
+}
 	
 	.img{
 		width: 40px;
@@ -118,12 +118,12 @@
 		padding-top: 15px;
 	}
 	
-	.name1 {
+	.name {
 		font-size: 25px;
 		font-weight:bold;
 	}
 	
-	.name1 span {
+	.name span {
 		color: gray;
 		font-size: 20px;
 		font-weight: normal;
@@ -180,9 +180,7 @@
 	    font-weight: bold;
 	}
 	
-
-	
-.listbox {  
+	.listbox {  
 margin: 20px auto;
 width: 700px;
 }
