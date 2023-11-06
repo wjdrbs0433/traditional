@@ -184,8 +184,7 @@
         
     </div>
     
-    
-    
+
     <div class="modal fade" id="notificationModal" tabindex="-1" aria-labelledby="notificationModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
