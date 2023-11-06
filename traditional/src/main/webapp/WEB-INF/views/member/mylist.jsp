@@ -136,12 +136,33 @@
 	    font-weight: bold;
 	}
 	
+		.btn {
+  	border: 0;
+  	background-color: transparent;
+  	text-align: center;
+  	float: right;
+  	
+	}
+	
+	.listbox {  
+margin: 20px auto;
+width: 700px;
+}
+.listbox tr { border-bottom:1px solid #b4b4b4; }
+.listbox th, td { text-align: center; font-size: 15px; margin: 5px; }
+.listbox thead tr th { white-space: nowrap;}
+	
+	
 	
 </style>
 <script>
-function orderList() {
-	
+function deleteList(num){
+	if(confirm('문의내역을 삭제하시겠습니까?')){
+		location.href = "${pageContext.request.contextPath}/myqna/delete.do?num="+num;
+	}
 }
+
+
 </script>
 </head>
 <body>
@@ -151,11 +172,11 @@ function orderList() {
 		</div>
 		<div>
 		</div>
-		<div>
+		<div onclick="location.href='${pageContext.request.contextPath}/member/mypage.do';">
 			<p>회원정보</p><img class="img" src="${pageContext.request.contextPath}/resource/images/mypage/member.png">
 		</div>
 		<div>
-			<p><a href="${pageContext.request.contextPath}/review/myList.do" style="text-decoration:none;">마이리뷰</a></p><img class="img" src="${pageContext.request.contextPath}/resource/images/mypage/riview.png">
+			<p>리 뷰 </p><img class="img" src="${pageContext.request.contextPath}/resource/images/mypage/riview.png">
 		</div>
 		<div onclick="location.href='${pageContext.request.contextPath}/member/orderList.do';">
 			<p>주문 내역</p><img class="img" src="${pageContext.request.contextPath}/resource/images/mypage/jomon.png" onclick="">
@@ -205,15 +226,74 @@ function orderList() {
                 </tr>
                 <tr>
                     <td></td>
-                    <td style="border: none; color: blue; text-decoration: underline; font-weight: bold;">
-                    	<a href="${pageContext.request.contextPath}/member/memberupdate.do">
-                    		수정
-                    	</a>
-                    </td>
+                    <td style="color: blue; text-decoration: underline; font-weight: bold;"><a href="">수정</a></td>
                 </tr>
             </table>
 		</div>
 		
 	</div>
+	
+	<div class="member">
+		<div class="m1">
+			<p>1:1 문의 내역<p>
+			<hr>
+			<button type="button" class="btn" onclick="location.href='${pageContext.request.contextPath}/qna/list.do';">1:1문의하기 > </button>
+			 
+				<div class="wrap-inner">
+			
+					<div class="list-header">
+						<span class="item-count">문의내역 ${dataCount}건</span>
+						<span class="item-desc">[목록, ${page}/${total_page} 페이지]</span>
+					</div>
+					
+					<div>
+			<form name="listForm">
+			
+			<table class="listbox">
+				<thead>
+					<tr>
+						<th class="num">번호</th>
+						<th class="title">제목</th>
+						<th class="content">내용</th>
+						<th class="date">질문일자</th>
+						<th class="hit">처리결과</th>
+					</tr>
+					
+				</thead>
+			
+				<tbody>
+					<c:forEach var="dto" items="${list}" varStatus="status">
+
+						<tr>
+							<td>${dataCount - (page-1) * size - status.index}</td>
+							<td><a href="${articleUrl}&num=${dto.num}">${dto.title}</a></td>
+							<!-- <td>${dto.title}</td>  -->
+							<td>${dto.content}</td>
+							<td>${dto.reg_date}</td>
+							<td>${not empty dto.answerId?"답변완료":"답변대기"}</td>
+							<td>
+								<button type="button" class="btns" id="btnDeleteList" onclick="deleteList('${dto.num}')">삭제</button>
+							</td>
+						</tr>
+
+					</c:forEach>
+				</tbody>
+			</table>
+			</form>
+			
+		
+			
+		<div class="page-navigation" style="text-align: center">
+			${dataCount == 0 ? "등록된 게시글이 없습니다." : paging }
+		</div>
+    </div>
+			
+				</div>
+			
+			 
+		</div>
+		
+	</div>
+	
 </body>
 </html>

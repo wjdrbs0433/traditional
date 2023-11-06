@@ -216,4 +216,46 @@ public class MemberDAO {
 
     }
 	
+	
+	public MemberDTO mypage(String mid) {
+		MemberDTO dto = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql;
+		
+		try {
+			sql = " SELECT mnum, mname, mpwd, memail, mphone, Field, Field2 "
+					+ " FROM member "
+					+ " WHERE mid = ? ";
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, mid);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				dto = new MemberDTO();
+				
+				dto.setMnum(rs.getInt("mnum"));
+				dto.setMname(rs.getString("mname"));
+				dto.setMpwd(rs.getString("mpwd"));
+				dto.setMemail(rs.getString("memail"));
+				dto.setMphone(rs.getString("mphone"));
+				dto.setField(rs.getString("field"));
+				dto.setField2(rs.getString("field2"));
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBUtil.close(rs);
+			DBUtil.close(pstmt);
+		}
+		
+		return dto;
+	}
+	
+	
 }
+
