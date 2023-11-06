@@ -15,6 +15,30 @@ public class OrderDAO {
 
 	public int dataCount() {
 		int result = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql;
+		
+		try {
+			sql = "SELECT COUNT(*) FROM orderPrice";
+			
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			if( rs.next() ) {
+				result = rs.getInt(1);
+			}
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e2) {
+			e2.printStackTrace();
+		} finally {
+			DBUtil.close(rs);
+			DBUtil.close(pstmt);
+		}
+		
+		
 		
 		return result;
 	}
@@ -25,8 +49,6 @@ public class OrderDAO {
 			String orderDateEnd,
 			List<String> orderPriceList,
 			List<String> totalPriceList,
-			List<String> discountList,
-			List<String> shippingFeeList,
 			String orderStatus) {
 		int result = 0;
 		PreparedStatement pstmt = null;
@@ -34,7 +56,7 @@ public class OrderDAO {
 		StringBuilder sb = new StringBuilder();
 		
 		try {
-			sb.append("SELECT COUNT(*) FROM order WHERE ");
+			sb.append("SELECT COUNT(*) FROM orderPrice WHERE ");
 			
 			// 주문 코드 검색
 			if( ! orderNumKwd.isEmpty() ) {
@@ -70,19 +92,19 @@ public class OrderDAO {
 				
 				sb.append(" ( ");
 				
-				if( orderPriceList.contains("orderPrice1") ) {
+				if( orderPriceList.contains("p1") ) {
 					sb.append(" ( orderPrice <= 10000 ) OR ");
 				}
 				// 1이상 3미만
-				if( orderPriceList.contains("orderPrice2") ) {
+				if( orderPriceList.contains("p2") ) {
 					sb.append(" ( orderPrice >= 10000 AND orderPrice < 30000 ) OR ");
 				}
 				// 3이상 5미만				
-				if( orderPriceList.contains("orderPrice3") ) {
+				if( orderPriceList.contains("p3") ) {
 					sb.append(" ( orderPrice >= 30000 AND orderPrice < 50000 ) OR ");
 				}
 				// 5이상				
-				if( orderPriceList.contains("orderPrice4") ) {
+				if( orderPriceList.contains("p4") ) {
 					sb.append(" ( orderPrice >= 50000 ) OR ");
 				}
 				//
@@ -104,19 +126,19 @@ public class OrderDAO {
 				
 				sb.append(" ( ");
 				
-				if( totalPriceList.contains("totalPrice1") ) {
+				if( totalPriceList.contains("p1") ) {
 					sb.append(" ( totalPrice <= 10000 ) OR ");
 				}
 				// 1이상 3미만
-				if( totalPriceList.contains("totalPrice2") ) {
+				if( totalPriceList.contains("p2") ) {
 					sb.append(" ( totalPrice >= 10000 AND totalPrice < 30000 ) OR ");
 				}
 				// 3이상 5미만				
-				if( totalPriceList.contains("totalPrice3") ) {
+				if( totalPriceList.contains("p3") ) {
 					sb.append(" ( totalPrice >= 30000 AND totalPrice < 50000 ) OR ");
 				}
 				// 5이상				
-				if( totalPriceList.contains("totalPrice4") ) {
+				if( totalPriceList.contains("p4") ) {
 					sb.append(" ( totalPrice >= 50000 ) OR ");
 				}
 				//
@@ -130,62 +152,6 @@ public class OrderDAO {
 				}
 			}
 			
-			if( ! discountList.isEmpty() ) {
-				// p1 1만이하
-				if(  sb.length() -  sb.lastIndexOf(" AND ") > 5 && sb.length() - sb.lastIndexOf(" WHERE ") >= 8) {
-					sb.append(" AND ");
-		        }
-				sb.append(" ( ");
-				
-				if( discountList.contains("discount1") ) {
-					sb.append(" ( discount <= 10000 ) OR ");
-				}
-				// 1이상 3미만
-				if( discountList.contains("discount2") ) {
-					sb.append(" ( discount >= 10000 AND discount < 30000 ) OR ");
-				}
-				// 3이상 5미만				
-				if( discountList.contains("discount3") ) {
-					sb.append(" ( discount >= 30000 AND discount < 50000 ) OR ");
-				}		
-
-				//
-				if( sb.lastIndexOf("OR") == sb.length()-3 ) {
-					sb.delete(sb.lastIndexOf("OR"), sb.length());
-				}
-				sb.append(" ) AND ");
-				
-			} else {
-				if(  sb.length() -  sb.lastIndexOf(" AND ") <= 5 ) {
-					sb.delete(sb.length()-4, sb.length());
-		        }
-			}
-			
-			if( ! (shippingFeeList.isEmpty()) ) {
-				// p1 1만이하
-				if(  sb.length() -  sb.lastIndexOf(" AND ") > 5 && sb.length() - sb.lastIndexOf(" WHERE ") >= 8) {
-					sb.append(" AND ");
-		        }
-				sb.append(" ( ");
-				
-				if( shippingFeeList.contains("shippingFee1") ) {
-					sb.append(" ( shippingFee = 0 ) OR ");
-				}
-				// 1이상 3미만
-				if( shippingFeeList.contains("shippingFee2") ) {
-					sb.append(" ( shippingFee >= 1 ) OR ");
-				}
-
-				if( sb.lastIndexOf("OR") == sb.length()-3 ) {
-					sb.delete(sb.lastIndexOf("OR"), sb.length());
-				}
-				sb.append(" ) AND ");
-				
-			} else {
-				if(  sb.length() -  sb.lastIndexOf(" AND ") <= 5 ) {
-					sb.delete(sb.length()-4, sb.length());
-		        }
-			}
 			
 			if( ! orderStatus.isEmpty() ) {
 				if(  sb.length() -  sb.lastIndexOf(" AND ") > 5 && sb.length() - sb.lastIndexOf(" WHERE ") >= 8) {
@@ -324,9 +290,9 @@ public class OrderDAO {
 		StringBuilder sb = new StringBuilder();
 		
 		try {
-			sb.append(" SELECT orderNum, orderDate, totalPrice, discount, ");
-			sb.append(" shippingFee, orderStatus ");
-			sb.append(" FROM order ");
+			sb.append(" SELECT orderNum, orderDate, orderPrice, totalPrice, ");
+			sb.append(" shippingFee, orderStatus, orderRequire, mNum ");
+			sb.append(" FROM orderPrice ");
 			sb.append(" ORDER BY orderNum DESC ");
 			sb.append(" OFFSET ? ROWS FETCH FIRST ? ROWS ONLY ");
 
@@ -340,12 +306,10 @@ public class OrderDAO {
 			while( rs.next() ) {
 				OrderDTO dto = new OrderDTO();
 				dto.setOrderNum(Long.parseLong((rs.getString("orderNum"))));
-				dto.setDeliveryNum(Long.parseLong((rs.getString("deliveryNum"))));
 				dto.setOrderDate(rs.getString("orderDate"));
 				dto.setOrderPrice(Long.parseLong((rs.getString("orderPrice"))));
 				dto.setTotalPrice(Long.parseLong((rs.getString("totalPrice"))));
 				dto.setOrderRequire(rs.getString("orderRequire"));
-				dto.setDiscount(Long.parseLong((rs.getString("discount"))));
 				dto.setShippingFee(Long.parseLong((rs.getString("shippingFee"))));
 				dto.setOrderStatus(rs.getString("orderStatus"));
 				dto.setmNum(Long.parseLong((rs.getString("mNum"))));
@@ -374,8 +338,6 @@ public class OrderDAO {
 			String orderDateEnd,
 			List<String> orderPriceList,
 			List<String> totalPriceList,
-			List<String> discountList,
-			List<String> shippingFeeList,
 			String orderStatus) {
 		List<OrderDTO> list = new ArrayList<OrderDTO>();
 		PreparedStatement pstmt = null;
@@ -383,9 +345,9 @@ public class OrderDAO {
 		StringBuilder sb = new StringBuilder();
 		
 		try {
-			sb.append(" SELECT orderNum, orderDate, totalPrice, discount, ");
-			sb.append(" shippingFee, orderStatus ");
-			sb.append(" FROM order ");
+			sb.append(" SELECT orderNum, orderDate, orderPrice, totalPrice, ");
+			sb.append(" orderRequire, shippingFee, orderStatus, mNum ");
+			sb.append(" FROM orderPrice ");
 			sb.append(" ORDER BY orderNum DESC ");
 			sb.append(" OFFSET ? ROWS FETCH FIRST ? ROWS ONLY ");
 			
@@ -423,19 +385,19 @@ public class OrderDAO {
 							
 							sb.append(" ( ");
 							
-							if( orderPriceList.contains("orderPrice1") ) {
+							if( orderPriceList.contains("p1") ) {
 								sb.append(" ( orderPrice <= 10000 ) OR ");
 							}
 							// 1이상 3미만
-							if( orderPriceList.contains("orderPrice2") ) {
+							if( orderPriceList.contains("p2") ) {
 								sb.append(" ( orderPrice >= 10000 AND orderPrice < 30000 ) OR ");
 							}
 							// 3이상 5미만				
-							if( orderPriceList.contains("orderPrice3") ) {
+							if( orderPriceList.contains("p3") ) {
 								sb.append(" ( orderPrice >= 30000 AND orderPrice < 50000 ) OR ");
 							}
 							// 5이상				
-							if( orderPriceList.contains("orderPrice4") ) {
+							if( orderPriceList.contains("p4") ) {
 								sb.append(" ( orderPrice >= 50000 ) OR ");
 							}
 							//
@@ -457,19 +419,19 @@ public class OrderDAO {
 							
 							sb.append(" ( ");
 							
-							if( totalPriceList.contains("totalPrice1") ) {
+							if( totalPriceList.contains("p1") ) {
 								sb.append(" ( totalPrice <= 10000 ) OR ");
 							}
 							// 1이상 3미만
-							if( totalPriceList.contains("totalPrice2") ) {
+							if( totalPriceList.contains("p2") ) {
 								sb.append(" ( totalPrice >= 10000 AND totalPrice < 30000 ) OR ");
 							}
 							// 3이상 5미만				
-							if( totalPriceList.contains("totalPrice3") ) {
+							if( totalPriceList.contains("p3") ) {
 								sb.append(" ( totalPrice >= 30000 AND totalPrice < 50000 ) OR ");
 							}
 							// 5이상				
-							if( totalPriceList.contains("totalPrice4") ) {
+							if( totalPriceList.contains("p4") ) {
 								sb.append(" ( totalPrice >= 50000 ) OR ");
 							}
 							//
@@ -483,62 +445,6 @@ public class OrderDAO {
 							}
 						}
 						
-						if( ! discountList.isEmpty() ) {
-							// p1 1만이하
-							if(  sb.length() -  sb.lastIndexOf(" AND ") > 5 && sb.length() - sb.lastIndexOf(" WHERE ") >= 8) {
-								sb.append(" AND ");
-					        }
-							sb.append(" ( ");
-							
-							if( discountList.contains("discount1") ) {
-								sb.append(" ( discount <= 10000 ) OR ");
-							}
-							// 1이상 3미만
-							if( discountList.contains("discount2") ) {
-								sb.append(" ( discount >= 10000 AND discount < 30000 ) OR ");
-							}
-							// 3이상 5미만				
-							if( discountList.contains("discount3") ) {
-								sb.append(" ( discount >= 30000 AND discount < 50000 ) OR ");
-							}		
-
-							//
-							if( sb.lastIndexOf("OR") == sb.length()-3 ) {
-								sb.delete(sb.lastIndexOf("OR"), sb.length());
-							}
-							sb.append(" ) AND ");
-							
-						} else {
-							if(  sb.length() -  sb.lastIndexOf(" AND ") <= 5 ) {
-								sb.delete(sb.length()-4, sb.length());
-					        }
-						}
-						
-						if( ! (shippingFeeList.isEmpty()) ) {
-							// p1 1만이하
-							if(  sb.length() -  sb.lastIndexOf(" AND ") > 5 && sb.length() - sb.lastIndexOf(" WHERE ") >= 8) {
-								sb.append(" AND ");
-					        }
-							sb.append(" ( ");
-							
-							if( shippingFeeList.contains("shippingFee1") ) {
-								sb.append(" ( shippingFee = 0 ) OR ");
-							}
-							// 1이상 3미만
-							if( shippingFeeList.contains("shippingFee2") ) {
-								sb.append(" ( shippingFee >= 1 ) OR ");
-							}
-
-							if( sb.lastIndexOf("OR") == sb.length()-3 ) {
-								sb.delete(sb.lastIndexOf("OR"), sb.length());
-							}
-							sb.append(" ) AND ");
-							
-						} else {
-							if(  sb.length() -  sb.lastIndexOf(" AND ") <= 5 ) {
-								sb.delete(sb.length()-4, sb.length());
-					        }
-						}
 						
 						if( ! orderStatus.isEmpty() ) {
 							if(  sb.length() -  sb.lastIndexOf(" AND ") > 5 && sb.length() - sb.lastIndexOf(" WHERE ") >= 8) {
@@ -559,7 +465,7 @@ public class OrderDAO {
 						}
 						
 						
-						sb.append(" ORDER BY productCode DESC ");
+						sb.append(" ORDER BY orderNum DESC ");
 						sb.append(" OFFSET ? ROWS FETCH FIRST ? ROWS ONLY ");
 						
 						pstmt = conn.prepareStatement(sb.toString());
@@ -699,12 +605,10 @@ public class OrderDAO {
 						while( rs.next() ) {
 							OrderDTO dto = new OrderDTO();
 							dto.setOrderNum(Long.parseLong(rs.getString("orderNum")));
-							dto.setDeliveryNum(Long.parseLong(rs.getString("deliveryNum")));
 							dto.setOrderDate(rs.getString("orderDate"));
 							dto.setOrderPrice(Long.parseLong(rs.getString("orderPrice")));
 							dto.setTotalPrice(Long.parseLong(rs.getString("totalPrice")));
 							dto.setOrderRequire(rs.getString("orderRequire"));
-							dto.setDiscount(Long.parseLong(rs.getString("discount")));
 							dto.setShippingFee(Long.parseLong(rs.getString("shippingFee")));
 							dto.setOrderStatus(rs.getString("orderStatus"));
 							dto.setmNum(Long.parseLong(rs.getString("mNum")));
@@ -733,8 +637,8 @@ public class OrderDAO {
 		String sql;
 		
 		try {
-			sql = "SELECT orderNum, deliveryNum, orderDate, orderPrice, totalPrice, "
-					+ " orderRequire, discount, shippingFee, orderStatus, mNum "
+			sql = "SELECT orderNum, orderDate, orderPrice, totalPrice, "
+					+ " orderRequire, shippingFee, orderStatus, mNum "
 					+ " FROM orderPrice "
 					+ " WHERE orderNum = ?";
 			pstmt = conn.prepareStatement(sql);
@@ -747,12 +651,10 @@ public class OrderDAO {
 				dto = new OrderDTO();
 				
 				dto.setOrderNum(Long.parseLong(rs.getString("orderNum")));
-				dto.setDeliveryNum(Long.parseLong(rs.getString("deliveryNum")));
 				dto.setOrderDate(rs.getString("orderDate"));
 				dto.setOrderPrice(Long.parseLong(rs.getString("orderPrice")));
 				dto.setTotalPrice(Long.parseLong(rs.getString("totalPrice")));
 				dto.setOrderRequire(rs.getString("orderRequire"));
-				dto.setDiscount(Long.parseLong(rs.getString("discount")));
 				dto.setShippingFee(Long.parseLong(rs.getString("shippingFee")));
 				dto.setOrderStatus(rs.getString("orderStatus"));
 				dto.setmNum(Long.parseLong(rs.getString("mNum")));

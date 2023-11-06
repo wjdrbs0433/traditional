@@ -37,7 +37,7 @@
                     	<span class="nav_name">상품리스트</span>
                     </a>
                     
-                    <a href="#" class="nav__link" >
+                    <a href="${pageContext.request.contextPath}/admin/order/list.do" class="nav__link" >
                         <i class="fa-solid fa-truck-fast" style="width: 28px; padding: 5px;" ></i> 
                         <span class="nav_name">주문관리</span>
                     </a>
