@@ -66,6 +66,16 @@ public class OrderServlet extends MyServlet {
 			String[] totalPrice = req.getParameterValues("totalPrice");
 			String orderStatus = req.getParameter("orderStatus");
 
+			System.out.println(orderNumKwd);
+			System.out.println(orderDateStart);
+			System.out.println(orderDateEnd);
+			System.out.println(orderNumKwd);
+			System.out.println(orderStatus);
+			System.out.println(orderNumKwd);
+			
+			
+			
+			
 			List<String> orderPriceList = new ArrayList<String>();
 			List<String> totalPriceList = new ArrayList<String>();
 			
@@ -128,7 +138,7 @@ public class OrderServlet extends MyServlet {
 						  orderStatus);
 			}
 			
-			String listUrl = cp + "/order/list.do";
+			String listUrl = cp + "/admin/order/list.do";
 			String paging = util.paging(current_page, total_page, listUrl);
 			
 			req.setAttribute("list", list);
@@ -197,7 +207,7 @@ public class OrderServlet extends MyServlet {
 		
 		System.out.println(req.getParameter("orderNum") + "updateSubmit");
 		System.out.println(req.getParameter("orderPrice") + "updateSubmit");
-		System.out.println(req.getParameter("shippingFee"));
+		System.out.println(req.getParameter("orderStatusKwd") + "orderStatus");
 		
 		try {
 			OrderDTO dto = new OrderDTO();

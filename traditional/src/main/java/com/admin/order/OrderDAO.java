@@ -59,7 +59,7 @@ public class OrderDAO {
 			sb.append("SELECT COUNT(*) FROM orderPrice WHERE ");
 			
 			// 주문 코드 검색
-			if( ! orderNumKwd.isEmpty() ) {
+			if( orderNumKwd != null)  {
 				sb.append(" ( ");
 				sb.append(" INSTR(orderNum, ?) >= 1 ");
 				sb.append(" ) AND ");
@@ -174,7 +174,7 @@ public class OrderDAO {
 			pstmt = conn.prepareStatement(sb.toString());
 			
 			// 주문번호가 있을 때
-			if( ! orderNumKwd.isEmpty() ) {
+			if(  orderNumKwd != null ) {
 				
 				pstmt.setString(1, orderNumKwd);
 			
@@ -352,7 +352,7 @@ public class OrderDAO {
 			sb.append(" OFFSET ? ROWS FETCH FIRST ? ROWS ONLY ");
 			
 			// 주문 코드 검색
-						if( ! orderNumKwd.isEmpty() ) {
+						if( orderNumKwd != null ) {
 							sb.append(" ( ");
 							sb.append(" INSTR(orderNum, ?) >= 1 ");
 							sb.append(" ) AND ");
@@ -471,7 +471,7 @@ public class OrderDAO {
 						pstmt = conn.prepareStatement(sb.toString());
 						
 						// 주문번호가 있을 때
-						if( ! orderNumKwd.isEmpty() ) {
+						if( orderNumKwd != null ) {
 							
 							pstmt.setString(1, orderNumKwd);
 						

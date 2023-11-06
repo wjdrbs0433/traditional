@@ -48,7 +48,7 @@ function modal() {
 
 function sendOk() {
     
-	const f = document.writeForm;
+	const f = document.updateForm;
 	
 	let str;
 	
@@ -61,7 +61,8 @@ function sendOk() {
         return;
     }
 
-    f.action = "${pageContext.request.contextPath}/admin/order/update_ok.do?orderNum=${dto.orderNum}&orderDate=${dto.orderDate}&orderPrice=${dto.orderPrice}&totalPrice=${dto.totalPrice}&deliveryNum=${dto.deliveryNum}&mNum=${dto.mNum}&shippingFee=${dto.shippingFee}&orderStatusKwd=${orderStatusKwd}&page=${page}";
+    f.action = "${pageContext.request.contextPath}/admin/order/update_ok.do";
+    	/* ?orderNum=${dto.orderNum}&orderDate=${dto.orderDate}&orderPrice=${dto.orderPrice}&totalPrice=${dto.totalPrice}&deliveryNum=${dto.deliveryNum}&mNum=${dto.mNum}&shippingFee=${dto.shippingFee}&orderStatusKwd=${orderStatusKwd}&page=${page}" */
     
     /*  */
     f.submit();
@@ -90,7 +91,7 @@ function sendOk() {
     </div>
     
 	
-	<form name="writeForm" method="post" enctype="multipart/form-data">
+	<form name="updateForm" method="post" enctype="multipart/form-data">
 	<table class="table table-form">
 
 		<tr>
@@ -157,7 +158,7 @@ function sendOk() {
 	<table class="tablebutton">
 		<tr align="center">
 			<td>
-	 			<button type="button" class="btn" onclick="location.href='${pageContext.request.contextPath}/admin/order/update_ok.do?orderNum=${dto.orderNum}&page=${page}';">수정완료</button>
+	 			<button type="button" class="btn" onclick="sendOk();">수정완료</button>
 				<button type="reset" class="btn">다시입력</button>
 				<button type="button" class="btn" onclick="location.href='${pageContext.request.contextPath}/admin/order/list.do?size=${size}';">수정취소</button>
 
