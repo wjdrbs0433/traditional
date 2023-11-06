@@ -16,11 +16,17 @@ public class ReviewDTO {
 	private String orderDate;
 	private String mName;
 	private int mNum;
+	private int orderNum;
 	
 	
 	
 	
-	
+	public int getOrderNum() {
+		return orderNum;
+	}
+	public void setOrderNum(int orderNum) {
+		this.orderNum = orderNum;
+	}
 	public int getmNum() {
 		return mNum;
 	}

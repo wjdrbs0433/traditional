@@ -28,23 +28,6 @@
 		color: gray;
 		padding-left: 15px;
 	}
-/*
-	
-.body-main {
-	max-width: 100%;
-}
-.table-list thead > tr:first-child{ background: #f8f8f8; }
-.table-list th, .table-list td { text-align: center; }
-.table-list .left { text-align: left; padding-left: 5px; }
-
-.table-list .num { width: 60px; color: #787878; }
-.table-list .image{ width : 100px;}
-.table-list .subject { width: 200px; color: #787878; }
-.table-list .content { width: 600px; color: #787878; }
-.table-list .name { width: 100px; color: #787878; }
-.table-list .date { width: 100px; color: #787878; }
-.table-list .star { width: 70px; color: #787878; }
-*/
 
 .img { width:60px; height:60px;}
 
@@ -66,6 +49,7 @@
 }
 
 </style>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.4.2/css/all.css">
 
 <script type="text/javascript">
 function searchList() {
@@ -105,7 +89,83 @@ function searchList() {
 							<td>${dto.reviewContent}</td>
 							<td>${dto.mName}</td>
 							<td>${dto.regDate}</td>
-							<td>${dto.star}</td>
+							
+							<c:if test="${dto.star == 5.0}">
+								<td>
+									<i class="fa-solid fa-star" style="color: #ffde38;"></i>
+									<i class="fa-solid fa-star" style="color: #ffde38;"></i>
+									<i class="fa-solid fa-star" style="color: #ffde38;"></i>
+									<i class="fa-solid fa-star" style="color: #ffde38;"></i>
+									<i class="fa-solid fa-star" style="color: #ffde38;"></i>
+								</td>
+							</c:if>
+							<c:if test="${dto.star == 4.5}">
+								<td>
+									<i class="fa-solid fa-star" style="color: #ffde38;"></i>
+									<i class="fa-solid fa-star" style="color: #ffde38;"></i>
+									<i class="fa-solid fa-star" style="color: #ffde38;"></i>
+									<i class="fa-solid fa-star" style="color: #ffde38;"></i>
+									<i class="fa-solid fa-star-half" style="color: #ffde38;"></i>
+								</td>
+							</c:if>
+							
+							<c:if test="${dto.star == 4.0}">
+								<td>
+									<i class="fa-solid fa-star" style="color: #ffde38;"></i>
+									<i class="fa-solid fa-star" style="color: #ffde38;"></i>
+									<i class="fa-solid fa-star" style="color: #ffde38;"></i>
+									<i class="fa-solid fa-star" style="color: #ffde38;"></i>
+								</td>
+							</c:if>
+							<c:if test="${dto.star == 3.5}">
+								<td>
+									<i class="fa-solid fa-star" style="color: #ffde38;"></i>
+									<i class="fa-solid fa-star" style="color: #ffde38;"></i>
+									<i class="fa-solid fa-star" style="color: #ffde38;"></i>
+									<i class="fa-solid fa-star-half" style="color: #ffde38;"></i>
+								</td>
+							</c:if>
+							<c:if test="${dto.star == 3.0}">
+								<td>
+									<i class="fa-solid fa-star" style="color: #ffde38;"></i>
+									<i class="fa-solid fa-star" style="color: #ffde38;"></i>
+									<i class="fa-solid fa-star" style="color: #ffde38;"></i>
+								</td>
+							</c:if>
+							<c:if test="${dto.star == 2.5}">
+								<td>
+									<i class="fa-solid fa-star" style="color: #ffde38;"></i>
+									<i class="fa-solid fa-star" style="color: #ffde38;"></i>
+									<i class="fa-solid fa-star-half" style="color: #ffde38;"></i>
+								</td>
+							</c:if>
+							<c:if test="${dto.star == 2.0}">
+								<td>
+									<i class="fa-solid fa-star" style="color: #ffde38;"></i>
+									<i class="fa-solid fa-star" style="color: #ffde38;"></i>
+								</td>
+							</c:if>
+							<c:if test="${dto.star == 1.5}">
+								<td>
+									<i class="fa-solid fa-star" style="color: #ffde38;"></i>
+									<i class="fa-solid fa-star-half" style="color: #ffde38;"></i>
+								</td>
+							</c:if>
+							<c:if test="${dto.star == 1.0}">
+								<td>
+									<i class="fa-solid fa-star" style="color: #ffde38;"></i>
+								</td>
+							</c:if>
+							<c:if test="${dto.star == 0.5}">
+								<td>
+									<i class="fa-solid fa-star-half" style="color: #ffde38;"></i>
+								</td>
+							</c:if>
+							<c:if test="${dto.star == 0.0}">
+								<td>
+									<i class="fa-solid fa-star";"></i>
+								</td>
+							</c:if>
 						</tr>
 					</c:forEach>
 				</tbody>

@@ -31,12 +31,14 @@
         justify-content: space-between;
 	}
 	
-	.img{
-		width: 40px;
-		height: 40px;
-
+	.table .btn{
+		background-color: gray;
+	    color: white;
+	    border: none;
+	    border-radius: 18px;
+	    padding: 10px 15px;
+	    cursor: pointer;
 	}
-	
 	.main div {
 		margin: 0 20px;
 		text-align:center;
@@ -122,14 +124,17 @@
 	
 	.table th{
 		
-	    text-align: left;
+	    text-align: center;
 	    color: #989898;
 	    font-size:20px;
 	    padding-left: 15px;
 	    font-weight: 600;
 	}
+	.table td {
+		text-align: center;
+	}
+	.img { width:60px; height:60px;  vertical-align:bottom }
 	
-	.img { width:60px; height:60px;}
 	
 </style>
 </head>
@@ -163,9 +168,10 @@
 			<p>작성가능한 리뷰</p>
 			<hr>
 			<table class="table">
-				<tr>
+				<tr>					
+					<th>주문번호</th>
 					<th>주문일자</th>
-					<th>상품이미지</th>
+					<th>이미지</th>
 					<th>상품이름</th>
 					<th>&nbsp;</th>
 				</tr>
@@ -173,7 +179,8 @@
 				
 				<c:forEach var="dto" items="${list}" varStatus="status">
 				
-					<tr>
+					<tr>						
+						<td>${dto.orderNum}</td>
 						<td>${dto.orderDate}</td>
 						<td><img src="${pageContext.request.contextPath }/resource/<c:out value="${dto.image}"/>"></td>
 						<td>${dto.productName}</td>

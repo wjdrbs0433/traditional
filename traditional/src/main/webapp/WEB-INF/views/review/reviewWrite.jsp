@@ -21,7 +21,15 @@
 
 .table-form input[type=text], .table-form input[type=file], .table-form textarea {
 	width: 96%; }
-	
+
+.btn{
+	background-color: gray;
+    color: white;
+    border: none;
+    border-radius: 18px;
+    padding: 10px 15px;
+    cursor: pointer;
+}	
 	
 /*별점*/	
 .star-bundle {

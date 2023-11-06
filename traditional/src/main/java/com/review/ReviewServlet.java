@@ -56,7 +56,7 @@ public class ReviewServlet extends MyServlet {
 			e.printStackTrace();
 		}
 
-		viewPage(req, resp, "redirect:/review/list.do");
+		viewPage(req, resp, "redirect:/review/myList.do");
 	}
 
 
