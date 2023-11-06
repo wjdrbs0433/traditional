@@ -413,6 +413,7 @@ function redirectToOrderPage() {
 				<td>${quantity}개</td>
 			</tr>
 			
+			
 			<tr>
 				<td>배송비</td>
 				<td>3,000원</td>

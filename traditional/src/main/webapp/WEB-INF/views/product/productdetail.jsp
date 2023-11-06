@@ -243,7 +243,6 @@ function redirectToOrderPage() {
             <h2><fmt:formatNumber type="number" value="${product.productPrice}" pattern="#,###" />원</h2>
             <p style="color:blue;">*유통기한 : ${product.expirationDate}까지</p>
             <p style="color:blue;">*보관방법 : ${product.productStorage}</p>
-            
         </div>
     </div>
 
