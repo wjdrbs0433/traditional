@@ -340,6 +340,7 @@ public class productDAO {
 	        pstmt.setString(4, dto.getProductCode());
 
 	        pstmt.executeUpdate();
+	       
 	        pstmt.close();
 	        
 	        sql = "SELECT inventory FROM product WHERE productcode = ?";
