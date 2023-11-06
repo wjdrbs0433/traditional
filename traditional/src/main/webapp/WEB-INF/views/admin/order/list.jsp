@@ -26,88 +26,52 @@
 
 
 <style>
-.searchbox {
-	margin: 5px auto;
-	padding-bottom: 0;
-	box-shadow: 0 0 0 1px #999;
-	width: 1100px;
+.searchbox { margin: 5px auto; padding-bottom: 0;
+box-shadow: 0 0 0 1px #999;
+ width: 1100px;
 }
 
-.searchbox th {
-	text-align: right;
-	padding: 10px;
-}
+.searchbox th { text-align: right;  padding:10px;}
+.searchbox td { text-align: left;  padding:10px; }
+#tbox { width: 200px;  }
 
-.searchbox td {
-	text-align: left;
-	padding: 10px;
-}
+.searchbutton { margin: 0 auto; }
 
-#tbox {
-	width: 200px;
-}
-
-.searchbutton {
-	margin: 0 auto;
-}
-
+  
 .btns {
 	color: #333333;
-	border: 1px solid #999999 !important;
+	border: 1px solid #999999 !important; 
 	background-color: #ffffff;
 	padding: 5px 10px;
 	border-radius: 4px;
 	font-weight: 500;
-	cursor: pointer;
+	cursor:pointer;
 	font-size: 14px;
 	font-family: "맑은 고딕", 나눔고딕, 돋움, sans-serif;
 	vertical-align: baseline;
 }
 
-.listbox {
-	table-layout: auto;
-	margin: 20px auto;
-}
 
-.listbox tr {
-	border-bottom: 1px solid #b4b4b4;
+.listbox { 
+ table-layout: auto; 
+margin: 20px auto;
 }
+.listbox tr { border-bottom:1px solid #b4b4b4; }
+.listbox th { text-align: center; font-size: 15px; margin: 5px; 
 
-.listbox th {
-	text-align: center;
-	font-size: 15px;
-	margin: 5px;
 }
+.listbox td { font-size: 15px; margin: 5px;}
+.listbox thead tr th { white-space: nowrap;}
 
-.listbox td {
-	font-size: 15px;
-	margin: 5px;
-}
+header { padding-bottom: 30px; }
+header th { padding: 10px 10px 10px 5px; }
+header td { padding: 10px 0px 10px 20px; }
 
-.listbox thead tr th {
-	white-space: nowrap;
-}
+main th, td{ padding: 10px; }
 
-header {
-	padding-bottom: 30px;
-}
+#body-pd{ overflow: auto;
+  white-space: nowrap; }
 
-header th {
-	padding: 10px 10px 10px 5px;
-}
-
-header td {
-	padding: 10px 0px 10px 20px;
-}
-
-main th, td {
-	padding: 10px;
-}
-
-#body-pd {
-	overflow: auto;
-	white-space: nowrap;
-}
 </style>
 
 
@@ -136,7 +100,7 @@ main th, td {
 
 			<a class="navbar-brand"
 				href="${pageContext.request.contextPath}/admin/order/list.do"
-				style="position: absolute; left: 45%;"> 주문 리스트 </a>
+				style="position: absolute; left: 47.7%;"> 주문 리스트 </a>
 
 		</div>
 		<hr>
@@ -144,9 +108,9 @@ main th, td {
 			<h6 style="margin: 10px;">&nbsp;&nbsp;&nbsp;&nbsp;주문관리 > 주문 리스트</h6>
 		</div>
 
-		<header>
+		<%-- <header>
 			<div>
-				<div class="search">
+				 <div class="search">
 					<form name="searchForm"
 						action="${pageContext.request.contextPath}/admin/order/list.do"
 						method="post">
@@ -204,7 +168,7 @@ main th, td {
 
 						</table>
 					</form>
-				</div>
+				</div> 
 				<div>
 					<table class="searchbutton">
 						<tr align="center">
@@ -219,12 +183,12 @@ main th, td {
 					</table>
 				</div>
 			</div>
-		</header>
+		</header> --%>
 
 		<main>
 
 			<div>
-				<form name="listForm">
+				<form name="listForm" style="text-align:center;">
 
 					<h6>${dataCount}개(${page}/${total_page}페이지)</h6>
 
