@@ -293,10 +293,12 @@ function redirectToOrderPage() {
     var quantity = "${quantity}"; 
     var total = "${total}"; 
     var productCode = "${productCode}"
+    var orderNum = "${orderNum}";
 
     // URL에 매개변수 추가
     var url = '${pageContext.request.contextPath}/product/orderok.do' +
         '?name=' + encodeURIComponent(name) +
+        '&orderNum='+orderNum + 
         '&zip=' + encodeURIComponent(zip) +
         '&addr1=' + encodeURIComponent(addr1) +
         '&addr2=' + encodeURIComponent(addr2) +
@@ -315,6 +317,9 @@ function redirectToOrderPage() {
 
 
 </script>
+
+<!-- 카카오페이 -->
+
 </head>
 <body>
 	<div class="main">

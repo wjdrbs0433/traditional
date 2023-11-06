@@ -224,30 +224,60 @@ public class productDAO {
 			}
 			
 			return dto;
+	}
+	
+	public int orderNumber() {
+		int seq = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql;
+		
+		try {
+			sql = " SELECT orderprice_seq.NEXTVAL "
+					+ " FROM dual ";
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				seq = rs.getInt(1);
+
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBUtil.close(rs);
+			DBUtil.close(pstmt);
 		}
+		
+		return seq;
+}	
 	
 	// 데이터 추가
 	public void insertproduct(productDTO dto) throws SQLException {
 	    PreparedStatement pstmt = null;
 	    String sql;
 	    int generatedOrderNum = 0; // 생성된 주문 번호를 저장할 변수
+	    ResultSet rs = null;
 
 	    try {
 	        // orderprice_seq.NEXTVAL를 사용하여 새로운 주문 번호를 생성
 	        sql = "INSERT INTO orderprice(orderNum, orderDate, orderprice, totalprice, orderRequire, shippingFee, orderStatus, ordername, "
 	                + " orderphone, addressnum, address1, address2, mnum ) "
-	                + " VALUES (orderprice_seq.NEXTVAL, SYSDATE, ?, ?, ?, 3000, 결제완료, ?, ?, ?, ?, ?, ?)";
+	                + " VALUES (?, SYSDATE, ?, ?, ?, 3000, '결제완료', ?, ?, ?, ?, ?, ?)";
 	        pstmt = conn.prepareStatement(sql);
 
-	        pstmt.setInt(1, dto.getOrderprice());
-	        pstmt.setInt(2, dto.getTotalprice()+3000);
-	        pstmt.setString(3, dto.getOrderRequire());
-	        pstmt.setString(4, dto.getOrdername());
-	        pstmt.setString(5, dto.getOrderphone());
-	        pstmt.setInt(6, dto.getAddressnum());
-	        pstmt.setString(7, dto.getAddress1());
-	        pstmt.setString(8, dto.getAddress2());
-	        pstmt.setInt(9, dto.getMnum());
+	        pstmt.setInt(1, dto.getOrderNum());
+	        pstmt.setInt(2, dto.getOrderprice());
+	        pstmt.setInt(3, dto.getTotalprice()+3000);
+	        pstmt.setString(4, dto.getOrderRequire());
+	        pstmt.setString(5, dto.getOrdername());
+	        pstmt.setString(6, dto.getOrderphone());
+	        pstmt.setInt(7, dto.getAddressnum());
+	        pstmt.setString(8, dto.getAddress1());
+	        pstmt.setString(9, dto.getAddress2());
+	        pstmt.setInt(10, dto.getMnum());
 
 	        pstmt.executeUpdate();
 	        pstmt.close();
@@ -268,6 +298,32 @@ public class productDAO {
 	        pstmt.setString(4, dto.getProductCode());
 
 	        pstmt.executeUpdate();
+	        pstmt.close();
+	        
+	        sql = "SELECT inventory FROM product WHERE productcode = ?";
+            pstmt = conn.prepareStatement(sql);
+
+            pstmt.setString(1, dto.getProductCode());
+            rs = pstmt.executeQuery();
+
+            int currentInventory = 0;
+
+            if (rs.next()) {
+                currentInventory = rs.getInt("inventory");
+            }
+
+            int newInventory = currentInventory - dto.getOrderCount(); // 새로운 재고 수량 계산
+
+            sql = "UPDATE product SET inventory=? WHERE productCode=?";
+            pstmt = conn.prepareStatement(sql);
+
+            pstmt.setInt(1, newInventory); // 수정된 재고 수량을 사용
+            pstmt.setString(2, dto.getProductCode());
+
+            pstmt.executeUpdate();
+            pstmt.close();
+	        
+	        
 	    } catch (SQLException e) {
 	        e.printStackTrace();
 	        throw e;

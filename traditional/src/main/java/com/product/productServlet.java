@@ -107,9 +107,12 @@ public class productServlet extends MyServlet{
 	protected void order(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 	    HttpSession session = req.getSession();
 	    MemberDAO dao = new MemberDAO();
+	    productDAO pdao = new productDAO();
 
 	    SessionInfo memberInfo = (SessionInfo) session.getAttribute("member");
 	    int mnum = memberInfo.getMnum();
+	    
+	    int orderNum = pdao.orderNumber();
 	    
 	    MemberDTO dto1 = dao.mypage(mnum);
 	    req.setAttribute("memberDTO", dto1);
@@ -120,11 +123,17 @@ public class productServlet extends MyServlet{
 	    String quantity = req.getParameter("quantity");
 	    String productPrice = req.getParameter("productPrice");
 	    
+	    productDTO pdto = pdao.productdetail(productCode);
 	    
+	    
+	    req.setAttribute("orderNum", orderNum);
 	    req.setAttribute("total", total);
 	    req.setAttribute("productCode", productCode);
 	    req.setAttribute("quantity", quantity);
 	    req.setAttribute("productPrice", productPrice);
+	    
+	    req.setAttribute("pdto", pdto);
+	    req.setAttribute("orderNum", orderNum);	    
 	    
 	    forward(req, resp, "/WEB-INF/views/product/order.jsp");
 	}
@@ -136,6 +145,7 @@ public class productServlet extends MyServlet{
 	    int mnum = memberInfo.getMnum();
 
 	    // total, productCode, quantity를 request에서 가져옵니다.
+	    int orderNum = Integer.parseInt(req.getParameter("orderNum"));
 	    String total = req.getParameter("total");
 	    String productCode = req.getParameter("productCode");
 	    String quantity = req.getParameter("quantity");
@@ -153,6 +163,7 @@ public class productServlet extends MyServlet{
 	    
 	    // 위의 정보를 이용하여 productDTO 객체를 생성합니다.
 	    productDTO dto = new productDTO();
+	    dto.setOrderNum(orderNum);
 	    dto.setOrderprice(Integer.parseInt(total));
 	    dto.setTotalprice(Integer.parseInt(total));
 	    dto.setOrderRequire(orderRequire); // 필요에 따라 변경하세요.
