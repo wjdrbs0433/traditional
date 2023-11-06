@@ -50,7 +50,9 @@ public class MemberServlet extends MyServlet{
 			mypageId(req, resp);
 		} else if (uri.indexOf("orderList.do") != -1) {
 			orderList(req, resp);
-		}
+		} else if (uri.indexOf("memberupdate.do") != -1) {
+            memberUpdate(req, resp);
+        }
 		
 	}
 	protected void loginForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -382,4 +384,44 @@ public class MemberServlet extends MyServlet{
 		
 		
 	}
+	
+	
+	protected void memberUpdate(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        HttpSession session = req.getSession();
+        MemberDAO dao = new MemberDAO();
+
+        SessionInfo memberInfo = (SessionInfo) session.getAttribute("member");
+        int mnum = memberInfo.getMnum();
+
+        MemberDTO dto1 = dao.mypage(mnum);
+
+        req.setAttribute("memberDTO", dto1);
+
+        try {
+            MemberDTO dto = new MemberDTO();
+            dto.setMnum(mnum);
+            dto.setMpwd(req.getParameter("mpwd"));
+
+            String mphone1 = req.getParameter("mphone1");
+            String mphone2 = req.getParameter("mphone2");
+            String mphone3 = req.getParameter("mphone3");
+            String mphone = mphone1 + "-" + mphone2 + "-" + mphone3;
+            dto.setMphone(mphone);
+
+            dto.setField(req.getParameter("field") != null ? "Y" : "N");
+            dto.setField2(req.getParameter("field2") != null ? "Y" : "N");
+
+            dao.updateMember(dto);
+            req.setAttribute("dto", dto);
+
+            mypageId(req, resp);
+            return;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        req.setAttribute("mode", "member");
+
+        forward(req, resp, "/WEB-INF/views/member/memberupdate.jsp");
+    }
 }

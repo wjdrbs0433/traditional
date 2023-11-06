@@ -18,6 +18,7 @@ public class QnaDAO {
 		PreparedStatement pstmt = null;
 		String sql;
 
+		
 		try {
 			sql = "INSERT INTO qna(num, userId, secret, title, content, reg_date) "
 					+ " VALUES (qna_seq.NEXTVAL, ?, ?, ?, ?, SYSDATE)";

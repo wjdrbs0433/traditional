@@ -7,6 +7,22 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+<script type="text/javascript">
+		function checkValue() {
+			const f = document.memberupdate;
+			let str;
+
+			str = f.mpwd.value;
+			if (!str) {
+				alert("패스워드를 입력하세요.");
+				f.mpwd.focus();
+				return;
+			}
+
+			// 서버로 폼 데이터 전송
+			f.submit();
+		}
+</script>
 <style>
 	.main{
 		width: 70%; /* 너비를 70%로 설정합니다. */
@@ -135,37 +151,12 @@
 	    font-size: 18px;
 	    font-weight: bold;
 	}
-	
+
 	
 </style>
-<script>
-function orderList() {
-	
-}
-</script>
 </head>
-<body>
-	<div class="main">
-		<div>
-			<p class="name">${memberDTO.mname} <span>님</span></p>
-		</div>
-		<div>
-		</div>
-		<div>
-			<p>회원정보</p><img class="img" src="${pageContext.request.contextPath}/resource/images/mypage/member.png">
-		</div>
-		<div>
-			<p><a href="${pageContext.request.contextPath}/review/myList.do" style="text-decoration:none;">마이리뷰</a></p><img class="img" src="${pageContext.request.contextPath}/resource/images/mypage/riview.png">
-		</div>
-		<div onclick="location.href='${pageContext.request.contextPath}/member/orderList.do';">
-			<p>주문 내역</p><img class="img" src="${pageContext.request.contextPath}/resource/images/mypage/jomon.png" onclick="">
-		</div>
-		<div>
-			<p>문의내역</p><img class="img" src="${pageContext.request.contextPath}/resource/images/mypage/gogek.png">
-			
-		</div>
-	</div>	
-	
+<body>	
+<form name="memberupdate" action="${pageContext.request.contextPath}/member/memberupdate.do" method="post">
 	<div class="member">
 		<div class="m1">
 			<p>회원정보</p>
@@ -180,40 +171,43 @@ function orderList() {
                     <td>${memberDTO.mid}</td>
                 </tr>
                 <tr>
-                    <td>비밀번호</td>
-                    <td>${memberDTO.mpwd}</td>
+                    <td>비밀번호11</td>
+                    <td><input type="password" name="mpwd" placeholder="${memberDTO.mpwd}" style="width: 80px; height:20px;"></td>
                 </tr>
                 <tr>
                     <td>이메일</td>
                     <td>${memberDTO.memail}</td>
                 </tr>
                 <tr>
-                    <td>휴대폰번호</td>
-                    <td>${memberDTO.mphone}</td>
+                    <td>휴대폰번호11</td>
+                    <td>
+	                    <input type="text" name="mphone1" maxlength="3" placeholder="${memberDTO.mphone.split('-')[0]}" style="width: 50px;">
+				        - 
+				        <input type="text" name="mphone2" maxlength="4" placeholder="${memberDTO.mphone.split('-')[1]}" style="width: 50px;">
+				        - 
+				        <input type="text" name="mphone3" maxlength="4" placeholder="${memberDTO.mphone.split('-')[2]}" style="width: 50px;">
+			        </td>
                 </tr>
                 <tr>
-                    <td>문자수신여부</td>
-                    <td>${memberDTO.field}</td>
+                    <td>문자수신여부11</td>
+                    <td><input type="checkbox" name="field" value="1" ${memberDTO.field == 'Y' ? 'checked' : ''}></td>
                 </tr>
                 <tr>
-                    <td>이메일수신여부</td>
-                    <td>${memberDTO.field2}</td>
+                    <td>이메일수신여부11</td>
+                    <td><input type="checkbox" name="field2" value="1" ${memberDTO.field2 == 'Y' ? 'checked' : ''}></td>
                 </tr>
                 <tr>
-                    <td> &nbsp</td>
+                    <td> &nbsp;</td>
                     <td> </td>
                 </tr>
                 <tr>
                     <td></td>
-                    <td style="border: none; color: blue; text-decoration: underline; font-weight: bold;">
-                    	<a href="${pageContext.request.contextPath}/member/memberupdate.do">
-                    		수정
-                    	</a>
-                    </td>
+                    <td><button type="button" onclick="checkValue()">회원수정</button></td>
                 </tr>
             </table>
 		</div>
 		
 	</div>
+</form>
 </body>
 </html>
