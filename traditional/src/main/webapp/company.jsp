@@ -132,6 +132,7 @@ function modal() {
   </div>
 </div>
 
+
  <div class="card" style="width: 14rem; float:left; margin-right:7px; margin-top:40px;">
   <img src="${pageContext.request.contextPath}/resource/images/company/2.png" class="card-img-top" height="270px" width="220px">
   <div class="card-body">
