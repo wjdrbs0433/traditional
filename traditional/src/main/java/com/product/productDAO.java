@@ -283,6 +283,7 @@ public class productDAO {
 	        pstmt.close();
 	        
 
+	        
 	        // 생성된 주문 번호를 얻어옴
 	        generatedOrderNum = getGeneratedOrderNumber(); // getGeneratedOrderNumber 메서드를 정의하여 시퀀스 값을 얻어옴
 	        pstmt.close();
