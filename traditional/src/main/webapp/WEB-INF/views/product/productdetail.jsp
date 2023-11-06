@@ -7,11 +7,13 @@
 <head>
 <meta charset="UTF-8">
 <title>제품 상세 페이지</title>
+
 <link rel="icon" href="data:;base64,iVBORw0KGgo=">
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/bootstrap.min.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/custom.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/index.css">
+
 <script src="${pageContext.request.contextPath}/resource/js/jquery.min.js"></script>
 <script src="${pageContext.request.contextPath}/resource/js/bootstrap.min.js"></script>
 
@@ -21,10 +23,11 @@
 	}
 
 	function calculate() {
-		var quantity = document.getElementById('quantity').value;
-		var price = document.getElementById('price').value;
-		var total = quantity * price;
-		document.getElementById('total').innerHTML = total + '원';
+	    var quantity = document.getElementById('quantity').value;
+	    var price = document.getElementById('price').value;
+	    var total = quantity * price;
+	    var formattedTotal = total.toLocaleString();
+	    document.getElementById('total').innerHTML = formattedTotal + '원';
 	}
 
 	function decreaseQuantity() {
@@ -43,7 +46,17 @@
 		calculate();
 	}
 </script>
+<script>
+function redirectToOrderPage() {
+    var quantity = document.getElementById('quantity').value;
+    var price = document.getElementById('price').value;
+    var total = quantity * price;
+    var productCode = ${product.productCode};
+    var productPrice = ${product.productPrice};
 
+    window.location.href = '${pageContext.request.contextPath}/product/order.do?total=' + total + '&productCode=' + productCode + '&quantity=' + quantity + '&productPrice=' + productPrice;
+}
+</script>
 <style type="text/css">
 .fixed-element {
 	width: 350px;
@@ -184,16 +197,16 @@
 			</div>
 			
 			<div>
-				<label for="price">상품 단가 : 33000원</label> 
-				<input id="price" type="hidden" value="33000" min="0">
+				<label for="price">상품 단가 : <fmt:formatNumber type="number" value="${product.productPrice}" pattern="#,###" />원</label>
+				<input id="price" type="hidden" value="${product.productPrice}" min="0">
 			</div>
 			<div>
-				<label for="total">총 가격:</label> 
-				<label id="total" style="color:#0ff">0</label>
+				<label for="total">총 가격:&nbsp;</label> 
+				<label id="total" style="color:black"><fmt:formatNumber type="number" value="${product.productPrice}" pattern="#,###" />원</label>
 			</div>
 
 			<button type="button" class="button-container">장바구니</button>
-			<button type="button" class="button-container">구매하기</button>
+			<button type="button" class="button-container" onclick="redirectToOrderPage()">구매하기</button>
 			
 			<div class="social-sharing-buttons" style="margin-top:10px; margin-left:170px;">
 		        <a href="https://www.instagram.com/" target="_blank">
@@ -211,36 +224,35 @@
 
 
 		 <div class="image-container">
-        <img src="${pageContext.request.contextPath}/resource/img/images/productdetail/productdetail1.jpg.jpg" alt="Product Image">
+        <img src="${pageContext.request.contextPath}/resource/images/product/<c:out value="${product.productCode}" />.jpg">
         <div class="text-container">
-            <h4>담은 [3병/6병/10병]</h4>
-            <h5>[마음을 담은 한잔]</h5>
-            <a style="color:lightblue;">#입안을 가득 채우는 푸근함</a><br>
+            <h4>${product.productName}</h4>
+            <h5>${product.productSubject}</h5>
+            <a style="color:lightblue;">${product.hashtag}</a><br>
             <a style="color:lightblue;">#카페라떼처럼 부드러운</a> <br>
             <!-- 리뷰하는 곳 -->
             <a href="#" style="color:blue; text-decoration:underline;">
             	별점 5.0 / 리뷰 0개
             </a>
-            <p style="margin-top:20px;">*주종 : 탁주</p>
-            <p>*도수 : 6.50%</p>
-            <p style="margin-bottom:20px;">*용량 : 750ml</p>
+            <p style="margin-top:20px;">*주종 : ${product.productcategory}</p>
+            <p>*도수 : ${product.alcoholPercent}%</p>
+            <p style="margin-bottom:20px;">*용량 : ${product.volume}ml</p>
             <p style="color:#cccccc">배송기간 : 2일 이내 배송</p>
-            <p style="color:#cccccc; margin-bottom:20px;">수상 : 2016년 우리술 품평회 생막걸리 부문 장려상</p>
+            <p style="color:#cccccc; margin-bottom:20px;">${product.breweryPage}</p>
             <p>판매 가격:</p>
-            <h2>33,000원</h2>
-            <p style="color:blue;">*유통기한 : 제조일로부터 3개월</p>
-            <p style="color:blue;">*보관방법 : 세워서 냉장 보관</p>
-            
+            <h2><fmt:formatNumber type="number" value="${product.productPrice}" pattern="#,###" />원</h2>
+            <p style="color:blue;">*유통기한 : ${product.expirationDate}까지</p>
+            <p style="color:blue;">*보관방법 : ${product.productStorage}</p>
         </div>
     </div>
-
     <div class="image-container">
-        <img src="${pageContext.request.contextPath}/resource/img/images/productdetail/productdetail1_2.png" alt="Product Image">
+        <img src="${pageContext.request.contextPath}/resource/images/product/<c:out value="${product.productCode}" />.1.jpg">
     </div>
 
     <div class="image-container">
-        <img src="${pageContext.request.contextPath}/resource/img/images/productdetail/productdetail1_3.png" alt="Product Image">
+        <img src="${pageContext.request.contextPath}/resource/images/product/<c:out value="${product.productCode}" />.2.jpg">
     </div>
+
 
 
 <hr style="1px solid #ccc; position: absolute; width: 100%; left: 0px;">

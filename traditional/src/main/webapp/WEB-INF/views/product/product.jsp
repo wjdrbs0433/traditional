@@ -103,6 +103,7 @@
         font-size: 12px;
 	}
 	
+	
 	.item-star img {
 	    /* 이미지 크기를 부모 크기에 맞게 조절 */
 	    display: block; /* 인라인 요소가 아닌 블록 요소로 설정 */
@@ -197,13 +198,15 @@
 			       <c:forEach var="product" items="${productList}">
 	                    <div class="item">
 	                        <div class="item-thumb">
-	                        	<img src="${pageContext.request.contextPath }/resource/images/product/<c:out value="${product.productCode}" />.jpg">
-	                        </div>
+							    <a href="${pageContext.request.contextPath}/product/productdetail.do?productCode=${product.productCode}">
+							        <img src="${pageContext.request.contextPath }/resource/images/product/<c:out value="${product.productCode}" />.jpg">
+							    </a>        
+							</div>
 	                        <div class="item-desc">
 	                            <p class="title"><c:out value="${product.productName}" /></p>
 	                            <p class="price"><fmt:formatNumber type="number" value="${product.productPrice}" pattern="#,###" />원</p>
 	                            <div class="item-star">
-	                                <img src="${pageContext.request.contextPath}/resource/images//product/star.png">&nbsp;<c:out value="" /> | 리뷰 <c:out value="" />
+	                                <img src="${pageContext.request.contextPath}/resource/images//product/star.png">&nbsp;${product.star}<c:out value="" /> | 리뷰 ${dataCountreview}<c:out value="" />
 	                            </div>
 	                            <hr>
 	                            <p class="date"># <c:out value="${product.hashtag}" /></p>

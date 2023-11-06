@@ -1,14 +1,14 @@
 package com.admin.order;
 
 public class OrderDTO {
-	private long orderNum;
+	private long orderNum;//
 	// 딜리버리DTO 타입에 따라 변경 필요
 	private long deliveryNum;
-	private String orderDate;
-	private long orderPrice;
-	private long totalPrice;
+	private String orderDate;//
+	private long orderPrice;//
+	private long totalPrice;//
 	private String orderRequire;
-	private long discount;
+
 	private long shippingFee;
 	private String orderStatus;
 	private long mNum;
@@ -49,12 +49,6 @@ public class OrderDTO {
 	}
 	public void setOrderRequire(String orderRequire) {
 		this.orderRequire = orderRequire;
-	}
-	public long getDiscount() {
-		return discount;
-	}
-	public void setDiscount(long discount) {
-		this.discount = discount;
 	}
 	public long getShippingFee() {
 		return shippingFee;

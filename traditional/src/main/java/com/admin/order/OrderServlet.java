@@ -28,6 +28,8 @@ public class OrderServlet extends MyServlet {
 			list(req,resp);
 		} else if (uri.indexOf("update.do") != -1) {
 			updateForm(req, resp);
+		} else if (uri.indexOf("update_ok.do") != -1) {
+			updateSubmit(req, resp);
 		}
 		
 	}
@@ -62,15 +64,11 @@ public class OrderServlet extends MyServlet {
 			String orderDateEnd= req.getParameter("orderDateEnd");
 			String[] orderPrice= req.getParameterValues("orderPrice");
 			String[] totalPrice = req.getParameterValues("totalPrice");
-			String[] discount = req.getParameterValues("discount");
-			String[] shippingFee = req.getParameterValues("shippingFee");
 			String orderStatus = req.getParameter("orderStatus");
 			
 
 			List<String> orderPriceList = new ArrayList<String>();
 			List<String> totalPriceList = new ArrayList<String>();
-			List<String> discountList = new ArrayList<String>();
-			List<String> shippingFeeList = new ArrayList<String>();
 			
 			if( orderPrice != null) {
 				for(String s: orderPrice) {
@@ -82,16 +80,6 @@ public class OrderServlet extends MyServlet {
 					totalPriceList.add(s);
 				}
 			}
-			if( discount != null) {
-				for(String s: discount) {
-					discountList.add(s);
-				}
-			}
-			if( shippingFee != null) {
-				for(String s: shippingFee) {
-					shippingFeeList.add(s);
-				}
-			}
 			
 			int dataCount;
 			
@@ -100,8 +88,6 @@ public class OrderServlet extends MyServlet {
 					&& orderDateEnd == null
 					&& orderPriceList.isEmpty()
 					&& totalPriceList.isEmpty()
-					&& discountList.isEmpty()
-					&& shippingFeeList.isEmpty()
 					&& orderStatus == null
 				) 
 			{
@@ -112,8 +98,6 @@ public class OrderServlet extends MyServlet {
 						  orderDateEnd,
 						  orderPriceList,
 						  totalPriceList,
-						  discountList,
-						  shippingFeeList,
 						  orderStatus);
 			}
 			
@@ -134,8 +118,6 @@ public class OrderServlet extends MyServlet {
 					&& orderDateEnd == null
 					&& orderPriceList.isEmpty()
 					&& totalPriceList.isEmpty()
-					&& discountList.isEmpty()
-					&& shippingFeeList.isEmpty()
 					&& orderStatus == null  ) {
 				list = dao.listOrder(offset, size);
 			} else {
@@ -144,8 +126,6 @@ public class OrderServlet extends MyServlet {
 						  orderDateEnd,
 						  orderPriceList,
 						  totalPriceList,
-						  discountList,
-						  shippingFeeList,
 						  orderStatus);
 			}
 			
@@ -166,8 +146,6 @@ public class OrderServlet extends MyServlet {
 			req.setAttribute("orderDateEnd",	orderDateEnd);
 			req.setAttribute("orderPrice", orderPrice);
 			req.setAttribute("totalPriceStart",	 totalPrice);
-			req.setAttribute("discountStart",	discount);
-			req.setAttribute("shippingFeeStart",	shippingFee);
 			req.setAttribute("orderStatus", orderStatus);
 			
 		} catch (Exception e) {
@@ -178,7 +156,64 @@ public class OrderServlet extends MyServlet {
 		
 	}
 	protected void updateForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		// 수정 폼
 		
-	}
+		OrderDAO dao = new OrderDAO();
+		String cp = req.getContextPath();
 
+		String page = req.getParameter("page");
+		String size = req.getParameter("size");
+		
+		try {
+			Long orderNum = Long.parseLong(req.getParameter("orderNum"));
+			OrderDTO dto = dao.findByOrderNum(orderNum);
+			
+			if(dto == null) {
+				resp.sendRedirect(cp + "/admin/order/list.do?page=" + page);
+				System.out.println("dto==null");
+				return;
+			}
+			
+			req.setAttribute("dto", dto);
+			req.setAttribute("page", page);
+			req.setAttribute("size", size);
+			req.setAttribute("orderNum", orderNum);
+			
+			forward(req, resp, "/WEB-INF/views/admin/order/write.jsp");
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		viewPage(req, resp, "redirect:/notice/admin/order/list.do?page=" + page + "&size=" + size);
+	}
+	
+	protected void updateSubmit(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		String cp = req.getContextPath();
+		OrderDAO dao = new OrderDAO();
+		String page = req.getParameter("page");
+		
+		try {
+			OrderDTO dto = new OrderDTO();
+			
+			// 파라미터
+			dto.setOrderNum(Long.parseLong(req.getParameter("orderNum")));
+			dto.setOrderDate(req.getParameter("orderDate"));
+			dto.setOrderPrice(Long.parseLong(req.getParameter("orderPrice")));
+			dto.setTotalPrice(Long.parseLong(req.getParameter("totalPrice")));
+			dto.setShippingFee(Long.parseLong(req.getParameter("shippingFee")));
+			dto.setOrderStatus(req.getParameter("orderStatus"));
+			dto.setmNum(Long.parseLong(req.getParameter("mNum")));
+			
+			dao.updateOrder(dto);
+			
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	
+		resp.sendRedirect(cp + "/admin/order/list.do?page=" + page);
+	}
 }
