@@ -103,6 +103,7 @@
         font-size: 12px;
 	}
 	
+	
 	.item-star img {
 	    /* 이미지 크기를 부모 크기에 맞게 조절 */
 	    display: block; /* 인라인 요소가 아닌 블록 요소로 설정 */

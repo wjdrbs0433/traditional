@@ -256,6 +256,7 @@ function redirectToOrderPage() {
     </div>
 
 
+
 <hr style="1px solid #ccc; position: absolute; width: 100%; left: 0px;">
 <div class="footer" style="padding: 0px 100px;">
 
