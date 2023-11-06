@@ -5,7 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.util.DBConn;
 import com.util.DBUtil;
@@ -21,10 +23,10 @@ public class productDAO {
 		StringBuilder sb = new StringBuilder();
 
 		try {
-			sb.append(" SELECT b1.productCode, productName, productPrice, b2.star, hashtag ");
-			// sb.append(" SELECT productCode, productName, productPrice, hashtag ");
-			sb.append(" FROM product b1");
-			sb.append(" left outer JOIN reviewBoard b2 ON b1.productCode = b2.productCode ");
+			// sb.append(" SELECT b1.productCode, productName, productPrice, b2.star, hashtag ");
+			sb.append(" SELECT productCode, productName, productPrice, hashtag ");
+			sb.append(" FROM product");
+			// sb.append(" right outer JOIN reviewBoard b2 ON b1.productCode = b2.productCode ");
 			// 별점은 리뷰테이블 연결되면(주문상세랑도 연결되있어서 지금당장은 만질수가 x)
 			
 			pstmt = conn.prepareStatement(sb.toString());
@@ -37,7 +39,7 @@ public class productDAO {
 				dto.setProductCode(rs.getString("productCode"));
 				dto.setProductName(rs.getString("productName"));
 				dto.setProductPrice(rs.getInt("productPrice"));
-				dto.setStar(rs.getDouble("star"));
+				// dto.setStar(rs.getDouble("star"));
 				dto.setHashtag(rs.getString("hashtag"));
 
 				list.add(dto);
@@ -79,32 +81,70 @@ public class productDAO {
 			return result;
 		}
 		
-		// 리뷰 데이터 개수
-		public int dataCountreview() {
-			int result = 0;
-			PreparedStatement pstmt = null;
-			ResultSet rs = null;
-			String sql;
+		public Map<String, Integer> dataCountreview() {
+		    Map<String, Integer> reviewCountMap = new HashMap<>();
+		    PreparedStatement pstmt = null;
+		    ResultSet rs = null;
+		    String sql;
 
-			try {
-				sql = "SELECT NVL(COUNT(*), 0) FROM reviewBoard b1 left outer JOIN product b2 ON b1.productCode = b2.productCode";
-				pstmt = conn.prepareStatement(sql);
+		    try {
+		        sql = "SELECT p.productCode, COUNT(rb.reviewBoardNum) AS reviewCount " +
+		              "FROM product p " +
+		              "LEFT JOIN reviewBoard rb ON p.productCode = rb.productCode " +
+		              "GROUP BY p.productCode";
 
-				rs = pstmt.executeQuery();
-				
-				if (rs.next()) {
-					result = rs.getInt(1);
-				}
+		        pstmt = conn.prepareStatement(sql);
+		        rs = pstmt.executeQuery();
 
-			} catch (SQLException e) {
-				e.printStackTrace();
-			} finally {
-				DBUtil.close(rs);
-				DBUtil.close(pstmt);
-			}
+		        while (rs.next()) {
+		            String productCode = rs.getString("productCode");
+		            int reviewCount = rs.getInt("reviewCount");
+		            reviewCountMap.put(productCode, reviewCount);
+		        }
 
-			return result;
+		    } catch (SQLException e) {
+		        e.printStackTrace();
+		    } finally {
+		        DBUtil.close(rs);
+		        DBUtil.close(pstmt);
+		    }
+
+		    return reviewCountMap;
 		}
+		
+		public Map<String, Double> averageStarByProduct() {
+		    Map<String, Double> averageStarMap = new HashMap<>();
+		    PreparedStatement pstmt = null;
+		    ResultSet rs = null;
+		    String sql;
+
+		    try {
+		        sql = "SELECT product.productCode, NVL(AVG(star), 0.0) AS avgStar " +
+		              "FROM product " +
+		              "LEFT JOIN reviewBoard ON product.productCode = reviewBoard.productCode " +
+		              "GROUP BY product.productCode";
+
+		        pstmt = conn.prepareStatement(sql);
+		        rs = pstmt.executeQuery();
+
+		        while (rs.next()) {
+		            String productCode = rs.getString("productCode");
+		            double avgStar = rs.getDouble("avgStar");
+		            averageStarMap.put(productCode, avgStar);
+		        }
+
+		    } catch (SQLException e) {
+		        e.printStackTrace();
+		    } finally {
+		        DBUtil.close(rs);
+		        DBUtil.close(pstmt);
+		    }
+
+		    return averageStarMap;
+		}
+
+
+		
 		// 높은 가격순으로 상품 목록을 가져오는 메서드
 		public List<productDTO> listProductsByPriceHigh() {
 		    List<productDTO> list = new ArrayList<productDTO>();

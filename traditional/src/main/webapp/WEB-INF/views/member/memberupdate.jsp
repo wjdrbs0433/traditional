@@ -151,7 +151,13 @@
 	    font-size: 18px;
 	    font-weight: bold;
 	}
-
+	
+	.form-control {
+	border: 1px solid #999999; border-radius: 4px; background-color: #ffffff;
+	padding: 5px 5px; 
+	font-family: "맑은 고딕", 나눔고딕, 돋움, sans-serif;
+	vertical-align: baseline;
+	}
 	
 </style>
 </head>
@@ -172,7 +178,7 @@
                 </tr>
                 <tr>
                     <td>비밀번호11</td>
-                    <td><input type="password" name="mpwd" placeholder="${memberDTO.mpwd}" style="width: 80px; height:20px;"></td>
+                    <td><input type="password" name="mpwd" placeholder="${memberDTO.mpwd}" class="form-control" style="width: 80px; height:20px;"></td>
                 </tr>
                 <tr>
                     <td>이메일</td>
@@ -181,11 +187,11 @@
                 <tr>
                     <td>휴대폰번호11</td>
                     <td>
-	                    <input type="text" name="mphone1" maxlength="3" placeholder="${memberDTO.mphone.split('-')[0]}" style="width: 50px;">
+	                    <input type="text" name="mphone1" maxlength="3" placeholder="${memberDTO.mphone.split('-')[0]}" class="form-control" style="width: 50px;">
 				        - 
-				        <input type="text" name="mphone2" maxlength="4" placeholder="${memberDTO.mphone.split('-')[1]}" style="width: 50px;">
+				        <input type="text" name="mphone2" maxlength="4" placeholder="${memberDTO.mphone.split('-')[1]}" class="form-control" style="width: 50px;">
 				        - 
-				        <input type="text" name="mphone3" maxlength="4" placeholder="${memberDTO.mphone.split('-')[2]}" style="width: 50px;">
+				        <input type="text" name="mphone3" maxlength="4" placeholder="${memberDTO.mphone.split('-')[2]}" class="form-control" style="width: 50px;">
 			        </td>
                 </tr>
                 <tr>

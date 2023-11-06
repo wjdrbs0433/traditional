@@ -3,6 +3,7 @@ package com.product;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -45,20 +46,23 @@ public class productServlet extends MyServlet{
 	}
 	
 	protected void list(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// 게시물 리스트
-		productDAO dao = new productDAO();
-		
-		List<productDTO> productList = dao.listproduct();
-		req.setAttribute("productList", productList);
-		
-		int dataCount = dao.dataCount();
-		req.setAttribute("dataCount", dataCount);
-		
-		int dataCountreview = dao.dataCountreview();
-		req.setAttribute("dataCountreview", dataCountreview);
+	    // 게시물 리스트
+	    productDAO dao = new productDAO();
 
-		// JSP로 포워딩
-		forward(req, resp, "/WEB-INF/views/product/product.jsp");
+	    List<productDTO> productList = dao.listproduct();
+	    req.setAttribute("productList", productList);
+
+	    int dataCount = dao.dataCount();
+	    req.setAttribute("dataCount", dataCount);
+	    
+	    Map<String, Double> averageStarMap = dao.averageStarByProduct();
+	    req.setAttribute("averageStarMap", averageStarMap);
+	    
+	    Map<String, Integer> dataCountreview = dao.dataCountreview();
+	    req.setAttribute("dataCountreview", dataCountreview);
+
+	    // JSP로 포워딩
+	    forward(req, resp, "/WEB-INF/views/product/product.jsp");
 	}
 	
 	protected void listProductsByPriceHigh(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

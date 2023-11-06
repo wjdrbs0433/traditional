@@ -25,6 +25,10 @@
 
     .select {
         order: 1; 
+        border: 1px solid #999999; border-radius: 4px; background-color: #ffffff;
+		padding: 4px 5px; 
+		font-family: "맑은 고딕", 나눔고딕, 돋움, sans-serif;
+		vertical-align: baseline;
     }
     
 	main {
@@ -136,6 +140,8 @@
     	font-size : 20px;
     	font-weight: bold;
     }
+    
+
 </style>
 </head>
 <body>
@@ -206,7 +212,7 @@
 	                            <p class="title"><c:out value="${product.productName}" /></p>
 	                            <p class="price"><fmt:formatNumber type="number" value="${product.productPrice}" pattern="#,###" />원</p>
 	                            <div class="item-star">
-	                                <img src="${pageContext.request.contextPath}/resource/images//product/star.png">&nbsp;${product.star}<c:out value="" /> | 리뷰 ${dataCountreview}<c:out value="" />
+	                                <img src="${pageContext.request.contextPath}/resource/images//product/star.png">&nbsp;${averageStarMap[product.productCode]}<c:out value="" /> | 리뷰 ${dataCountreview[product.productCode]}<c:out value="" />
 	                            </div>
 	                            <hr>
 	                            <p class="date"># <c:out value="${product.hashtag}" /></p>
