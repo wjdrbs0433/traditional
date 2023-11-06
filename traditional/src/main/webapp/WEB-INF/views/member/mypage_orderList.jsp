@@ -6,11 +6,13 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="./resource/css/custom.css">
-<link rel="stylesheet" href="./resource/css/index.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/bootstrap.min.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/custom.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/index.css">
+<script src="${pageContext.request.contextPath}/resource/js/jquery.min.js"></script>
+<script src="${pageContext.request.contextPath}/resource/js/popper.js"></script>
+<script src="${pageContext.request.contextPath}/resource/js/bootstrap.min.js"></script>
+<script src="${pageContext.request.contextPath}/resource/js/custom.js"></script>
 <link rel="icon" href="data:;base64,iVBORw0KGgo=">
 <style>
 .main {
@@ -202,9 +204,12 @@
 </style>
 </head>
 <body>
+		
+	<jsp:include page="/WEB-INF/views/layout/header.jsp"></jsp:include>
+		
 	<div class="main">
 		<div>
-			<p class="name">${memberDTO.mname} <span>님</span></p>
+			<p class="name" style="line-height:80px; float:right;">${memberDTO.mname} <span>님</span></p>
 		</div>
 		<div>
 		</div>

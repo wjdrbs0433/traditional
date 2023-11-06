@@ -7,9 +7,53 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/bootstrap.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/custom.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/index.css">
+<script src="${pageContext.request.contextPath}/resource/js/jquery.min.js"></script>
+<script src="${pageContext.request.contextPath}/resource/js/popper.js"></script>
+<script src="${pageContext.request.contextPath}/resource/js/bootstrap.min.js"></script>
+<script src="${pageContext.request.contextPath}/resource/js/custom.js"></script>
+
 <style>
-	.main{
-		width: 70%; /* 너비를 70%로 설정합니다. */
+
+.body-main {
+	max-width: 700px;
+}
+
+.table-list thead > tr:first-child { background: #f8f8f8; }
+.table-list th, .table-list td { text-align: center; }
+
+.table-list .notice { display: inline-block; padding:1px 3px; background: #ed4c00; color: #fff; }
+.table-list .left { text-align: left; padding-left: 5px; }
+
+.table-list .chk { width: 40px; color: #787878; }
+.table-list .num { width: 60px; color: #787878; }
+.table-list .subject { color: #787878; }
+.table-list .name { width: 100px; color: #787878; }
+.table-list .date { width: 100px; color: #787878; }
+.table-list .hit { width: 70px; color: #787878; }
+
+.table-list input[type=checkbox] { vertical-align: middle; }
+.item-delete { cursor: pointer; padding: 7px 13px; }
+.item-delete:hover { font-weight: 500; color: #2478FF; }
+
+#btnDeleteList {
+    background-color: gray;
+    color: white;
+    border: none;
+    border-radius: 18px;
+    padding: 10px 15px;
+    cursor: pointer;
+}
+
+#btnDeleteList:hover {
+    background-color: #0e4aae;
+}
+
+.main{
+		width: 900px; /* 너비를 70%로 설정합니다. */
 		height: 120px;
         margin: 0 auto; /* 왼쪽과 오른쪽에 10px의 공백을 추가합니다. */
    		margin-top: 50px;
@@ -74,12 +118,12 @@
 		padding-top: 15px;
 	}
 	
-	.name {
+	.name1 {
 		font-size: 25px;
 		font-weight:bold;
 	}
 	
-	.name span {
+	.name1 span {
 		color: gray;
 		font-size: 20px;
 		font-weight: normal;
@@ -136,15 +180,9 @@
 	    font-weight: bold;
 	}
 	
-		.btn {
-  	border: 0;
-  	background-color: transparent;
-  	text-align: center;
-  	float: right;
-  	
-	}
+
 	
-	.listbox {  
+.listbox {  
 margin: 20px auto;
 width: 700px;
 }
@@ -166,9 +204,12 @@ function deleteList(num){
 </script>
 </head>
 <body>
+
+	<jsp:include page="/WEB-INF/views/layout/header.jsp"></jsp:include>
+	
 	<div class="main">
 		<div>
-			<p class="name">${memberDTO.mname} <span>님</span></p>
+			<p class="name" style="line-height:80px; float:right;">${memberDTO.mname} <span>님</span></p>
 		</div>
 		<div>
 		</div>
@@ -187,51 +228,7 @@ function deleteList(num){
 		</div>
 	</div>	
 	
-	<div class="member">
-		<div class="m1">
-			<p>회원정보</p>
-			<hr>
-			 <table class="table">
-                <tr>
-                    <td>회원 이름</td>
-                    <td>${memberDTO.mname}</td>
-                </tr>
-                <tr>
-                    <td>아이디</td>
-                    <td>${memberDTO.mid}</td>
-                </tr>
-                <tr>
-                    <td>비밀번호</td>
-                    <td>${memberDTO.mpwd}</td>
-                </tr>
-                <tr>
-                    <td>이메일</td>
-                    <td>${memberDTO.memail}</td>
-                </tr>
-                <tr>
-                    <td>휴대폰번호</td>
-                    <td>${memberDTO.mphone}</td>
-                </tr>
-                <tr>
-                    <td>문자수신여부</td>
-                    <td>${memberDTO.field}</td>
-                </tr>
-                <tr>
-                    <td>이메일수신여부</td>
-                    <td>${memberDTO.field2}</td>
-                </tr>
-                <tr>
-                    <td> &nbsp</td>
-                    <td> </td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td style="color: blue; text-decoration: underline; font-weight: bold;"><a href="">수정</a></td>
-                </tr>
-            </table>
-		</div>
-		
-	</div>
+	
 	
 	<div class="member">
 		<div class="m1">
@@ -288,12 +285,9 @@ function deleteList(num){
 		</div>
     </div>
 			
-				</div>
-			
-			 
-		</div>
-		
-	</div>
+</div>
+</div>
+</div>
 	
 </body>
 </html>

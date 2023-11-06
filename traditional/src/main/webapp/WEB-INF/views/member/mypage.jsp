@@ -7,6 +7,15 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/bootstrap.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/custom.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/index.css">
+<script src="${pageContext.request.contextPath}/resource/js/jquery.min.js"></script>
+<script src="${pageContext.request.contextPath}/resource/js/popper.js"></script>
+<script src="${pageContext.request.contextPath}/resource/js/bootstrap.min.js"></script>
+<script src="${pageContext.request.contextPath}/resource/js/custom.js"></script>
+
 <style>
 	.main{
 		width: 70%; /* 너비를 70%로 설정합니다. */
@@ -145,9 +154,12 @@ function orderList() {
 </script>
 </head>
 <body>
+	
+	<jsp:include page="/WEB-INF/views/layout/header.jsp"></jsp:include>
+	
 	<div class="main">
 		<div>
-			<p class="name">${memberDTO.mname} <span>님</span></p>
+			<p class="name" style="line-height:80px; float:right;">${memberDTO.mname} <span>님</span></p>
 		</div>
 		<div>
 		</div>
@@ -172,39 +184,39 @@ function orderList() {
 			<hr>
 			 <table class="table">
                 <tr>
-                    <td>회원 이름</td>
-                    <td>${memberDTO.mname}</td>
+                    <td style="border:none;">회원 이름</td>
+                    <td style="border:none;">${memberDTO.mname}</td>
                 </tr>
                 <tr>
-                    <td>아이디</td>
-                    <td>${memberDTO.mid}</td>
+                    <td style="border:none;">아이디</td>
+                    <td style="border:none;">${memberDTO.mid}</td>
                 </tr>
                 <tr>
-                    <td>비밀번호</td>
-                    <td>${memberDTO.mpwd}</td>
+                    <td style="border:none;">비밀번호</td>
+                    <td style="border:none;">${memberDTO.mpwd}</td>
                 </tr>
                 <tr>
-                    <td>이메일</td>
-                    <td>${memberDTO.memail}</td>
+                    <td style="border:none;">이메일</td>
+                    <td style="border:none;">${memberDTO.memail}</td>
                 </tr>
                 <tr>
-                    <td>휴대폰번호</td>
-                    <td>${memberDTO.mphone}</td>
+                    <td style="border:none;">휴대폰번호</td>
+                    <td style="border:none;">${memberDTO.mphone}</td>
                 </tr>
                 <tr>
-                    <td>문자수신여부</td>
-                    <td>${memberDTO.field}</td>
+                    <td style="border:none;">문자수신여부</td>
+                    <td style="border:none;">${memberDTO.field}</td>
                 </tr>
                 <tr>
-                    <td>이메일수신여부</td>
-                    <td>${memberDTO.field2}</td>
+                    <td style="border:none;">이메일수신여부</td>
+                    <td style="border:none;">${memberDTO.field2}</td>
                 </tr>
                 <tr>
-                    <td> &nbsp</td>
-                    <td> </td>
+                    <td style="border:none;"> &nbsp</td>
+                    <td style="border:none;"> </td>
                 </tr>
                 <tr>
-                    <td></td>
+                    <td style="border:none;"></td>
                     <td style="border: none; color: blue; text-decoration: underline; font-weight: bold;">
                     	<a href="${pageContext.request.contextPath}/member/memberupdate.do">
                     		수정
