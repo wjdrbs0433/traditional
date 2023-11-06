@@ -147,7 +147,7 @@ public class OrderListDAO {
 		OrderListDetailDTO dto = null;
 		
 		try {
-			sb.append(" SELECT o.orderDate, m.mName, m.mPhone, o.orderStatus, p.image, p.productName, p.volume, d.pricePerProduct, d.orderCount, o.shippingFee, de.address1, de.address2, o.orderRequire, o.orderPrice, o.totalPrice ");
+			sb.append(" SELECT p.productCode, o.orderDate, m.mName, m.mPhone, o.orderStatus, p.image, p.productName, p.volume, d.pricePerProduct, d.orderCount, o.shippingFee, de.address1, de.address2, o.orderRequire, o.orderPrice, o.totalPrice ");
 
 			sb.append(" FROM orderDetail d, product p, orderPrice o, member m, delivery de ");
 			sb.append(" WHERE (d.productCode = p.productCode) AND (d.orderNum = o.orderNum) AND (o.mNum = m.mNum) AND (m.mnum = ?) AND (m.mnum = de.mNum) AND (d.orderDetailNum = ?)");
@@ -168,7 +168,7 @@ public class OrderListDAO {
 			
 			dto.setOrderDate(sqlDate);
 			
-			
+			dto.setProductCode(rs.getString("productCode"));
 			dto.setMemberName(rs.getString("mName"));
 			dto.setMemberPhone(rs.getString("mPhone"));
 			dto.setOrderStatus(rs.getString("orderStatus"));

@@ -264,7 +264,7 @@
 	<div class = "orderDiv">
 		<!-- 날짜 + 주문상세보기 링크 -->	
 		<div style="height: 70px;">
-			<span style="color: black; font-weight: bold; font-size: 20px; display: inline-block; width: 45%; text-align: left; line-height: 70px;
+			<span style="color: black; font-weight: bold; font-size: 20px; display: inline-block; width: 80%; text-align: left; line-height: 70px;
 vertical-align: middle;" > ${dto.orderDate}</span>
 			<%-- <form method="post" name="orderDetailForm" autocomplete="off" action="${pageContext.request.contextPath}/member/orderListDetail.do"> --%>
 
@@ -295,7 +295,8 @@ vertical-align: bottom;"> ${dto.orderStatus}</span>
 		<div style='display: flex; flex-direction: row; border-top: 1px solid gray; border-bottom: 1px solid gray; width: 90%;'>
 			<!-- 제품사진 -->
 			<div>
-				<span> 사진 </span>
+				<img src="${pageContext.request.contextPath }/resource/images/product/<c:out value="${dto.productCode}" />.jpg"
+								 width="100px" height="100px">
 			</div>
 			<!-- 제품 이름, 용량 옵션, 가격, 수량 -->
 			<div style='display: flex; flex-direction: column; background-color: white;'>
