@@ -97,7 +97,6 @@
 	    font-weight: 500; /* 글꼴 중간 두껍게 설정 */
 	}
 	
-	
 	.item-star {
 		display: flex;
         align-items: center;

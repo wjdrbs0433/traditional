@@ -245,7 +245,6 @@ function redirectToOrderPage() {
             <p style="color:blue;">*보관방법 : ${product.productStorage}</p>
         </div>
     </div>
-
     <div class="image-container">
         <img src="${pageContext.request.contextPath}/resource/img/images/productdetail/productdetail1_2.png" alt="Product Image">
     </div>
