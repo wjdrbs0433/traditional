@@ -224,7 +224,7 @@ function redirectToOrderPage() {
 
 
 		 <div class="image-container">
-        <img src="${pageContext.request.contextPath}/resource/img/images/productdetail/productdetail1.jpg.jpg" alt="Product Image">
+        <img src="${pageContext.request.contextPath}/resource/images/product/<c:out value="${product.productCode}" />.jpg">
         <div class="text-container">
             <h4>${product.productName}</h4>
             <h5>${product.productSubject}</h5>
@@ -246,11 +246,11 @@ function redirectToOrderPage() {
         </div>
     </div>
     <div class="image-container">
-        <img src="${pageContext.request.contextPath}/resource/img/images/productdetail/productdetail1_2.png" alt="Product Image">
+        <img src="${pageContext.request.contextPath}/resource/images/product/<c:out value="${product.productCode}" />.1.jpg">
     </div>
 
     <div class="image-container">
-        <img src="${pageContext.request.contextPath}/resource/img/images/productdetail/productdetail1_3.png" alt="Product Image">
+        <img src="${pageContext.request.contextPath}/resource/images/product/<c:out value="${product.productCode}" />.2.jpg">
     </div>
 
 
