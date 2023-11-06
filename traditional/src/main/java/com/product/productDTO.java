@@ -5,7 +5,7 @@ public class productDTO {
 	private String productName;
 	private int productPrice;
 	private String productSubject;
-	private String ExpirationDate;
+	private String expirationDate;
 	private String productStorage;
 	private String breweryPage;
 	private String productcategory;
@@ -17,13 +17,136 @@ public class productDTO {
 	private String image;
 	private int extinctOrNot;
 	private int price;
-	private String volume;
-	private int star;
+	private int volume;
+	private double star;
 	
-	public int getStar() {
+	private int orderNum;
+	private String orderDate;
+	private int orderprice;
+	private int totalprice;
+	private String orderRequire;
+	private int shippingFee;
+	private String orderStatus;
+	private String ordername;
+	private String orderphone;
+	private int addressnum;
+	private String address1;
+	private String address2;
+	private int mnum;
+	
+	private int orderDetailNum;
+	private int orderCount;
+	private int pricePerProduct;
+
+	
+	
+	
+	public int getOrderDetailNum() {
+		return orderDetailNum;
+	}
+	public void setOrderDetailNum(int orderDetailNum) {
+		this.orderDetailNum = orderDetailNum;
+	}
+	public int getOrderCount() {
+		return orderCount;
+	}
+	public void setOrderCount(int orderCount) {
+		this.orderCount = orderCount;
+	}
+	public int getPricePerProduct() {
+		return pricePerProduct;
+	}
+	public void setPricePerProduct(int pricePerProduct) {
+		this.pricePerProduct = pricePerProduct;
+	}
+	public int getOrderNum() {
+		return orderNum;
+	}
+	public void setOrderNum(int orderNum) {
+		this.orderNum = orderNum;
+	}
+	public String getOrderDate() {
+		return orderDate;
+	}
+	public void setOrderDate(String orderDate) {
+		this.orderDate = orderDate;
+	}
+	public int getOrderprice() {
+		return orderprice;
+	}
+	public void setOrderprice(int orderprice) {
+		this.orderprice = orderprice;
+	}
+	public int getTotalprice() {
+		return totalprice;
+	}
+	public void setTotalprice(int totalprice) {
+		this.totalprice = totalprice;
+	}
+	public String getOrderRequire() {
+		return orderRequire;
+	}
+	public void setOrderRequire(String orderRequire) {
+		this.orderRequire = orderRequire;
+	}
+	public int getShippingFee() {
+		return shippingFee;
+	}
+	public void setShippingFee(int shippingFee) {
+		this.shippingFee = shippingFee;
+	}
+	public String getOrderStatus() {
+		return orderStatus;
+	}
+	public void setOrderStatus(String orderStatus) {
+		this.orderStatus = orderStatus;
+	}
+	public String getOrdername() {
+		return ordername;
+	}
+	public void setOrdername(String ordername) {
+		this.ordername = ordername;
+	}
+	public String getOrderphone() {
+		return orderphone;
+	}
+	public void setOrderphone(String orderphone) {
+		this.orderphone = orderphone;
+	}
+	public int getAddressnum() {
+		return addressnum;
+	}
+	public void setAddressnum(int addressnum) {
+		this.addressnum = addressnum;
+	}
+	public String getAddress1() {
+		return address1;
+	}
+	public void setAddress1(String address1) {
+		this.address1 = address1;
+	}
+	public String getAddress2() {
+		return address2;
+	}
+	public void setAddress2(String address2) {
+		this.address2 = address2;
+	}
+	public int getMnum() {
+		return mnum;
+	}
+	public void setMnum(int mnum) {
+		this.mnum = mnum;
+	}
+	public String getExpirationDate() {
+		return expirationDate;
+	}
+	public void setExpirationDate(String expirationDate) {
+		this.expirationDate = expirationDate;
+	}
+	public double getStar() {
 		return star;
 	}
-	public void setStar(int star) {
+	public void setStar(double star) {
 		this.star = star;
 	}
 	public String getProductName() {
@@ -51,12 +174,7 @@ public class productDTO {
 	public void setProductSubject(String productSubject) {
 		this.productSubject = productSubject;
 	}
-	public String getExpirationDate() {
-		return ExpirationDate;
-	}
-	public void setExpirationDate(String expirationDate) {
-		ExpirationDate = expirationDate;
-	}
+	
 	public String getProductStorage() {
 		return productStorage;
 	}
@@ -123,12 +241,13 @@ public class productDTO {
 	public void setPrice(int price) {
 		this.price = price;
 	}
-	public String getVolume() {
+	public int getVolume() {
 		return volume;
 	}
-	public void setVolume(String volume) {
+	public void setVolume(int volume) {
 		this.volume = volume;
 	}
+	
 	
 	
 }
