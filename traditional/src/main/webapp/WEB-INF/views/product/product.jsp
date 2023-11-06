@@ -7,6 +7,14 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/bootstrap.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/custom.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/index.css">
+<script src="${pageContext.request.contextPath}/resource/js/jquery.min.js"></script>
+<script src="${pageContext.request.contextPath}/resource/js/popper.js"></script>
+<script src="${pageContext.request.contextPath}/resource/js/bootstrap.min.js"></script>
+<script src="${pageContext.request.contextPath}/resource/js/custom.js"></script>
 <style>
 	.main{
 		width: 75%; /* 너비를 70%로 설정합니다. */
@@ -146,6 +154,8 @@
 </head>
 <body>
 
+<jsp:include page="/WEB-INF/views/layout/header.jsp"></jsp:include>
+
 <div class="main">
 	<div class="icon">
 		<div class="content">
@@ -212,7 +222,7 @@
 	                            <p class="title"><c:out value="${product.productName}" /></p>
 	                            <p class="price"><fmt:formatNumber type="number" value="${product.productPrice}" pattern="#,###" />원</p>
 	                            <div class="item-star">
-	                                <img src="${pageContext.request.contextPath}/resource/images//product/star.png">&nbsp;${averageStarMap[product.productCode]}<c:out value="" /> | 리뷰 ${dataCountreview[product.productCode]}<c:out value="" />
+	                                <img src="${pageContext.request.contextPath}/resource/images/product/star.png">&nbsp;${averageStarMap[product.productCode]}<c:out value="" /> | 리뷰 ${dataCountreview[product.productCode]}<c:out value="" />
 	                            </div>
 	                            <hr>
 	                            <p class="date"># <c:out value="${product.hashtag}" /></p>
@@ -225,6 +235,9 @@
                 
             </div>
         </main>
+        
+        <jsp:include page="/WEB-INF/views/layout/footer.jsp"></jsp:include>
+        
     </div>
 </div>
 	

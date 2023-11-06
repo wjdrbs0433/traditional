@@ -232,7 +232,7 @@ function redirectToOrderPage() {
             <a style="color:lightblue;">#카페라떼처럼 부드러운</a> <br>
             <!-- 리뷰하는 곳 -->
             <a href="#" style="color:blue; text-decoration:none; font-weight: bold; margin: top;">
-            	<img style="width: 19px; height: 19px;" src="${pageContext.request.contextPath}/resource/images//product/star.png">${averageStarMap[product.productCode]}<c:out value="" /> | 리뷰 ${dataCountreview[product.productCode]}<c:out value="" />
+            	<img style="width: 19px; height: 19px;" src="${pageContext.request.contextPath}/resource/images/product/star.png">${averageStarMap[product.productCode]}<c:out value="" /> | 리뷰 ${dataCountreview[product.productCode]}<c:out value="" />
             </a>
             <p style="margin-top:20px;">*주종 : ${product.productcategory}</p>
             <p>*도수 : ${product.alcoholPercent}%</p>
@@ -253,12 +253,6 @@ function redirectToOrderPage() {
         <img src="${pageContext.request.contextPath}/resource/images/product/<c:out value="${product.productCode}" />.2.jpg">
     </div>
 
-
-
-<hr style="1px solid #ccc; position: absolute; width: 100%; left: 0px;">
-<div class="footer" style="padding: 0px 100px;">
-
-</div>
 
 
 	<jsp:include page="/WEB-INF/views/layout/footer.jsp"/>
