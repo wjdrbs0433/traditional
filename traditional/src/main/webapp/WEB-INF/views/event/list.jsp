@@ -122,6 +122,42 @@
 		font-size: 20px;
 		font-weight: normal;
 	}
+	
+	.page-navigation {
+		clear: both;
+		padding: 20px 0;
+		text-align: center;
+	}
+	.paginate {
+		clear: both;
+		text-align: center;
+		white-space: nowrap;
+		font-size: 14px;	
+	}
+	.paginate a {
+		border: 1px solid #cccccc;
+		color: #000000;
+		font-weight: 600;
+		text-decoration: none;
+		padding: 3px 7px;
+		margin-left: 3px;
+		vertical-align: middle;
+	}
+	.paginate a:hover, .paginate a:active {
+		color: #6771ff;
+	}
+	.paginate span {
+		border: 1px solid #e28d8d;
+		color: #cb3536;
+		font-weight: 600;
+		padding: 3px 7px;
+		margin-left: 3px;
+		vertical-align: middle;
+	}
+	.paginate :first-child {
+		margin-left: 0;
+	}
+
 
 </style>
 <script type="text/javascript">
@@ -133,6 +169,7 @@ function searchList() {
 </head>
 <body>
 
+
 	<jsp:include page="/WEB-INF/views/layout/header.jsp"></jsp:include>
 	
 	<div class="main">
@@ -143,17 +180,17 @@ function searchList() {
 		</div>
 		<div>
 			<a href="${pageContext.request.contextPath}/notice/list.do" style="color:#cccccc;">공지사항
-				<img class="img" src="${pageContext.request.contextPath}/resource/images/icon/notice1.png">
+				<img class="img" src="${pageContext.request.contextPath}/resource/images/mypage/member.png">
 			</a>
 		</div>
 		<div>
 			<a href="${pageContext.request.contextPath}/event/list.do">이벤트
-				<img class="img" src="${pageContext.request.contextPath}/resource/images/icon/notice2.png">
+				<img class="img" src="${pageContext.request.contextPath}/resource/images/mypage/riview.png">
 			</a>
 		</div>
 		<div>
 			<a href="${pageContext.request.contextPath}/question.jsp" style="color:#cccccc;">자주묻는질문
-				<img class="img" src="${pageContext.request.contextPath}/resource/images/icon/notice3.png">
+				<img class="img" src="${pageContext.request.contextPath}/resource/images/mypage/jomon.png">
 			</a>
 		</div>
 		<div>
@@ -214,7 +251,7 @@ function searchList() {
 				</tbody>
 			</table>
 			
-			<div class="page-navigation" style="text-align:center; margin:20px auto;">
+			<div class="page-navigation">
 				${dataCount == 0 ? "등록된 게시물이 없습니다." : paging}
 			</div>
 			

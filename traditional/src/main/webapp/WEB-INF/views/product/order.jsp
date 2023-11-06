@@ -277,10 +277,7 @@ function daumPostcode() {
     }).open();
 }
 
-function redirectToOrderPage() {
-    // 주문 정보를 가져오고 해당 정보를 URL에 추가
-    // var nameElement = document.getElementById('name');
-	// var name = nameElement ? nameElement.value : '';
+function redirectToOrderPage1() {
 	var name = document.getElementById('name').value;
     var zip = document.getElementById('zip').value;
     var addr1 = document.getElementById('addr1').value;
@@ -295,7 +292,6 @@ function redirectToOrderPage() {
     var productCode = "${productCode}"
     var orderNum = "${orderNum}";
 
-    // URL에 매개변수 추가
     var url = '${pageContext.request.contextPath}/product/orderok.do' +
         '?name=' + encodeURIComponent(name) +
         '&orderNum='+orderNum + 
@@ -311,14 +307,9 @@ function redirectToOrderPage() {
         '&quantity=' + encodeURIComponent(quantity) +
         '&total=' + encodeURIComponent(total);
 
-    // 페이지를 이동
     window.location.href = url;
 }
-
-
 </script>
-
-<!-- 카카오페이 -->
 
 
 </head>
