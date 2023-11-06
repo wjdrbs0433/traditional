@@ -62,6 +62,75 @@ a:hover {
 	padding-left: auto;
 	text-align:center;
 }
+
+<!-- 텍스트 -->
+   .content {
+      position: relative;
+    }
+
+    .content h2 {
+      color: #fff; /* 텍스트 색상을 흰색으로 설정합니다. */
+      font-size: 4em;
+      position: relative;
+      /* display: inline-block;  텍스트를 가로로 나열합니다. */
+      margin: 0 10px; /* 각 텍스트 요소 사이의 간격을 조절합니다. */
+      opacity: 1; /* 텍스트를 완전히 표시합니다. */
+      line-height:50px;
+    }
+
+    .content h2:nth-child(1),
+    .content h2:nth-child(3),
+    .content h2:nth-child(5) {
+      color: lightblue;
+      -webkit-text-stroke: 2px white;
+    }
+
+    .content h2:nth-child(2),
+    .content h2:nth-child(4),
+    .content h2:nth-child(6) {
+      animation: animate 2s ease-in-out infinite;
+      -webkit-text-stroke: 2px white;
+      opacity: 1; /* 텍스트를 완전히 표시합니다. */
+    }
+    
+    .content h2:nth-child(2), .content h2:nth-child(4), .content h2:nth-child(6) {
+      position: relative;
+      left: 100px; /* 텍스트를 아래로 20px 이동시킵니다. */
+      float:left;
+      bottom: 45px;
+    }
+
+    @keyframes animate {
+      0%,
+      100% {
+        clip-path: polygon(
+          0% 45%,
+          16% 44%,
+          33% 50%,
+          54% 60%,
+          70% 61%,
+          84% 59%,
+          100% 52%,
+          100% 100%,
+          0% 100%
+        );
+      }
+
+      50% {
+        clip-path: polygon(
+          0% 60%,
+          15% 65%,
+          34% 66%,
+          51% 62%,
+          67% 50%,
+          84% 45%,
+          100% 46%,
+          100% 100%,
+          0% 100%
+        );
+      }
+    }
+
 </style>
 
 <script type="text/javascript">
@@ -174,14 +243,14 @@ function changeEmail() {
 	
 	
 	<div class="login-keyimage" style="position: relative; width: 55%; height: 100vh; float: right; text-align: center; background: url('${pageContext.request.contextPath}/resource/images/playlist/mood/christina.jpg') center / cover;">
-		<div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
-		<p>로고</p>
-		<p style="color: #fff; font-size: 2.0em; font-weight: bold;">
-			청춘은 <br>
-			바로&nbsp;&nbsp;&nbsp; <br>
-			&nbsp;&nbsp;&nbsp;&nbsp;지금부터!
-		</p>
-		</div>
+		<div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);" class="content">
+	      <h2>청</h2>
+	      <h2>춘은</h2>
+	      <h2>바</h2>
+	      <h2>로</h2>
+	      <h2>지</h2>
+	      <h2>금</h2>
+	</div>
 	</div>
 	
 </form>
