@@ -119,7 +119,7 @@ public class productDAO {
 		    String sql;
 
 		    try {
-		        sql = "SELECT product.productCode, NVL(AVG(star), 0.0) AS avgStar " +
+		        sql = "SELECT product.productCode, ROUND(NVL(AVG(star), 0.0), 1) AS avgStar " +
 		              "FROM product " +
 		              "LEFT JOIN reviewBoard ON product.productCode = reviewBoard.productCode " +
 		              "GROUP BY product.productCode";
@@ -142,6 +142,7 @@ public class productDAO {
 
 		    return averageStarMap;
 		}
+
 
 
 		
@@ -339,6 +340,7 @@ public class productDAO {
 	        pstmt.setString(4, dto.getProductCode());
 
 	        pstmt.executeUpdate();
+	       
 	        pstmt.close();
 	        
 	        sql = "SELECT inventory FROM product WHERE productcode = ?";

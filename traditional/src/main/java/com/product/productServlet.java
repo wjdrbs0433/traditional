@@ -93,10 +93,18 @@ public class productServlet extends MyServlet{
 
 	    String productCode = req.getParameter("productCode");
 	    
+	    
+	    
 	    if (productCode != null && !productCode.isEmpty()) {
 	        productDAO dao = new productDAO();
 
 	        productDTO product = dao.productdetail(productCode);
+	        
+	        Map<String, Double> averageStarMap = dao.averageStarByProduct();
+		    req.setAttribute("averageStarMap", averageStarMap);
+		    
+		    Map<String, Integer> dataCountreview = dao.dataCountreview();
+		    req.setAttribute("dataCountreview", dataCountreview);
 	        
 	        if (product != null) {
 	            req.setAttribute("product", product);
