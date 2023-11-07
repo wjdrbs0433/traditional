@@ -311,6 +311,7 @@ function redirectToOrderPage1() {
 }
 </script>
 
+<%-- 카카오 페이--%>
 
 </head>
 <body>

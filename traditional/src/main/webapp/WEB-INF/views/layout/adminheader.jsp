@@ -55,10 +55,6 @@
 	                        <span class="nav_name">주문관리</span>
 	                    </a>
 	                    
-	                    <a href="#" class="nav__link">
-	                        <i class="fa-solid fa-headphones" style="width: 28px; padding: 5px;" > </i>
-	                        <span class="nav_name">고객센터</span>
-	                    </a>
 	                    
 	                    <a href="${pageContext.request.contextPath}/admin/statistic/statistic.do" class="nav__link" >
 	                        <i class="fa-solid fa-chart-line"style="width: 28px; padding: 5px;" ></i>
@@ -128,10 +124,6 @@
                         <span class="nav_name">주문관리</span>
                     </a>
                     
-                    <a href="#" class="nav__link">
-                        <i class="fa-solid fa-headphones" style="width: 28px; padding: 5px;" > </i>
-                        <span class="nav_name">고객센터</span>
-                    </a>
                     
                     <a href="${pageContext.request.contextPath}/admin/statistic/statistic.do" class="nav__link" >
                         <i class="fa-solid fa-chart-line"style="width: 28px; padding: 5px;" ></i>
