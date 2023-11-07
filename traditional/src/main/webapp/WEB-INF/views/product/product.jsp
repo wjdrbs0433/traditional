@@ -17,7 +17,7 @@
 <script src="${pageContext.request.contextPath}/resource/js/custom.js"></script>
 <style>
 	.main{
-		width: 75%; /* 너비를 70%로 설정합니다. */
+		width: 95%; /* 너비를 70%로 설정합니다. */
         margin: 0 auto; /* 왼쪽과 오른쪽에 10px의 공백을 추가합니다. */
         padding: 20px; /* 내부 여백 (옵션) */
 	}

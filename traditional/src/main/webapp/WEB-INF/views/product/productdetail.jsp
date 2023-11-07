@@ -96,7 +96,8 @@ function redirectToOrderPage() {
 	width: 300px;
 	text-align: center;
 	height: 90px;
-	margin: 5px auto;
+	margin: 0 px auto ;
+	margin-top: 100px;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -183,13 +184,13 @@ function redirectToOrderPage() {
 
 			<div>
 				<div style="display: flex;">
-					<label for="quantity">상품 수량 : </label>
+					<label for="quantity">상품 수량 &nbsp;: </label>
 					<div>
 						<div style="display: flex;">
 							<div class="quantity-controls">
-						        <button onclick="decreaseQuantity()">-</button>
+						        <button onclick="decreaseQuantity()">-</button>&nbsp;
 						        <input id="quantity" type="number" value="1" min="1" max="100" onchange="calculate()">
-						        <button onclick="increaseQuantity()">+</button>
+						        &nbsp;&nbsp;<button onclick="increaseQuantity()">+</button>
 						    </div>	
 						</div>
 					</div>
@@ -197,15 +198,15 @@ function redirectToOrderPage() {
 			</div>
 			
 			<div>
-				<label for="price">상품 단가 : <fmt:formatNumber type="number" value="${product.productPrice}" pattern="#,###" />원</label>
+				<label for="price">상품 단가 &nbsp;: &nbsp;&nbsp;&nbsp;<fmt:formatNumber type="number" value="${product.productPrice}" pattern="#,###" />원</label>
 				<input id="price" type="hidden" value="${product.productPrice}" min="0">
 			</div>
 			<div>
-				<label for="total">총 가격:&nbsp;</label> 
+				<label for="total">총 가격&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</label> 
 				<label id="total" style="color:black"><fmt:formatNumber type="number" value="${product.productPrice}" pattern="#,###" />원</label>
 			</div>
 
-			<button type="button" class="button-container">장바구니</button>
+			
 			<button type="button" class="button-container" onclick="redirectToOrderPage()">구매하기</button>
 			
 			<div class="social-sharing-buttons" style="margin-top:10px; margin-left:170px;">

@@ -202,7 +202,7 @@ function orderList() {
                 </tr>
                 <tr>
                     <td style="border:none;">비밀번호</td>
-                    <td style="border:none;">${memberDTO.mpwd}</td>
+                    <td style="border:none;">****</td>
                 </tr>
                 <tr>
                     <td style="border:none;">이메일</td>
