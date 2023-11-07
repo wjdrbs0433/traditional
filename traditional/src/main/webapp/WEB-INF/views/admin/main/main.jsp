@@ -109,21 +109,39 @@ function modal() {
     
     <div class="dash">
     <div class="box1">
-    	<table class="dashbox"> <!-- 대략적인 정보만 보여주기 or 바로가기 메뉴 -->
+    	<table class="dashbox" >
+    		<tr>
+    			<th><i class="fa-regular fa-user"></i>&nbsp;회원관리</th>
+    		</tr>
+    		<tr>
+    			<td>전체 회원 수</td>
+    			<td>${dataCountMember} 건</td>
+    		</tr>
+    		<tr>
+    			<td>탈퇴 회원 수</td>
+    			<td>${dataCountNotMember} 건</td>
+    		</tr>
+    		<tr>
+    			<td>관리자 수</td>
+    			<td>${dataCountAdmin} 건</td>
+    		</tr>
+    	</table>
+    	
+    	<table class="dashbox">
     		<tr>
     			<th><i class="fa-solid fa-store"></i>&nbsp;상품관리</th>
     		</tr>
     		<tr>
     			<td>판매중</td>
-    			<td>?개</td>
+    			<td>${dataCountSell} 건</td>
     		</tr>
     		<tr>
-    			<td>일시품절</td>
-    			<td>?개</td>
+    			<td>일시 품절</td>
+    			<td>${dataCountSold} 건</td>
     		</tr>
     		<tr>
-    			<td>삭제된상품</td>
-    			<td>?개</td>
+    			<td>단종 상품</td>
+    			<td>${dataCountExtinct} 건</td>
     		</tr>
     	</table>
     	
@@ -133,16 +151,16 @@ function modal() {
     			<th><i class="fa-solid fa-truck-fast"></i>&nbsp;주문관리</th>
     		</tr>
     		<tr>
-    			<td>결제확인</td>
-    			<td>?건</td>
+    			<td>결제 확인</td>
+    			<td>${dataCountOk} 건</td>
     		</tr>
     		<tr>
-    			<td>배송준비중</td>
-    			<td>?건</td>
+    			<td>배송 준비중</td>
+    			<td>${dataCountReady} 건</td>
     		</tr>
     		<tr>
-    			<td>배송완료</td>
-    			<td>?건</td>
+    			<td>배송 완료</td>
+    			<td>${dataCountComplete} 건</td>
     		</tr>
     	</table>
     	
@@ -151,16 +169,16 @@ function modal() {
     			<th><i class="fa-solid fa-pen-to-square"></i>&nbsp;리뷰 및 문의</th>
     		</tr>
     		<tr>
-    			<td>최근리뷰</td>
-    			<td>?건</td>
+    			<td>금일 리뷰 건수</td>
+    			<td>${dataCountReview} 건</td>
     		</tr>
     		<tr>
-    			<td>최근문의</td>
-    			<td>?건</td>
+    			<td>금일 문의 건수</td>
+    			<td>${dataCountQna} 건</td>
     		</tr>
     		<tr>
-    			<td>답변완료</td>
-    			<td>?건</td>
+    			<td>답변 대기중</td>
+    			<td>${dataCountQnaReady} 건</td>
     		</tr>
     	</table>
     	
@@ -169,32 +187,16 @@ function modal() {
     			<th><i class="fa-solid fa-newspaper"></i>&nbsp;사이트현황</th>
     		</tr>
     		<tr>
-    			<td>금일 가입자수</td>
+    			<td>금일 가입자 수</td>
     			<td>${todayReg} 명</td>
     		</tr>
     		<tr>
-    			<td>금일 탈퇴자수</td>
-    			<td>?명</td>
+    			<td>금일 방문자 수</td>
+    			<td>${dataCountVisitor} 명</td>
     		</tr>
     		<tr>
-    			<td>일 주문건수</td>
-    			<td>?건</td>
-    		</tr>
-    	</table>
-    	
-    	<table class="dashbox" >
-    		<tr>
-    			<th><i class="fa-solid fa-sitemap"></i>&nbsp;홈페이지관리</th>
-    		</tr>
-    		<tr>
-    			<td>최근리뷰</td>
-    			<td>?건</td>
-    		</tr>
-    		<tr>
-    			<td>공지사항관리</td>
-    		</tr>
-    		<tr>
-    			<td>이벤트관리</td>
+    			<td>일 주문 건수</td>
+    			<td>${dataCountOrder} 건</td>
     		</tr>
     	</table>
     </div>

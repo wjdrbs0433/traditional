@@ -94,6 +94,10 @@ public class ProductDAO {
 		return result;
 	}
 	
+	
+	
+	
+	
 	// 검색에서 데이터 개수 구하기
 	// List<String>
 	public int dataCount(String productNameKwd, List<String> productPriceKwd, 
@@ -875,5 +879,6 @@ public class ProductDAO {
 		}
 
 	}	
-
+	
+	
 }

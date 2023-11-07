@@ -4,6 +4,7 @@ public class MainDTO {
 
 	private String mRegDate;
 	private int cnt;
+	
 	public String getmRegDate() {
 		return mRegDate;
 	}

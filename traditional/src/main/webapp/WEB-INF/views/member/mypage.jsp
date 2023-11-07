@@ -164,18 +164,26 @@ function orderList() {
 		</div>
 		<div>
 		</div>
+	
 		<div>
-			<p>회원정보</p><img class="img" src="${pageContext.request.contextPath}/resource/images/mypage/member.png">
+			<a href="${pageContext.request.contextPath}/member/mypage.do">회원정보
+			<img class="img" src="${pageContext.request.contextPath}/resource/images/mypage/member.png">
+			</a>
 		</div>
 		<div>
-			<p><a href="${pageContext.request.contextPath}/review/myList.do" style="text-decoration:none;">마이리뷰</a></p><img class="img" src="${pageContext.request.contextPath}/resource/images/mypage/riview.png">
+			<a href="${pageContext.request.contextPath}/review/myList.do" style="color:#cccccc;">마이리뷰
+			<img class="img" src="${pageContext.request.contextPath}/resource/images/mypage/riview.png">
+			</a>
 		</div>
-		<div onclick="location.href='${pageContext.request.contextPath}/member/orderList.do';">
-			<p>주문 내역</p><img class="img" src="${pageContext.request.contextPath}/resource/images/mypage/jomon.png" onclick="">
+		<div>
+			<a href="${pageContext.request.contextPath}/member/orderList.do" style="color:#cccccc;">주문 내역
+			<img class="img" src="${pageContext.request.contextPath}/resource/images/mypage/jomon.png">
+			</a>
 		</div>
-		<div onclick="location.href='${pageContext.request.contextPath}/myqna/mylist.do';">
-			<p>문의내역</p><img class="img" src="${pageContext.request.contextPath}/resource/images/mypage/gogek.png">
-			
+		<div>
+			<a href="${pageContext.request.contextPath}/myqna/mylist.do" style="color:#cccccc;">문의 내역
+			<img class="img" src="${pageContext.request.contextPath}/resource/images/mypage/gogek.png">
+			</a>
 		</div>
 	</div>	
 	

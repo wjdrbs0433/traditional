@@ -130,4 +130,391 @@ public class MainDAO {
 		return list;
 	}
 	
+	// 회원 관리
+	// 전체 회원 수
+	public int dataCountMember() {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql;
+		int result = 0;
+		
+		try {
+			sql = "SELECT COUNT(*) FROM member WHERE deleteOrNot = 0";
+			pstmt = conn.prepareStatement(sql);
+			
+			rs = pstmt.executeQuery();
+			
+			if( rs.next() ) {
+				result = rs.getInt(1);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DBUtil.close(rs);
+			DBUtil.close(pstmt);
+		}
+		
+		return result;
+	}
+	
+	// 탈퇴 회원 수
+	public int dataCountNotMember() {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql;
+		int result = 0;
+		
+		try {
+			sql = "SELECT COUNT(*) FROM member WHERE deleteOrNot = 1";
+			pstmt = conn.prepareStatement(sql);
+			
+			rs = pstmt.executeQuery();
+			
+			if( rs.next() ) {
+				result = rs.getInt(1);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DBUtil.close(rs);
+			DBUtil.close(pstmt);
+		}
+		
+		return result;
+	}
+	
+	// 관리자 수
+	public int dataCountAdmin() {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql;
+		int result = 0;
+			
+		try {
+			sql = "SELECT COUNT(*) FROM member WHERE adminOrNot = 1";
+			pstmt = conn.prepareStatement(sql);
+				
+			rs = pstmt.executeQuery();
+				
+			if( rs.next() ) {
+				result = rs.getInt(1);
+			}
+				
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DBUtil.close(rs);
+			DBUtil.close(pstmt);
+		}
+			
+		return result;
+	}
+	
+	
+	// 상품 관리
+	// 판매중 
+		public int dataCountSell() {
+			int result = 0;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			String sql;
+			
+			try {
+				sql = "SELECT COUNT(*) FROM product WHERE extinctOrNot = 1";
+				pstmt = conn.prepareStatement(sql);
+				
+				rs = pstmt.executeQuery();
+				
+				if( rs.next() ) {
+					result = rs.getInt(1);
+				}
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				DBUtil.close(rs);
+				DBUtil.close(pstmt);
+			}
+			
+			return result;
+		}
+	
+	// 품절
+		public int dataCountSold() {
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			String sql;
+			int result = 0;
+			
+			try {
+				sql = "SELECT COUNT(*) FROM product WHERE inventory = 0";
+				pstmt = conn.prepareStatement(sql);
+				
+				rs = pstmt.executeQuery();
+				
+				if( rs.next() ) {
+					result = rs.getInt(1);
+				}
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				DBUtil.close(rs);
+				DBUtil.close(pstmt);
+			}
+			
+			return result;
+		}
+		// 단종
+		public int dataCountExtinct() {
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			String sql;
+			int result = 0;
+			
+			try {
+				sql = "SELECT COUNT(*) FROM product WHERE extinctOrNot = 0";
+				pstmt = conn.prepareStatement(sql);
+				
+				rs = pstmt.executeQuery();
+				
+				if( rs.next() ) {
+					result = rs.getInt(1);
+				}
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				DBUtil.close(rs);
+				DBUtil.close(pstmt);
+			}
+			
+			return result;
+		}
+		
+		
+		// 주문관리
+		public int dataCountOk() {
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			String sql;
+			int result = 0;
+			
+			try {
+				sql = "SELECT COUNT(*) FROM orderprice WHERE orderStatus = '결제완료'";
+				pstmt = conn.prepareStatement(sql);
+				
+				rs = pstmt.executeQuery();
+				
+				if( rs.next() ) {
+					result = rs.getInt(1);
+				}
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				DBUtil.close(rs);
+				DBUtil.close(pstmt);
+			}
+			
+			return result;
+		}
+		
+		public int dataCountReady() {
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			String sql;
+			int result = 0;
+			
+			try {
+				sql = "SELECT COUNT(*) FROM orderprice WHERE orderStatus = '배송준비중'";
+				pstmt = conn.prepareStatement(sql);
+				
+				rs = pstmt.executeQuery();
+				
+				if( rs.next() ) {
+					result = rs.getInt(1);
+				}
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				DBUtil.close(rs);
+				DBUtil.close(pstmt);
+			}
+			
+			return result;
+		}
+		
+		public int dataCountComplete() {
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			String sql;
+			int result = 0;
+			
+			try {
+				sql = "SELECT COUNT(*) FROM orderprice WHERE orderStatus = '배송완료'";
+				pstmt = conn.prepareStatement(sql);
+				
+				rs = pstmt.executeQuery();
+				
+				if( rs.next() ) {
+					result = rs.getInt(1);
+				}
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				DBUtil.close(rs);
+				DBUtil.close(pstmt);
+			}
+			
+			return result;
+		}
+		
+		
+		// 리뷰 및 문의
+		// 금일 리뷰 건수
+		public int dataCountReview() {
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			String sql;
+			int result = 0;
+			
+			try {
+				sql = "SELECT COUNT(*) FROM reviewboard"
+						+ " WHERE TO_CHAR(regDate, 'YYYYMMDD') = TO_CHAR(SYSDATE, 'YYYYMMDD')";
+				pstmt = conn.prepareStatement(sql);
+				
+				rs = pstmt.executeQuery();
+				
+				if( rs.next() ) {
+					result = rs.getInt(1);
+				}
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				DBUtil.close(rs);
+				DBUtil.close(pstmt);
+			}
+			
+			return result;
+		}
+		
+		// 금일 문의 건수
+		public int dataCountQna() {
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			String sql;
+			int result = 0;
+					
+			try {
+			sql = "SELECT COUNT(*) FROM qna"
+				+ " WHERE TO_CHAR(reg_date, 'YYYYMMDD') = TO_CHAR(SYSDATE, 'YYYYMMDD')";
+			pstmt = conn.prepareStatement(sql);
+									
+			rs = pstmt.executeQuery();
+									
+			if( rs.next() ) {
+				result = rs.getInt(1);
+			}
+									
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+					DBUtil.close(rs);
+					DBUtil.close(pstmt);
+			}
+								
+				return result;
+		}
+		
+		// 답변 대기중
+		public int dataCountQnaReady() {
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			String sql;
+			int result = 0;
+			
+			try {
+				sql = "SELECT COUNT(*) FROM qna WHERE answerId IS NULL";
+				pstmt = conn.prepareStatement(sql);
+				
+				rs = pstmt.executeQuery();
+				
+				if( rs.next() ) {
+					result = rs.getInt(1);
+				}
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				DBUtil.close(rs);
+				DBUtil.close(pstmt);
+			}
+			
+			return result;
+		}
+		
+		
+		// 사이트 현황
+		// 금일 방문자 수
+		public int dataCountVisitor() {
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			String sql;
+			int result = 0;
+					
+			try {
+			sql = "SELECT count FROM visitor WHERE TO_CHAR(SYSDATE,'YYYYMMDD')";
+			pstmt = conn.prepareStatement(sql);
+									
+			rs = pstmt.executeQuery();
+									
+			if( rs.next() ) {
+				result = rs.getInt(1);
+			}
+									
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+					DBUtil.close(rs);
+					DBUtil.close(pstmt);
+			}
+								
+				return result;
+		}
+
+		
+		
+		// 일 주문 건수
+		public int dataCountOrder() {
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			String sql;
+			int result = 0;
+					
+			try {
+			sql = "SELECT COUNT(*) FROM orderprice"
+				+ " WHERE TO_CHAR(orderDate, 'YYYYMMDD') = TO_CHAR(SYSDATE, 'YYYYMMDD')";
+			pstmt = conn.prepareStatement(sql);
+									
+			rs = pstmt.executeQuery();
+									
+			if( rs.next() ) {
+				result = rs.getInt(1);
+			}
+									
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+					DBUtil.close(rs);
+					DBUtil.close(pstmt);
+			}
+								
+				return result;
+		}
 }

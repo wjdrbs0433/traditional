@@ -1,7 +1,5 @@
 package com.admin.product;
 
-import java.sql.Clob;
-
 public class ProductDTO {
 	
 	private String productCode;
@@ -21,6 +19,8 @@ public class ProductDTO {
 	private int extinctOrNot;
 	private int price;
 	private int volume;
+	
+	
 	public String getProductCode() {
 		return productCode;
 	}

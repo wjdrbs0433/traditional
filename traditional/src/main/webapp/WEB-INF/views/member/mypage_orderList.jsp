@@ -208,6 +208,8 @@
 </script> -->
 </head>
 <body>
+
+	<jsp:include page="/WEB-INF/views/layout/header.jsp"></jsp:include>
 	<div class="main">
 		<div>
 			<p class="name">${memberDTO.mname} <span>님</span></p>
@@ -215,17 +217,24 @@
 		<div>
 		</div>
 		<div>
-			<p>회원정보</p><img class="img" src="${pageContext.request.contextPath}/resource/images/mypage/member.png">
+			<a href="${pageContext.request.contextPath}/member/mypage.do" style="color:#cccccc;">회원정보
+			<img class="img" src="${pageContext.request.contextPath}/resource/images/mypage/member.png">
+			</a>
 		</div>
 		<div>
-			<p>리 뷰 </p><img class="img" src="${pageContext.request.contextPath}/resource/images/mypage/riview.png">
+			<a href="${pageContext.request.contextPath}/review/myList.do" style="color:#cccccc;">마이리뷰
+			<img class="img" src="${pageContext.request.contextPath}/resource/images/mypage/riview.png">
+			</a>
 		</div>
 		<div>
-			<p>주문 내역</p><img class="img" src="${pageContext.request.contextPath}/resource/images/mypage/jomon.png">
+			<a href="${pageContext.request.contextPath}/member/orderList.do">주문 내역
+			<img class="img" src="${pageContext.request.contextPath}/resource/images/mypage/jomon.png">
+			</a>
 		</div>
 		<div>
-			<p>문의내역</p><img class="img" src="${pageContext.request.contextPath}/resource/images/mypage/gogek.png">
-			
+			<a href="${pageContext.request.contextPath}/myqna/mylist.do" style="color:#cccccc;">문의 내역
+			<img class="img" src="${pageContext.request.contextPath}/resource/images/mypage/gogek.png">
+			</a>
 		</div>
 	</div>	
 	
