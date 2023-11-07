@@ -261,7 +261,7 @@
 	<div class = "orderDiv">
 		<!-- 날짜 + 주문상세보기 링크 -->	
 		<div style="height: 70px;">
-			<span style="color: black; font-weight: bold; font-size: 20px; display: inline-block; width: 45%; text-align: left; line-height: 70px;
+			<span style="color: black; font-weight: bold; font-size: 20px; display: inline-block; text-align: left; line-height: 70px;
 vertical-align: middle;" > ${dto.orderDate}</span>
 		</div>
 		<!-- 이름 + 전화번호(가운데 4자리는 *로) -->
@@ -317,7 +317,7 @@ vertical-align: bottom;"> ${dto.orderStatus}</span>
 	<div class = "orderDiv">
 		<!-- 날짜 + 주문상세보기 링크 -->	
 		<div style="height: 70px;" >
-			<span style="color: black; font-weight: bold; font-size: 20px; display: inline-block; width: 45%; text-align: center; line-height: 70px;
+			<span style="color: black; font-weight: bold; font-size: 20px; display: inline-block; text-align: center; line-height: 70px;
 vertical-align: middle;" > 받는 분 정보 </span>
 		</div>
 		<hr>
@@ -349,7 +349,7 @@ vertical-align: middle;">${dto.orderRequire}</span>
 	<div class = "orderDiv" style="justify-content: space-around; ">
 		<!-- 날짜 + 주문상세보기 링크 -->	
 		<div style="height: 70px; border-bottom: 2px dashed gray;">
-			<span style="color: black; font-weight: bold; font-size: 20px; display: inline-block; width: 45%; text-align: left; line-height: 70px;
+			<span style="color: black; font-weight: bold; font-size: 20px; display: inline-block; text-align: left; line-height: 70px;
 vertical-align: middle;" >계산서 (${dto.orderDate})</span>
 		</div>
 		<hr>
