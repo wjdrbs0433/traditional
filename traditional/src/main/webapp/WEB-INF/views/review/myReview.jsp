@@ -144,7 +144,7 @@
 	
 	<div class="main">
 		<div>
-			<p class="name" style="line-height:80px; float:right;">${memberDTO.mname} <span>님</span></p>
+			<p class="name" style="line-height:80px; float:right;">${sessionScope.member.mname} <span>님</span></p>
 		</div>
 		<div>
 		</div>
@@ -189,7 +189,7 @@
 					<tr>						
 						<td>${dto.orderNum}</td>
 						<td>${dto.orderDate}</td>
-						<td><img src="${pageContext.request.contextPath }/resource/<c:out value="${dto.image}"/>"></td>
+						<td><img src="${pageContext.request.contextPath }/resource/images/product/<c:out value="${dto.productCode}"/>.jpg" width="60px" height="60px"></td>
 						<td>${dto.productName}</td>
 						<td><button type="button" class="btn" onclick="location.href='${pageContext.request.contextPath}/review/reviewWrite.do?productCode=${dto.productCode}&orderDetailNum=${dto.orderDetailNum}';">리뷰등록</button></td>
 					</tr>

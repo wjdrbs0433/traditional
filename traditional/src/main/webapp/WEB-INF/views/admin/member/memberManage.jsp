@@ -218,7 +218,7 @@ $(function(){
 							<td>
 								<input type="checkbox" name="members" value="${ dto.mNum }">
 							</td>
-							<td>${ (page-1) * size + (status.index+1)}</td>
+							<td>${dataCount - (page-1) * size - status.index}</td>
 							<td>${dto.mId}</td>
 							<td>${dto.mName}</td>
 							<td>${dto.mRnum}</td>

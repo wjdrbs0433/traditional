@@ -65,6 +65,7 @@ function searchList() {
 		<div class="r1">
 		<div>
 			<p> 리뷰 게시판 </p>		
+			<span style="float:left">${dataCount}개(${page}/${total_page} 페이지)</span>
 			
 		</div>
 			<table class="table table-border table-list">
@@ -83,8 +84,10 @@ function searchList() {
 				<tbody>
 					<c:forEach var="dto" items="${list}" varStatus="status">
 						<tr>
-							<td>${(page-1) * size + (status.index+1)}</td>
-							<td><img class="img" src="${pageContext.request.contextPath }/resource/<c:out value="${dto.image}"/>"></td>
+							<td>${dataCount - (page-1) * size - status.index}</td>
+							<td><img class="img" src="${pageContext.request.contextPath }/resource/images/product/<c:out value="${dto.productCode}"/>.jpg"></td>
+							
+							
 							<td>${dto.productName}</td>
 							<td>${dto.reviewContent}</td>
 							<td>${dto.mName}</td>
@@ -171,7 +174,6 @@ function searchList() {
 				</tbody>
 			</table>
 			
-			<span style="float:right">${dataCount}개(${page}/${total_page} 페이지)</span>
 			
 			<div class="page-navigation">
 				${dataCount == 0 ? "등록된 게시물이 없습니다." : paging}
