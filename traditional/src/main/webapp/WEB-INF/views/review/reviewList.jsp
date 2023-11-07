@@ -32,7 +32,7 @@
 .img { width:60px; height:60px;}
 
 .review{
-		width: 90%; /* 너비를 70%로 설정합니다. */
+		width: 95%; /* 너비를 70%로 설정합니다. */
         margin: 0 auto; /* 왼쪽과 오른쪽에 10px의 공백을 추가합니다. */
    		margin-top: 50px;
         border: 1px solid #e2e2e2;
@@ -43,7 +43,7 @@
 		
 	    text-align: left;
 	    color: #989898;
-	    font-size:20px;
+	    font-size:15px;
 	    padding-left: 15px;
 	    font-weight: 600;
 }
@@ -81,6 +81,19 @@
 	.paginate :first-child {
 		margin-left: 0;
 	}
+	
+	table td:nth-child(4) {
+	    width: 40%;
+	    color: #6c6c6c;
+	    padding-right: 15px;
+	}
+	
+	
+	table td:nth-child(5) {
+	    width: 10%;
+	    color: #6c6c6c;
+	    padding-right: 15px;
+	}
 
 </style>
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.4.2/css/all.css">
@@ -105,7 +118,7 @@ function searchList() {
 			<table class="table table-border table-list">
 				<thead>
 					<tr>
-						<th class="num">번호</th>
+						<th class="num"></th>
 						<th class="image">이미지</th>
 						<th class="subject">상품명</th>
 						<th class="content">리뷰내용</th>
