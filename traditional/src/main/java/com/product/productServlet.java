@@ -2,6 +2,7 @@ package com.product;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -14,7 +15,10 @@ import javax.servlet.http.HttpSession;
 import com.member.MemberDAO;
 import com.member.MemberDTO;
 import com.member.SessionInfo;
+import com.orderList.OrderListDAO;
+import com.orderList.OrderListDTO;
 import com.util.MyServlet;
+import com.util.MyUtil;
 
 @WebServlet("/product/*")
 public class productServlet extends MyServlet{
@@ -191,19 +195,64 @@ public class productServlet extends MyServlet{
 	    dto.setPricePerProduct(Integer.parseInt(productPrice));
 	    dto.setProductCode(productCode);
 	    
+		MemberDAO memberDAO = new MemberDAO(); 
+		OrderListDAO listDAO = new OrderListDAO();
+		OrderListDTO listDTO = new OrderListDTO();
+		String cp = req.getContextPath();
+		List<OrderListDTO> list = new ArrayList<OrderListDTO>();
 
+		int mNum = memberInfo.getMnum();
+		MemberDTO memberDTO = memberDAO.mypage(mNum);
+		req.setAttribute("memberDTO", memberDTO);
+		MyUtil util = new MyUtil();
+	    
 	    try {
 	        // productDAO의 insertproduct 메서드를 호출하여 데이터를 추가합니다.
+	    	String page = req.getParameter("page");
+			int current_page = 1;
+			if(page != null) {
+				current_page = Integer.parseInt(page);
+			}
+			int dataCount = listDAO.dataCount(mNum);
+			int size = 10;
+			int total_page = util.pageCount(dataCount, size);
+			if (current_page > total_page) {
+				current_page = total_page;
+			}
+			// 게시물 가져오기
+			int offset = (current_page - 1) * size;
+			if(offset < 0) offset = 0;
+			
+			list = listDAO.listOrder(mNum);
+			
+			String listUrl = cp + "/member/mypage_orderList.do";
+			String articleUrl = cp + "/member/mypage_orderList.do?page=" + current_page;
+			
+			String paging = util.paging(current_page, total_page, listUrl);
+			
+			req.setAttribute("list", list);
+			req.setAttribute("page", current_page);
+			req.setAttribute("total_page", total_page);
+			req.setAttribute("dataCount", dataCount);
+			req.setAttribute("size", size);
+			req.setAttribute("articleUrl", articleUrl);
+			req.setAttribute("paging", paging);
+			
+			req.setAttribute("dto", listDTO);
+			
 	        productDAO productDao = new productDAO();
 	        productDao.insertproduct(dto);
+	        
+
 	        
 	        MemberDAO dao2 = new MemberDAO();
 			MemberDTO dto1 = dao2.mypage(mnum);
 		    
 		    req.setAttribute("memberDTO", dto1);
+		    req.setAttribute("dto", listDTO);
 	        // 성공한 경우, 성공 메시지를 설정하고 orderok.jsp로 포워딩합니다.
 	        req.setAttribute("message", "주문이 성공적으로 처리되었습니다.");
-	        forward(req, resp, "/WEB-INF/views/member/mypage.jsp");
+	        forward(req, resp, "/WEB-INF/views/member/mypage_orderList.jsp");
 	    } catch (SQLException e) {
 	        e.printStackTrace();
 	        // 실패한 경우, 실패 메시지를 설정하고 다시 주문 페이지로 돌아갑니다.

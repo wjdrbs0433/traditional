@@ -277,7 +277,7 @@ function daumPostcode() {
     }).open();
 }
 
-function redirectToOrderPage1() {
+function redirectToOrderPage() {
 	var name = document.getElementById('name').value;
     var zip = document.getElementById('zip').value;
     var addr1 = document.getElementById('addr1').value;
