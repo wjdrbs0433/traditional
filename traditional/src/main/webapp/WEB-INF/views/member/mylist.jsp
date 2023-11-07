@@ -180,7 +180,7 @@
 	    font-weight: bold;
 	}
 	
-	.listbox {  
+.listbox {  
 margin: 20px auto;
 width: 700px;
 }

@@ -212,7 +212,7 @@
 	<jsp:include page="/WEB-INF/views/layout/header.jsp"></jsp:include>
 	<div class="main">
 		<div>
-			<p class="name">${memberDTO.mname} <span>님</span></p>
+			<p class="name" style="line-height:80px; float:right;">${memberDTO.mname} <span>님</span></p>
 		</div>
 		<div>
 		</div>

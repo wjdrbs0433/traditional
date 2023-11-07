@@ -133,7 +133,11 @@
 	.table td {
 		text-align: center;
 	}
-	.img { width:60px; height:60px;  vertical-align:bottom }
+	.img{
+		width: 40px;
+		height: 40px;
+
+	}
 	
 	
 </style>
