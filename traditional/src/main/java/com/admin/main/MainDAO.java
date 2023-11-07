@@ -469,13 +469,13 @@ public class MainDAO {
 			int result = 0;
 					
 			try {
-			sql = "SELECT count FROM visitor WHERE TO_CHAR(SYSDATE,'YYYYMMDD')";
+			sql = "SELECT count FROM visitor WHERE TO_CHAR(day,'YYYY-MM-DD') = TO_CHAR(SYSDATE, 'YYYY-MM-DD')";
 			pstmt = conn.prepareStatement(sql);
 									
 			rs = pstmt.executeQuery();
 									
 			if( rs.next() ) {
-				result = rs.getInt(1);
+				result = rs.getInt(1)  ;
 			}
 									
 			} catch (Exception e) {

@@ -129,7 +129,7 @@ public class MainServlet extends MyServlet {
 			// 사이트 현황
 			int dataCountVisitor;
 			dataCountVisitor = dao.dataCountVisitor();
-			req.setAttribute("dataCountDelete",dataCountVisitor);
+			req.setAttribute("dataCountVisitor",dataCountVisitor);
 			
 			int dataCountOrder;
 			dataCountOrder = dao.dataCountOrder();
