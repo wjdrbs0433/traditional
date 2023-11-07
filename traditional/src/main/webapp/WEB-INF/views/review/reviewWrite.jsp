@@ -7,28 +7,54 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/bootstrap.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/custom.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/index.css">
+<script src="${pageContext.request.contextPath}/resource/js/jquery.min.js"></script>
+<script src="${pageContext.request.contextPath}/resource/js/popper.js"></script>
+<script src="${pageContext.request.contextPath}/resource/js/bootstrap.min.js"></script>
+<script src="${pageContext.request.contextPath}/resource/js/custom.js"></script>
 <style type="text/css">
-.body-main {
-	max-width: 700px;
-	padding-top: 15px;
+.rw1{
+	margin: 50px 100px 30px 100px;
 }
 
-.table-form td { padding: 7px 0; }
-.table-form p { line-height: 200%; }
-.table-form tr:first-child { border-top: 2px solid #212529; }
-.table-form tr > td:first-child { width: 110px; text-align: center; background: #f8f8f8; }
-.table-form tr > td:nth-child(2) { padding-left: 10px; }
+.rw1 .p {
+	font-size:25px;
+	font-weight: bold;
+	color: gray;
+	padding-left: 15px;
+}
 
-.table-form input[type=text], .table-form input[type=file], .table-form textarea {
-	width: 96%; }
+.img { width:60px; height:60px;}
 
-.btn{
+.reviewWrite{
+		width: 90%; /* 너비를 70%로 설정합니다. */
+        margin: 0 auto; /* 왼쪽과 오른쪽에 10px의 공백을 추가합니다. */
+   		margin-top: 50px;
+        border: 1px solid #e2e2e2;
+        border-radius: 20px;
+}
+
+.table th{	
+	    text-align: left;
+	    color: #989898;
+	    font-size:20px;
+	    padding-left: 15px;
+	    font-weight: 600;
+}
+
+
+.table .btn{
 	background-color: gray;
     color: white;
     border: none;
     border-radius: 18px;
     padding: 10px 15px;
     cursor: pointer;
+    float:right;
+    
 }	
 	
 /*별점*/	
@@ -43,8 +69,6 @@
 	font-size: 30px;
 }
 
-	
-	
 .rate:hover {
 	cursor: pointer;
 	scale: 108%;
@@ -53,7 +77,15 @@
 	color: #fbd117 ;
 }
 	
-	
+.table td:first-child {
+	   
+	    text-align: left;
+	    color: #989898;
+	    font-size:17px;
+	    padding-left: 15px;
+	    font-weight: 600;
+}	
+
 	
 </style>
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.4.2/css/all.css">
@@ -157,14 +189,17 @@ window.addEventListener("load", function(){
 </script>
 </head>
 <body>
-
+	<jsp:include page="/WEB-INF/views/layout/header.jsp"></jsp:include>
 	
 <main>
 
-	<div class="container body-container">
-	    <div class="body-title">
-			<h2>리뷰작성 </h2>
-	    </div>
+	<div class="reviewWrite">
+	    <div class="rw1">
+		<div>
+			<p class="p"> 리뷰작성 </p>
+		</div>
+		
+	    
 	    
 	    <div class="body-main mx-auto">
 			<form name="boardForm" method="post">
@@ -184,9 +219,9 @@ window.addEventListener("load", function(){
 					</tr>
 					
 					<tr> 
-						<td>별점</td>
+						<td>별&nbsp;&nbsp;&nbsp;&nbsp;점</td>
 						<td>
-							<div style="margin: 20px auto; width: 500px;"> 
+							<div> 
 								<div class="star-bundle">
 									<i class="fa-regular fa-star rate"></i>
 								    <i class="fa-regular fa-star rate"></i>
@@ -211,19 +246,18 @@ window.addEventListener("load", function(){
 					
 				<table class="table">
 					<tr> 
-						<td align="center">
+						<td>
 							<button type="button" class="btn" onclick="sendOk();">${mode=='update'?'수정완료':'등록하기'}</button>
 							<button type="reset" class="btn">다시입력</button>
 							<button type="button" class="btn" onclick="location.href='${pageContext.request.contextPath}/review/myList.do';">${mode=='update'?'수정취소':'등록취소'}</button>
 							<input type="hidden" name="productCode" value="${dto.productCode}">
 							<input type="hidden" name="orderDetailNum" value="${orderDetailNum}">
-							
 						</td>
 					</tr>
 				</table>
 		
 			</form>
-
+			</div>
 	    </div>
 	</div>
 
