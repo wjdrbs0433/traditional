@@ -177,15 +177,15 @@
                     <td>${memberDTO.mid}</td>
                 </tr>
                 <tr>
-                    <td>비밀번호11</td>
-                    <td><input type="password" name="mpwd" placeholder="${memberDTO.mpwd}" class="form-control" style="width: 80px; height:20px;"></td>
+                    <td>비밀번호</td>
+                    <td><input type="password" name="mpwd" placeholder="" class="form-control" style="width: 80px; height:20px;"></td>
                 </tr>
                 <tr>
                     <td>이메일</td>
                     <td>${memberDTO.memail}</td>
                 </tr>
                 <tr>
-                    <td>휴대폰번호11</td>
+                    <td>휴대폰번호</td>
                     <td>
 	                    <input type="text" name="mphone1" maxlength="3" placeholder="${memberDTO.mphone.split('-')[0]}" class="form-control" style="width: 50px;">
 				        - 
@@ -195,11 +195,11 @@
 			        </td>
                 </tr>
                 <tr>
-                    <td>문자수신여부11</td>
+                    <td>문자수신여부</td>
                     <td><input type="checkbox" name="field" value="1" ${memberDTO.field == 'Y' ? 'checked' : ''}></td>
                 </tr>
                 <tr>
-                    <td>이메일수신여부11</td>
+                    <td>이메일수신여부</td>
                     <td><input type="checkbox" name="field2" value="1" ${memberDTO.field2 == 'Y' ? 'checked' : ''}></td>
                 </tr>
                 <tr>
