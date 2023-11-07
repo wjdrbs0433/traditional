@@ -47,6 +47,40 @@
 	    padding-left: 15px;
 	    font-weight: 600;
 }
+.page-navigation {
+		clear: both;
+		padding: 20px 0;
+		text-align: center;
+	}
+	.paginate {
+		clear: both;
+		text-align: center;
+		white-space: nowrap;
+		font-size: 14px;	
+	}
+	.paginate a {
+		border: 1px solid #cccccc;
+		color: #000000;
+		font-weight: 600;
+		text-decoration: none;
+		padding: 3px 7px;
+		margin-left: 3px;
+		vertical-align: middle;
+	}
+	.paginate a:hover, .paginate a:active {
+		color: #6771ff;
+	}
+	.paginate span {
+		border: 1px solid #e28d8d;
+		color: #cb3536;
+		font-weight: 600;
+		padding: 3px 7px;
+		margin-left: 3px;
+		vertical-align: middle;
+	}
+	.paginate :first-child {
+		margin-left: 0;
+	}
 
 </style>
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.4.2/css/all.css">
