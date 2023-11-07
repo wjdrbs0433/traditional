@@ -160,7 +160,7 @@
 	<div class="icon">
 		<div class="content">
 			<p class="jemok">전체상품</p>
-			<p>담화마켓의 모든 술을 만나보세요!</p>
+			<p>청바지의 모든 술을 만나보세요!</p>
 		</div>
 		<img class="iconimg" src="${pageContext.request.contextPath}/resource/images/product/icon.png">
 	</div>
